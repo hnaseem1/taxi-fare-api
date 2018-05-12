@@ -3,6 +3,9 @@ require 'uri'
 
 class PriceController < ApplicationController
   def show
+  # Endpoint of the api
+  # start_lat=<START LATITUDE>&start_lng=<START LONGITUTE>8&end_lat=<END LATITUDE>&end_lng=<END LONGITUDE>
+  @params = params[:id]
 
   # API calls to uber for price estimation
 
@@ -39,6 +42,9 @@ class PriceController < ApplicationController
     end
 
     @lyft_data = JSON.parse(lyft_response.body)
+
+    # Parameters for the endpoints
+
 
 
   end
