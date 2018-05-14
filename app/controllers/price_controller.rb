@@ -13,7 +13,7 @@ class PriceController < ApplicationController
   uber_uri = URI.parse(uber_url)
   uber_request = Net::HTTP::Get.new(uber_uri)
   uber_request.content_type = "application/json"
-  uber_request["Authorization"] = "Token AZwX8nXKwQu_44cPXm3vIXG-_ZBhBe9xI5Iq4lkS"
+  uber_request["Authorization"] = "Token <UBER-TOKEN>"
   uber_request["Accept-Language"] = "en_US"
 
   req_options = {
@@ -31,7 +31,7 @@ class PriceController < ApplicationController
 
     lyft_uri = URI.parse("https://api.lyft.com/v1/cost?start_lat=37.7763&start_lng=-122.3918&end_lat=37.7972&end_lng=-122.4533")
     lyft_request = Net::HTTP::Get.new(lyft_uri)
-    lyft_request["Authorization"] = "Basic aG45MkBsaXZlLmNvbTpNaWNybzE5OTI="
+    lyft_request["Authorization"] = "Basic <LYFT-TOKEN>"
 
     req_options = {
       use_ssl: lyft_uri.scheme == "https",
