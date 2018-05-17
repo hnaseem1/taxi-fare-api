@@ -1,0 +1,64 @@
+<style media="screen">
+div {
+  border: 2px solid blue;
+  padding: 5px;
+  margin: 5px;
+}
+</style>
+
+
+<p>Google</p>
+
+  <div class="search-field">
+  <%= form_tag(google_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search adress" %>
+  <%= submit_tag "Search" %>
+  <% end %>
+  </div>
+<br>
+<%= @address %>
+<br>
+<% if @response_body == nil %>
+<h4>Please search the address</h4>
+<% else %>
+  <div>
+  <p>request (JSON)(hash) > ['results'][0]['geometry']['bounds']:</p>
+  <% if @response_body['results'][0]["geometry"]['bounds'] != nil %>
+  <p><%= @response_body['results'][0]["geometry"]['bounds'] %></p>
+
+  <p>Northeast:</p>
+  <p>Lat: <%= @response_body['results'][0]["geometry"]['bounds']['northeast']['lat'] %></p>
+  <p>Lng: <%= @response_body['results'][0]["geometry"]['bounds']['northeast']['lng'] %></p>
+  <p>southwest:</p>
+  <p>Lat: <%= @response_body['results'][0]["geometry"]['bounds']['southwest']['lat'] %></p>
+  <p>Lng: <%= @response_body['results'][0]["geometry"]['bounds']['southwest']['lng'] %></p>
+<% end %>
+  </div>
+
+  <div><% if @response_body['results'][0]["geometry"]['location'] != nil %>
+  <p>request (JSON)(hash) > ['results'][0]['geometry']['location']:</p>
+  <p><%= @response_body['results'][0]["geometry"]['location'] %></p>
+  <p>Location:</p>
+  <p>Lat: <%= @response_body['results'][0]["geometry"]['location']['lat'] %></p>
+  <p>Lng: <%= @response_body['results'][0]["geometry"]['location']['lng'] %></p>
+<% end %>
+  </div>
+
+  <div>
+    <% unless @response_body['results'][0]["geometry"]['viewport'] == nil  %>
+  <p>request (JSON)(hash) > ['results'][0]['geometry']['viewport']:</p>
+  <p><%= @response_body['results'][0]["geometry"]['viewport'] %></p>
+
+  <p>Northeast:</p>
+  <p>Lat: <%= @response_body['results'][0]["geometry"]['viewport']['northeast']['lat'] %></p>
+  <p>Lng: <%= @response_body['results'][0]["geometry"]['viewport']['northeast']['lng'] %></p>
+  <p>southwest:</p>
+  <p>Lat: <%= @response_body['results'][0]["geometry"]['viewport']['southwest']['lat'] %></p>
+  <p>Lng: <%= @response_body['results'][0]["geometry"]['viewport']['southwest']['lng'] %></p>
+  <% end %>
+  </div>
+
+<h3>Full response:</h3>
+<%= @response_body %>
+
+<% end %>
