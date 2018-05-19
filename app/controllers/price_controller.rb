@@ -4,16 +4,26 @@ require 'uri'
 class PriceController < ApplicationController
   def show
   # Endpoint of the api
-  # start_lat=<START LATITUDE>&start_lng=<START LONGITUTE>8&end_lat=<END LATITUDE>&end_lng=<END LONGITUDE>
-  @params = params[:id]
+  # /price/show?sl=43.6549496&slon=-79.3759257&&el=43.6920997&&elon=-79.5402031
+
+  @params = params
+  @start_lat = params[:sl]
+  @start_long = params[:slon]
+  @end_lat = params[:el]
+  @end_long = params[:elon]
+
+  # keys
+  uber_key = ENV['UBER_KEY']
+  lyft_key = ENV['LYFT_KEY']
 
   # API calls to uber for price estimation
+  # keys -  ["localized_display_name", "distance", "display_name", "product_id", "high_estimate", "low_estimate", "duration", "estimate", "currency_code"] 
 
-  uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075"
-  uber_uri = URI.parse(uber_url)
+  @uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=#{@start_lat}&start_longitude=#{@start_long}&end_latitude=#{@end_lat}&end_longitude=#{@end_long}"
+  uber_uri = URI.parse(@uber_url)
   uber_request = Net::HTTP::Get.new(uber_uri)
   uber_request.content_type = "application/json"
-  uber_request["Authorization"] = "Token <UBER-TOKEN>"
+  uber_request["Authorization"] = "Token #{uber_key}"
   uber_request["Accept-Language"] = "en_US"
 
   req_options = {
@@ -29,9 +39,9 @@ class PriceController < ApplicationController
 
     # API calls to lyft for price estimates
 
-    lyft_uri = URI.parse("https://api.lyft.com/v1/cost?start_lat=37.7763&start_lng=-122.3918&end_lat=37.7972&end_lng=-122.4533")
+    lyft_uri = URI.parse("https://api.lyft.com/v1/cost?start_lat=#{@start_lat}&start_lng=#{@start_long}&end_lat=#{@end_lat}&end_lng=#{@end_long}")
     lyft_request = Net::HTTP::Get.new(lyft_uri)
-    lyft_request["Authorization"] = "Basic <LYFT-TOKEN>"
+    lyft_request["Authorization"] = "Basic #{lyft_key}"
 
     req_options = {
       use_ssl: lyft_uri.scheme == "https",
