@@ -9,6 +9,8 @@
 <% @lyft_data["cost_estimates"].each do |option| %>
 <%= option["ride_type"] %> : CA$<%= option["estimated_cost_cents_max"]/100 %>
 
+
 <br>
 <br>
 <% end %>
+<%= @data %>
