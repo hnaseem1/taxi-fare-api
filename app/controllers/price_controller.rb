@@ -22,7 +22,7 @@ class PriceController < ApplicationController
   lyft_key = ENV['LYFT_KEY']
 
   # API calls to uber for price estimation
-  # keys -  ["localized_display_name", "distance", "display_name", "product_id", "high_estimate", "low_estimate", "duration", "estimate", "currency_code"]
+  # keys for uber -  ["localized_display_name", "distance", "display_name", "product_id", "high_estimate", "low_estimate", "duration", "estimate", "currency_code"]
 
   uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=#{start_lat}&start_longitude=#{start_long}&end_latitude=#{end_lat}&end_longitude=#{end_long}"
   uber_uri = URI.parse(uber_url)
@@ -45,7 +45,8 @@ class PriceController < ApplicationController
           hash = {}
           hash["type"]      = option["localized_display_name"]
           hash["distance"]  = option["distance"]
-          hash["fare"]      = option["estimate"]
+          fare              = option["estimate"].split("$")[1].split('-') if option["estimate"].split("$")[1]
+          hash["fare"]      = (fare[0].to_i + fare[1].to_i) / 2 if fare 
           hash["currency"]  = option["currency_code"]
           hash["duration"]  = option["duration"]
           @data["uber"].push(hash)
@@ -65,7 +66,7 @@ class PriceController < ApplicationController
       http.request(lyft_request)
     end
 
-    # ["ride_type", "estimated_duration_seconds", "estimated_distance_miles", "price_quote_id", "estimated_cost_cents_max", "primetime_percentage", "is_valid_estimate", "currency", "cost_token", "estimated_cost_cents_min", "display_name", "primetime_confirmation_token", "can_request_ride"]
+    # Keys for lyft json ["ride_type", "estimated_duration_seconds", "estimated_distance_miles", "price_quote_id", "estimated_cost_cents_max", "primetime_percentage", "is_valid_estimate", "currency", "cost_token", "estimated_cost_cents_min", "display_name", "primetime_confirmation_token", "can_request_ride"]
 
     lyft_data = JSON.parse(lyft_response.body)
       lyft_data["cost_estimates"].each do |option|
@@ -77,8 +78,6 @@ class PriceController < ApplicationController
         hash["duration"]  = option["estimated_duration_seconds"]
         @data["lyft"].push(hash)
       end
-
-    # Parameters for the endpoints
 
 
 

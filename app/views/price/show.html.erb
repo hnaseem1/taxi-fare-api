@@ -2,13 +2,13 @@
 <p>Find me in app/views/price/show.html.erb</p>
 
 <% @data["uber"].each do |option| %>
-<%= option["type"]  %> : <%= option["fare"]  %>
+<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <br>
 <% end %>
 
 <% @data["lyft"].each do |option| %>
-<%= option["type"]  %> : CA$<%= option["fare"]  %>
+<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <br>
 <% end %>
