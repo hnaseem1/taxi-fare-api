@@ -7,13 +7,13 @@ class PriceController < ApplicationController
 
   # /price/show?sl=43.6549496&slon=-79.3759257&&el=43.6920997&&elon=-79.5402031
 
-  @params = params
-  @start_lat = params[:sl]
-  @start_long = params[:slon]
-  @end_lat = params[:el]
-  @end_long = params[:elon]
+  start_lat = params[:sl]
+  start_long = params[:slon]
+  end_lat = params[:el]
+  end_long = params[:elon]
 
   # Hash for JSON database
+  # JSON[KEY] = {"type", "distance", "fare", "currency", "duration"}
 
   @data = {"uber" => [], "lyft" => []}
 
@@ -24,8 +24,8 @@ class PriceController < ApplicationController
   # API calls to uber for price estimation
   # keys -  ["localized_display_name", "distance", "display_name", "product_id", "high_estimate", "low_estimate", "duration", "estimate", "currency_code"]
 
-  @uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=#{@start_lat}&start_longitude=#{@start_long}&end_latitude=#{@end_lat}&end_longitude=#{@end_long}"
-  uber_uri = URI.parse(@uber_url)
+  uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=#{start_lat}&start_longitude=#{start_long}&end_latitude=#{end_lat}&end_longitude=#{end_long}"
+  uber_uri = URI.parse(uber_url)
   uber_request = Net::HTTP::Get.new(uber_uri)
   uber_request.content_type = "application/json"
   uber_request["Authorization"] = "Token #{uber_key}"
@@ -40,8 +40,8 @@ class PriceController < ApplicationController
     end
 
 
-    @uber_data = JSON.parse(uber_response.body)
-        @uber_data["prices"].each do |option|
+    uber_data = JSON.parse(uber_response.body)
+        uber_data["prices"].each do |option|
           hash = {}
           hash["type"]      = option["localized_display_name"]
           hash["distance"]  = option["distance"]
@@ -53,7 +53,7 @@ class PriceController < ApplicationController
 
     # API calls to lyft for price estimates
 
-    lyft_uri = URI.parse("https://api.lyft.com/v1/cost?start_lat=#{@start_lat}&start_lng=#{@start_long}&end_lat=#{@end_lat}&end_lng=#{@end_long}")
+    lyft_uri = URI.parse("https://api.lyft.com/v1/cost?start_lat=#{start_lat}&start_lng=#{start_long}&end_lat=#{end_lat}&end_lng=#{end_long}")
     lyft_request = Net::HTTP::Get.new(lyft_uri)
     lyft_request["Authorization"] = "Basic #{lyft_key}"
 
@@ -67,8 +67,8 @@ class PriceController < ApplicationController
 
     # ["ride_type", "estimated_duration_seconds", "estimated_distance_miles", "price_quote_id", "estimated_cost_cents_max", "primetime_percentage", "is_valid_estimate", "currency", "cost_token", "estimated_cost_cents_min", "display_name", "primetime_confirmation_token", "can_request_ride"]
 
-    @lyft_data = JSON.parse(lyft_response.body)
-      @lyft_data["cost_estimates"].each do |option|
+    lyft_data = JSON.parse(lyft_response.body)
+      lyft_data["cost_estimates"].each do |option|
         hash = {}
         hash["type"]      = option["display_name"]
         hash["distance"]  = option["estimated_distance_miles"]

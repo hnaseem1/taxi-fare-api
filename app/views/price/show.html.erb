@@ -1,16 +1,14 @@
 <h1>Price#show</h1>
 <p>Find me in app/views/price/show.html.erb</p>
 
-<% @uber_data["prices"].each do |option| %>
-<%= option["localized_display_name"] %> : <%= option["estimate"] %>
+<% @data["uber"].each do |option| %>
+<%= option["type"]  %> : <%= option["fare"]  %>
 <br>
 <br>
 <% end %>
-<% @lyft_data["cost_estimates"].each do |option| %>
-<%= option["ride_type"] %> : CA$<%= option["estimated_cost_cents_max"]/100 %>
 
-
+<% @data["lyft"].each do |option| %>
+<%= option["type"]  %> : CA$<%= option["fare"]  %>
 <br>
 <br>
 <% end %>
-<%= @data %>
