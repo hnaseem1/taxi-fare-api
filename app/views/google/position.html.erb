@@ -50,7 +50,7 @@
             var your_position = document.getElementById('your_position')
             your_position.innerText += 'lat ' + pos.lat
             your_position.innerText += '\nlng' + pos.lng
-            console.log('error');
+
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           }), function(){

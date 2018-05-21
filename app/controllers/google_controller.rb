@@ -3,6 +3,7 @@ require 'httparty'
 class GoogleController < ApplicationController
 
 
+
   def index
     if params[:search]
 
