@@ -7,6 +7,7 @@ class GoogleController < ApplicationController
   def index
     if params[:start_location] && params[:end_location]
 
+
       google_key=ENV["GOOGLE_KEY"]
 
       @start_location= params[:start_location]
