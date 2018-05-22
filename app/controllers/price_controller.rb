@@ -26,17 +26,14 @@ class PriceController < ApplicationController
   # API calls to uber for price estimation
   # keys for uber -  ["localized_display_name", "distance", "display_name", "product_id", "high_estimate", "low_estimate", "duration", "estimate", "currency_code"]
 
-  #   HTTParty.post(
-  #   "https://us12.api.mailchimp.com/3.0/lists/17efad7sde/merge-fields",
-  #   basic_auth: { username: "12", password: "d1c1d99dr5000c63f0f73f64b88e852e-xx" },
-  #   headers: { 'Content-Type' => 'application/json' },
-  #   body: {
-  #     name: "FAVORITEJOKE",
-  #     type: "text",
-  #   }.to_json
-  # )
+
 
   uber_url = "https://api.uber.com/v1.2/estimates/price?start_latitude=#{start_lat}&start_longitude=#{start_long}&end_latitude=#{end_lat}&end_longitude=#{end_long}"
+
+  # uber_response = HTTParty.post(
+  #   uber_url,
+  #   headers: {'Authorization' => "Token #{uber_key}", 'Accept-Language' => 'en_US', 'Content-Type' => 'application/json' },
+  # )
 
   uber_uri                        = URI.parse(uber_url)
   uber_request                    = Net::HTTP::Get.new(uber_uri)
