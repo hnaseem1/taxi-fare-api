@@ -29,10 +29,10 @@ class GoogleController < ApplicationController
       el =  @end_response_body['results'][0]["geometry"]['location']['lat']
       elon = @end_response_body['results'][0]["geometry"]['location']['lng']
 
-      taxi_fare_response = HTTParty.get("http://localhost:3000/price/show.json?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
+      taxi_fare_response = HTTParty.get("#{price_show_url}.json?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
       @parsed_taxi_fare_response = JSON.parse(taxi_fare_response.body)
 
-      
+
     else
       @start_response_body = nil
       @end_response_body = nil

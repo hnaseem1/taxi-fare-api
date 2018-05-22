@@ -183,10 +183,16 @@ div {
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <br>
+
+<%= option["duration"]/60 %> Mins Journey
+<br>
+<br>
 <% end %>
 
 <% @parsed_taxi_fare_response["lyft"].each do |option| %>
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
+<br>
+<%= option["duration"]/60 %> Mins Journey
 <br>
 <br>
 <% end %>
