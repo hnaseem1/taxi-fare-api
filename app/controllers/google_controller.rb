@@ -13,8 +13,8 @@ class GoogleController < ApplicationController
       @start_location= params[:start_location]
       @end_location= params[:end_location]
 
-      google_start_location="https://maps.googleapis.com/maps/api/geocode/json?address=#{@start_location}&key=#{google_key}"
-      google_end_location="https://maps.googleapis.com/maps/api/geocode/json?address=#{@end_location}&key=#{google_key}"
+      google_start_location=URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{@start_location}&key=#{google_key}")
+      google_end_location=URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{@end_location}&key=#{google_key}")
 
   # &components=country:CA
 
