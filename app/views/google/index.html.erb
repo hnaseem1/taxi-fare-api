@@ -9,8 +9,15 @@ div {
 
   <div class="search-field">
   <%= form_tag(google_path, :method => "get" ) do %>
-  <%= text_field_tag :search, params[:search], id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
-  <%= submit_tag "Search" %>
+<h2>Start location</h2>
+  <%= text_field_tag :start_location, params[:start_location], id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+  <br>
+  <h2>Destination</h2>
+<%= text_field_tag :end_location, params[:end_location], id: "autocomplete2", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+
+<br>
+<br>
+  <%= submit_tag "Run Baby, RUN!!!" %>
   <% end %>
 
   <!-- <div id="locationField">
@@ -26,7 +33,7 @@ div {
         // parameter when you first load the API. For example:
         // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-        var placeSearch, autocomplete;
+        var placeSearch, autocomplete, autocomplete2;
         var componentForm = {
           street_number: 'short_name',
           route: 'long_name',
@@ -39,6 +46,11 @@ div {
         function initAutocomplete() {
           // Create the autocomplete object, restricting the search to geographical
           // location types.
+
+          autocomplete2 = new google.maps.places.Autocomplete(
+              /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
+              {types: ['geocode']});
+
           autocomplete = new google.maps.places.Autocomplete(
               /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
               {types: ['geocode']});
@@ -46,7 +58,10 @@ div {
           // When the user selects an address from the dropdown, populate the address
           // fields in the form.
           autocomplete.addListener('place_changed', fillInAddress);
+
+        autocomplete2.addListener('place_changed', fillInAddress);
         }
+
 
         function fillInAddress() {
           // Get the place details from the autocomplete object.
@@ -77,52 +92,51 @@ console.log(place)
 
 
   </div>
-<br>
-<%= @address %>
-<br>
-<% if @response_body == nil %>
+<!--
+<% if @start_response_body == nil %>
 <h4>Please search the address</h4>
 <% else %>
-  <div>
-  <p>request (JSON)(hash) > ['results'][0]['geometry']['bounds']:</p>
-  <% if @response_body['results'][0]["geometry"]['bounds'] != nil %>
-  <p><%= @response_body['results'][0]["geometry"]['bounds'] %></p>
 
-  <p>Northeast:</p>
-  <p>Lat: <%= @response_body['results'][0]["geometry"]['bounds']['northeast']['lat'] %></p>
-  <p>Lng: <%= @response_body['results'][0]["geometry"]['bounds']['northeast']['lng'] %></p>
-  <p>southwest:</p>
-  <p>Lat: <%= @response_body['results'][0]["geometry"]['bounds']['southwest']['lat'] %></p>
-  <p>Lng: <%= @response_body['results'][0]["geometry"]['bounds']['southwest']['lng'] %></p>
-<% end %>
-  </div>
-
-  <div><% if @response_body['results'][0]["geometry"]['location'] != nil %>
+  <div><% if @start_response_body['results'][0]["geometry"]['location'] != nil %>
   <p>request (JSON)(hash) > ['results'][0]['geometry']['location']:</p>
-  <p><%= @response_body['results'][0]["geometry"]['location'] %></p>
-  <p>Location:</p>
-  <p>Lat: <%= @response_body['results'][0]["geometry"]['location']['lat'] %></p>
-  <p>Lng: <%= @response_body['results'][0]["geometry"]['location']['lng'] %></p>
-<% end %>
-  </div>
-
-  <div>
-    <% unless @response_body['results'][0]["geometry"]['viewport'] == nil  %>
-  <p>request (JSON)(hash) > ['results'][0]['geometry']['viewport']:</p>
-  <p><%= @response_body['results'][0]["geometry"]['viewport'] %></p>
-
-  <p>Northeast:</p>
-  <p>Lat: <%= @response_body['results'][0]["geometry"]['viewport']['northeast']['lat'] %></p>
-  <p>Lng: <%= @response_body['results'][0]["geometry"]['viewport']['northeast']['lng'] %></p>
-  <p>southwest:</p>
-  <p>Lat: <%= @response_body['results'][0]["geometry"]['viewport']['southwest']['lat'] %></p>
-  <p>Lng: <%= @response_body['results'][0]["geometry"]['viewport']['southwest']['lng'] %></p>
+  <p><%= @start_response_body['results'][0]["geometry"]['location'] %></p>
+  <h2>Start point Location:</h2>
+  <p>Lat: <%= @start_response_body['results'][0]["geometry"]['location']['lat'] %></p>
+  <p>Lng: <%= @start_response_body['results'][0]["geometry"]['location']['lng'] %></p>
   <% end %>
   </div>
 
-<h3>Full response:</h3>
-<%= @response_body %>
+  <div><% if @end_response_body['results'][0]["geometry"]['location'] != nil %>
+  <p>request (JSON)(hash) > ['results'][0]['geometry']['location']:</p>
+  <p><%= @end_response_body['results'][0]["geometry"]['location'] %></p>
+  <h2>End point Location:</h2>
+  <p>Lat: <%= @end_response_body['results'][0]["geometry"]['location']['lat'] %></p>
+  <p>Lng: <%= @end_response_body['results'][0]["geometry"]['location']['lng'] %></p>
+<% end %>
+  </div>
 
+<h3>Full response:</h3>
+<p>start point location</p>
+<%= @start_response_body %>
+<p>end point location</p>
+<%= @end_response_body %>
+<% end %> -->
+
+
+
+<% if @parsed_taxi_fare_response %>
+<br>
+<% @parsed_taxi_fare_response["uber"].each do |option| %>
+<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
+<br>
+<br>
+<% end %>
+
+<% @parsed_taxi_fare_response["lyft"].each do |option| %>
+<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
+<br>
+<br>
+<% end %>
 <% end %>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"
