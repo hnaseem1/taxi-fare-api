@@ -13,8 +13,8 @@ class GoogleController < ApplicationController
       @start_location= params[:start_location]
       @end_location= params[:end_location]
 
-      google_start_location="https://maps.googleapis.com/maps/api/geocode/json?address=#{@start_location}&key=#{google_key}"
-      google_end_location="https://maps.googleapis.com/maps/api/geocode/json?address=#{@end_location}&key=#{google_key}"
+      google_start_location=URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{@start_location}&key=#{google_key}")
+      google_end_location=URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{@end_location}&key=#{google_key}")
 
   # &components=country:CA
 
@@ -32,7 +32,7 @@ class GoogleController < ApplicationController
       taxi_fare_response = HTTParty.get("http://localhost:3000/price/show.json?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
       @parsed_taxi_fare_response = JSON.parse(taxi_fare_response.body)
 
-      
+
     else
       @start_response_body = nil
       @end_response_body = nil
