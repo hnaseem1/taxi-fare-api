@@ -6,7 +6,7 @@ class GoogleController < ApplicationController
   def index
 
     if params[:search]
-    google_key='AIzaSyAFN92DWy_MjoN_3jb4sPfQA-QAk0Dbu2Y'
+    google_key=ENV['GOOGLE_KEY']
     @address=params[:search]
     google_geocoding_url="https://maps.googleapis.com/maps/api/geocode/json?address=#{@address}&key=#{google_key}"
 # &components=country:CA
