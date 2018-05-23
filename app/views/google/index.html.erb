@@ -97,7 +97,7 @@
 <% if @parsed_taxi_fare_response %>
 <br>
 <% @parsed_taxi_fare_response[:uber].each do |option| %>
-<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
+<%= checktype(option["type"])  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <br>
 
