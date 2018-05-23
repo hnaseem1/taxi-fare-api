@@ -1,5 +1,3 @@
-
-
 class PriceController < ApplicationController
   def show
   # Endpoint of the api
@@ -12,7 +10,7 @@ class PriceController < ApplicationController
   end_long = params[:elon]
 
 
-  render json: getdata(start_lat,start_long,end_lat,end_long) 
+  render json: getdata(start_lat,start_long,end_lat,end_long)
 
   end
 end
