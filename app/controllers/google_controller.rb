@@ -2,7 +2,7 @@ class GoogleController < ApplicationController
 
   def index
 
-    if params[:start_location] && params[:end_location]
+    if params[:start_location] && params[:end_location] && !params[:start_location].blank? && !params[:end_location].blank?
 
       start_location= params[:start_location]
       end_location= params[:end_location]
@@ -26,8 +26,8 @@ class GoogleController < ApplicationController
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
-
-
+    else 
+      flash[:error] = 'You must give a start/end location'
     end
 
 
