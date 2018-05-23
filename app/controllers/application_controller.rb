@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+
   protect_from_forgery with: :exception
 	helper_method :current_user
 
@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
 
       @data
 
-
+    end
 
   def current_user
   	if session[:user_id]
@@ -73,11 +73,11 @@ class ApplicationController < ActionController::Base
   	end
   end
 
-  def ensure_logged_in 
+  def ensure_logged_in
     if session[:user_id] == nil
       redirect_to root_path
-    end 
+    end
 
   end
-  
+
 end
