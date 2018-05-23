@@ -1,10 +1,14 @@
-<h1>Login</h1>
-<p>Login to request a ride</p>
+<div class="new_session">
+	<%= form_for :session, url: sessions_path do |f| %>
+		<h2>Log In</h2>
+		<p>
+			<%= f.text_field :email, placeholder: "Email" %>
+		</p>
 
-<%= form_for :session, url: sessions_path do |f| %>
-	<%= f.label :email %>
-	<%= f.text_field :email %>
-	<%= f.label :password %> 
-	<%= f.password_field :password %> 
-	<%= f.submit 'login' %>
-<% end %>
+		<p>
+			<%= f.password_field :password, placeholder: "password" %>
+		</p>
+
+		<%= f.submit 'login', class: "submit" %>
+	<% end %>
+</div>

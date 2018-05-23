@@ -17,3 +17,23 @@
 body {
   font-family: Helvetica, Arial, 'sans-serif';
 }
+
+h2 {
+  font-weight: 250;
+  text-transform: uppercase;
+}
+
+input {
+  border-radius: 5px;
+  border: #EEE solid 2px;
+  text-align: center;
+  height: 2.5em;
+  width: 30%;
+}
+
+.submit {
+  background: #587bba;
+  color: #EEE;
+  height: 3em;
+  width: 30%;
+}

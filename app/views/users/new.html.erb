@@ -1,21 +1,30 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
-
 <%= form_for @user, url: user_path do |f| %>
-	<%= f.label :first_name %>
-	<%= f.text_field :first_name, placeholder: "John" %>
-	<%= f.label :last_name %> 
-	<%= f.text_field :last_name, placeholder: "Appleseed" %>
-	<%= f.label :email %> 
-	<%= f.text_field :email, placeholder: "japple@example.com" %>
-	<%= f.label :password %> 
-	<%= f.password_field :password %>
+	<h2>Sign Up</h2>
+	<p>
+		<%= f.text_field :first_name, placeholder: "First Name" %>
+	</p>
 
-	<%= f.label :password_confirmation %> 
-	<%= f.password_field :password_confirmation %> 
-	
-	<p>Tick this box if you want to get matched!</p>
-	<%= f.label :match %>
-	<%= f.check_box :match %>
-	<%= f.submit 'Sign up' %>
-<% end %> 
+	<p>
+		<%= f.text_field :last_name, placeholder: "Last Name" %>
+	</p>
+
+	<p>
+		<%= f.text_field :email, placeholder: "Email" %>
+	</p>
+
+	<p>
+		<%= f.password_field :password, placeholder: "password" %>
+	</p>
+
+	<p>
+		<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
+	</p>
+
+	<p>
+		<%= f.label :match %>
+		<%= f.check_box :match %>
+	</p>
+
+	<%= f.submit 'Sign up', class: "submit" %>
+
+<% end %>
