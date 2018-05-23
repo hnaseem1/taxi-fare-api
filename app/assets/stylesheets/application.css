@@ -24,16 +24,19 @@ h2 {
 }
 
 input {
+  background-color: #CCC;
   border-radius: 5px;
-  border: #EEE solid 2px;
+  border: #CCC solid 2px;
   text-align: center;
   height: 2.5em;
-  width: 30%;
+  width: 90%;
 }
 
 .submit {
   background: #587bba;
+  border: none;
   color: #EEE;
   height: 3em;
+  margin-top: 0.5em;
   width: 30%;
 }
