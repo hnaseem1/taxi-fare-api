@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  
+  protect_from_forgery with: :exception
+	helper_method :current_user
 
   def getdata(start_lat,start_long,end_lat,end_long)
 
@@ -55,6 +58,25 @@ class ApplicationController < ActionController::Base
         # http://localhost:3000/price/show.json?sl=43.6549496&slon=-79.3759270&&el=43.6420997&&elon=-79.4402033
 
       @data
+
+
+
+  def current_user
+  	if session[:user_id]
+  		@current_user ||= User.find(session[:user_id])
+  	end
+  end
+
+  def user_already_logged_in
+  	if session[:user_id] != nil
+  		redirect_to user_path
+  	end
+  end
+
+  def ensure_logged_in 
+    if session[:user_id] == nil
+      redirect_to root_path
+    end 
 
   end
   

@@ -1,0 +1,7 @@
+<p>hi <%= @user.first_name.capitalize %></p>
+
+<% if @match %>
+	<p>You have authorized being matched with other users for pooling rides</p>
+<% else %>
+	<p>You have not authorized being matched with other users for pooling rides</p>
+<% end %> 

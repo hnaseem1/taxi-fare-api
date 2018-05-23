@@ -32,7 +32,6 @@ class GoogleController < ApplicationController
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
       # @parsed_taxi_fare_response = JSON.parse(taxi_fare_response.body)
 
-
     else
       @start_response_body = nil
       @end_response_body = nil
