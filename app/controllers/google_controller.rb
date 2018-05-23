@@ -12,13 +12,16 @@ class GoogleController < ApplicationController
 
   # &components=country:CA
 
+      begin
+        start_response = HTTParty.get(google_start_location)
+        start_response_body = JSON.parse(start_response.body)
 
-      start_response = HTTParty.get(google_start_location)
-      start_response_body = JSON.parse(start_response.body)
-
-      end_response = HTTParty.get(google_end_location)
-      end_response_body = JSON.parse(end_response.body)
-
+        end_response = HTTParty.get(google_end_location)
+        end_response_body = JSON.parse(end_response.body)
+      rescue SocketError => e
+        print e 
+        return false
+      end
       sl        =   start_response_body['results'][0]["geometry"]['location']['lat'].to_s
       slon      =   start_response_body['results'][0]["geometry"]['location']['lng'].to_s
       el        =   end_response_body['results'][0]["geometry"]['location']['lat'].to_s
