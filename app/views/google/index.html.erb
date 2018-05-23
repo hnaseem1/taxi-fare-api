@@ -122,7 +122,7 @@
 <% if @parsed_taxi_fare_response %>
   <div class="results">
     <% @parsed_taxi_fare_response[:uber].each do |option| %>
-      <h3><%= option["type"]  %></h3>
+      <h3><%= checktype(option["type"])  %></h3>
       <p><%= option["fare"]  %>  <%= option["currency"] %></p>
       <p>Travel time: <%= option["duration"]/60 %> minutes</p>
     <% end %>

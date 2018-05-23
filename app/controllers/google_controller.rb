@@ -24,10 +24,6 @@ class GoogleController < ApplicationController
       el        =   end_response_body['results'][0]["geometry"]['location']['lat'].to_s
       elon      =   end_response_body['results'][0]["geometry"]['location']['lng'].to_s
 
-      sl = start_response_body['results'][0]["geometry"]['location']['lat'].to_s
-      slon = start_response_body['results'][0]["geometry"]['location']['lng'].to_s
-      el =  end_response_body['results'][0]["geometry"]['location']['lat'].to_s
-      elon = end_response_body['results'][0]["geometry"]['location']['lng'].to_s
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
 
