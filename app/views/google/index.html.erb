@@ -1,7 +1,13 @@
 <style media="screen">
-div {
-
-}
+#map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 </style>
 
 
@@ -29,12 +35,6 @@ div {
     </div> -->
 
   <script>
-        // This example displays an address form, using the autocomplete feature
-        // of the Google Places API to help users fill in the information.
-
-        // This example requires the Places library. Include the libraries=places
-        // parameter when you first load the API. For example:
-        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
         var locationButton = document.getElementById('get-location-data')
         locationButton.addEventListener('click', function() {
@@ -44,7 +44,7 @@ div {
                var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
-              };
+                };
 
               response = $.ajax({
                 url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
@@ -53,13 +53,9 @@ div {
               }).done(function(data) {
                 document.getElementById('autocomplete').value = response.responseJSON.results[0].formatted_address
               })
-              // make and ajax call on https://maps.googleapis.com/maps/api/geocode/json?latlng=+pos.lat+, +pos.lng+&key=
-
-
+            })
+          }
         })
-      }
-
-      })
 
       var locationButton = document.getElementById('get-location-data2')
       locationButton.addEventListener('click', function() {
@@ -78,23 +74,11 @@ div {
             }).done(function(data) {
               document.getElementById('autocomplete2').value = response.responseJSON.results[0].formatted_address
             })
-            // make and ajax call on https://maps.googleapis.com/maps/api/geocode/json?latlng=+pos.lat+, +pos.lng+&key=
-
-
+          })
+        }
       })
-    }
-
-    })
 
         var placeSearch, autocomplete, autocomplete2;
-        var componentForm = {
-          street_number: 'short_name',
-          route: 'long_name',
-          locality: 'long_name',
-          administrative_area_level_1: 'short_name',
-          country: 'long_name',
-          postal_code: 'short_name'
-        };
 
         function initAutocomplete() {
           // Create the autocomplete object, restricting the search to geographical
@@ -107,23 +91,9 @@ div {
           autocomplete = new google.maps.places.Autocomplete(
               /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
               {types: ['geocode']});
-
-          // When the user selects an address from the dropdown, populate the address
-          // fields in the form.
-          autocomplete.addListener('place_changed', fillInAddress);
-
-        autocomplete2.addListener('place_changed', fillInAddress);
         }
 
 
-        function fillInAddress() {
-          // Get the place details from the autocomplete object.
-          place = autocomplete.getPlace();
-          console.log(place)
-        }
-
-        // Bias the autocomplete object to the user's geographical location,
-        // as supplied by the browser's 'navigator.geolocation' object.
         function geolocate() {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -139,47 +109,20 @@ div {
             });
           }
         }
+
+
       </script>
 
 
 
 
   </div>
-<!--
-<% if @start_response_body == nil %>
-<h4>Please search the address</h4>
-<% else %>
-
-  <div><% if @start_response_body['results'][0]["geometry"]['location'] != nil %>
-  <p>request (JSON)(hash) > ['results'][0]['geometry']['location']:</p>
-  <p><%= @start_response_body['results'][0]["geometry"]['location'] %></p>
-  <h2>Start point Location:</h2>
-  <p>Lat: <%= @start_response_body['results'][0]["geometry"]['location']['lat'] %></p>
-  <p>Lng: <%= @start_response_body['results'][0]["geometry"]['location']['lng'] %></p>
-  <% end %>
-  </div>
-
-  <div><% if @end_response_body['results'][0]["geometry"]['location'] != nil %>
-  <p>request (JSON)(hash) > ['results'][0]['geometry']['location']:</p>
-  <p><%= @end_response_body['results'][0]["geometry"]['location'] %></p>
-  <h2>End point Location:</h2>
-  <p>Lat: <%= @end_response_body['results'][0]["geometry"]['location']['lat'] %></p>
-  <p>Lng: <%= @end_response_body['results'][0]["geometry"]['location']['lng'] %></p>
-<% end %>
-  </div>
-
-<h3>Full response:</h3>
-<p>start point location</p>
-<%= @start_response_body %>
-<p>end point location</p>
-<%= @end_response_body %>
-<% end %> -->
 
 
 
 <% if @parsed_taxi_fare_response %>
 <br>
-<% @parsed_taxi_fare_response["uber"].each do |option| %>
+<% @parsed_taxi_fare_response[:uber].each do |option| %>
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <br>
@@ -189,7 +132,7 @@ div {
 <br>
 <% end %>
 
-<% @parsed_taxi_fare_response["lyft"].each do |option| %>
+<% @parsed_taxi_fare_response[:lyft].each do |option| %>
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
 <%= option["duration"]/60 %> Mins Journey
