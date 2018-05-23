@@ -1,0 +1,21 @@
+<h1>Users#new</h1>
+<p>Find me in app/views/users/new.html.erb</p>
+
+<%= form_for @user, url: user_path do |f| %>
+	<%= f.label :first_name %>
+	<%= f.text_field :first_name, placeholder: "John" %>
+	<%= f.label :last_name %> 
+	<%= f.text_field :last_name, placeholder: "Appleseed" %>
+	<%= f.label :email %> 
+	<%= f.text_field :email, placeholder: "japple@example.com" %>
+	<%= f.label :password %> 
+	<%= f.password_field :password %>
+
+	<%= f.label :password_confirmation %> 
+	<%= f.password_field :password_confirmation %> 
+	
+	<p>Tick this box if you want to get matched!</p>
+	<%= f.label :match %>
+	<%= f.check_box :match %>
+	<%= f.submit 'Sign up' %>
+<% end %> 
