@@ -1,39 +1,26 @@
-<style media="screen">
-#map {
-        height: 50%;
-        width: 70%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-</style>
 
-
-
-<p>Gustavo Karen Hasan Shashike</p>
-
-  <div class="search-field">
+<div class="search-field">
   <%= form_tag(google_path, :method => "get" ) do %>
-<h2>Start location</h2>
-  <%= text_field_tag :start_location, params[:start_location], id: "autocomplete", placeholder: "Enter your address", type:"text" %>
-  <button type="button" name="button" id='get-location-data'>Get Location</button>
-  <br>
-  <h2>Destination</h2>
-<%= text_field_tag :end_location, params[:end_location], id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
-<button type="button" name="button" id='get-location-data2'>Get Location</button>
+    <h2>Start location</h2>
+    <p>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+      <button type="button" name="button" id='get-location-data'>Get Location</button>
+    </p>
 
-<br>
-<br>
-  <%= submit_tag "Run Baby, RUN!!!" %>
+    <h2>Destination</h2>
+    <p>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+      <button type="button" name="button" id='get-location-data2'>Get Location</button>
+    </p>
+
+    <p><%= submit_tag "Run Baby, RUN!!!", class: "submit"%></p>
   <% end %>
-
-  <button type="button" id="showmap" name="button">show map</button>
+<button type="button" id="showmap" name="button">show map</button>
 </div>
+
 <div id="map" style="display: none"></div>
-  <script>
+
+<script>
 
         var locationButton = document.getElementById('get-location-data')
         locationButton.addEventListener('click', function() {
@@ -132,29 +119,18 @@
             });
       </script>
 
-
-
-
 <% if @parsed_taxi_fare_response %>
-<br>
-<% @parsed_taxi_fare_response[:uber].each do |option| %>
-<%= checktype(option["type"])  %> : <%= option["fare"]  %>  <%= option["currency"] %>
-<br>
-<br>
+  <div class="results">
+    <% @parsed_taxi_fare_response[:uber].each do |option| %>
+      <h3><%= option["type"]  %></h3>
+      <p><%= option["fare"]  %>  <%= option["currency"] %></p>
+      <p>Travel time: <%= option["duration"]/60 %> minutes</p>
+    <% end %>
 
-<%= option["duration"]/60 %> Mins Journey
-<br>
-<br>
+    <% @parsed_taxi_fare_response[:lyft].each do |option| %>
+      <h3><%= option["type"]  %></h3>
+      <p><%= option["fare"]  %>  <%= option["currency"] %></p>
+      <p>Travel time: <%= option["duration"]/60 %> minutes</p>
+    <% end %>
+  </div>
 <% end %>
-
-<% @parsed_taxi_fare_response[:lyft].each do |option| %>
-<%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
-<br>
-<%= option["duration"]/60 %> Mins Journey
-<br>
-<br>
-<% end %>
-<% end %>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"
-    async defer></script>

@@ -1,6 +1,14 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.new_user {
+  text-align: center;
+
+  p {
+    margin: 0.5em;
+    font-size: 0.75em;
+  }
+
 /* Style the video: 100% width and height to cover the entire window */
 #myVideo {
     position: fixed;
@@ -34,4 +42,4 @@
 #myBtn:hover {
     background: #ddd;
     color: black;
-}
+  }

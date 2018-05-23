@@ -10,15 +10,19 @@
   </head>
   <br>
   <header>
-  <nav><%= link_to 'lat, lng',google_path %> | <%= link_to 'map', map_path %> | <%= link_to 'price', price_show_path %> | <%= link_to 'position', position_path %></nav>
-  <br>
-    <% if current_user %>
-      <%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %>, <%= link_to 'log out', sessions_path("current"), method: :delete %> 
-    <% else %> 
-      <%= link_to 'log in', new_sessions_path %>, <%= link_to 'create account', new_user_path %> 
-    <% end %> 
+    <nav>
+      <%= link_to 'home', root_path %>
+      <% if current_user %>
+        | <%= current_user.first_name.capitalize + " " + current_user.last_name.capitalize %> | <%= link_to 'log out', sessions_path("current"), method: :delete %>
+      <% else %>
+        | <%= link_to 'log in', new_sessions_path %> | <%= link_to 'create account', new_user_path %>
+      <% end %>
+    </nav>
   </header>
   <body>
     <%= yield %>
   </body>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"
+      async defer></script>
 </html>

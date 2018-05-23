@@ -1,29 +1,40 @@
+
+<%= form_for @user, url: user_path do |f| %>
+	<h2>Sign Up</h2>
+	<p>
+		<%= f.text_field :first_name, placeholder: "First Name" %>
+	</p>
+
+	<p>
+		<%= f.text_field :last_name, placeholder: "Last Name" %>
+	</p>
+
+	<p>
+		<%= f.text_field :email, placeholder: "Email" %>
+	</p>
+
+	<p>
+		<%= f.password_field :password, placeholder: "password" %>
+	</p>
+
+	<p>
+		<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
+	</p>
+
+	<p>
+		<%= f.label :match %>
+		<%= f.check_box :match %>
+	</p>
+
+	<%= f.submit 'Sign up', class: "submit" %>
+
+<% end %>
+
 <!-- The video -->
 
 <!-- <iframe id='myVideo' src="https://www.youtube.com/embed/OYeirbs5U9k?autoplay;rel=0&amp;controls=0&amp;showinfo=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
 <!-- Optional: some overlay text to describe the video -->
 
-<div class="content">
-  <h1>Heading</h1>
-  <p>Lorem ipsum...</p>
-	<%= form_for @user, url: user_path do |f| %>
-		<%= f.label :first_name %>
-		<%= f.text_field :first_name, placeholder: "John" %>
-		<%= f.label :last_name %>
-		<%= f.text_field :last_name, placeholder: "Appleseed" %>
-		<%= f.label :email %>
-		<%= f.text_field :email, placeholder: "japple@example.com" %>
-		<%= f.label :password %>
-		<%= f.password_field :password %>
-
-		<%= f.label :password_confirmation %>
-		<%= f.password_field :password_confirmation %>
-
-		<p>Tick this box if you want to get matched!</p>
-		<%= f.label :match %>
-		<%= f.check_box :match %>
-		<%= f.submit 'Sign up' %>
-	<% end %>
   <!-- Use a button to pause/play the video with JavaScript -->
   <!-- <button id="myBtn" onclick="myFunction()">Pause</button>
 </div> -->
@@ -46,3 +57,4 @@ function myFunction() {
 		}
 }
 </script> -->
+
