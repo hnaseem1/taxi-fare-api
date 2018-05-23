@@ -1,6 +1,11 @@
 // Place all the styles related to the Google controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#map {
+        height: 70%;
+        width: 70%;
+        margin: 0 auto;
+}
 
 .input-field {
   width: 40%;
