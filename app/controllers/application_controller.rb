@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
         # http://localhost:3000/price/show.json?sl=43.6549496&slon=-79.3759270&&el=43.6420997&&elon=-79.4402033
   end
 
-  def sort_uber_prices(data)
+  def sort_uber_and_lyft_prices(data)
     results = {uber: sort(data[:uber]),lyft: sort(data[:lyft])}
     
   end

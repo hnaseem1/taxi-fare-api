@@ -12,8 +12,8 @@ class PriceController < ApplicationController
   end_long = params[:elon]
   data = getdata(start_lat,start_long,end_lat,end_long)
 
-  render json: uber_lyft_data_sorter(getdata(start_lat,start_long,end_lat,end_long))
-  #uber_lyft_data_sorter(data) 
+  render json: getdata(start_lat,start_long,end_lat,end_long)
+  
 
   end
 end
