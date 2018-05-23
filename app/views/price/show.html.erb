@@ -7,6 +7,50 @@
 <br>
 <% end %>
 
+<!-- sorted -->
+
+<% uber_fare_types = [] %>
+<% @data[:uber].each do |option| %>
+
+	<% uber_fares = Hash.new %> 
+	<% uber_fares[:type] = option[:type] %>
+	<% uber_fares[:fare] = option[:fare] %>
+	<% uber_fares_types.push(uber_fares) %>
+<br>
+<br>
+<% end %>
+
+<% fare_prices = [] %> 
+<% uber_fare_types.each do |fare| %>
+	<% if fare[:fare] != nil %> 
+		<% fare_prices.push(fare[:fare]) %> 
+	<% end %> 
+<% end %>
+
+<% fare_prices = fare_prices.sort{|x,y| x <=> y} %>
+
+<% sorted_prices_ridetypes_uber = [] %>
+
+<% fare_prices.each do |price| %> 
+	<% @data[:uber].each do |fare| %> 
+		<% if fare[:fare] == price %> 
+			<% ride = Hash.new %> 
+			<% ride[:type] = fare[:type] %> 
+			<% ride[:price] = fare[:fare] %> 
+			<% sorted_prices_ridetypes_uber.push(ride) %> 
+		<% end %>
+	<% end %> 
+<% end %> 
+
+<h1> sorted</h1>
+
+<% sorted_prices_ridetypes_uber.each do |fare| %> 
+
+<%= fare[:type] %> : <%= fare[:price] %> 
+<% end %> 
+<!--  -->
+
+
 <% @data[:lyft].each do |option| %>
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>

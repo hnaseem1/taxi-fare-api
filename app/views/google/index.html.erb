@@ -189,6 +189,7 @@ div {
 <br>
 <% end %>
 
+
 <% @parsed_taxi_fare_response["lyft"].each do |option| %>
 <%= option["type"]  %> : <%= option["fare"]  %>  <%= option["currency"] %>
 <br>
