@@ -14,6 +14,10 @@
     </p>
 
     <p><%= submit_tag "Run Baby, RUN!!!", class: "submit"%></p>
+
+    <% if flash[:error] %>
+      <p><%= flash[:error] %></p>
+    <% end %>
   <% end %>
 <button type="button" id="showmap" name="button">show map</button>
 </div>
