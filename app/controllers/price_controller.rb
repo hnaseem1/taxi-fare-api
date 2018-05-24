@@ -10,8 +10,8 @@ class PriceController < ApplicationController
   end_long = params[:elon]
   data = getdata(start_lat,start_long,end_lat,end_long)
 
-  render json: getdata(start_lat,start_long,end_lat,end_long)
- 
+  render json: data
+
 
   end
 end

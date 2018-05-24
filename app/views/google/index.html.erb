@@ -1,6 +1,42 @@
+<style media="screen">
+  .modal {
+    display: none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 )
+                url('http://i.stack.imgur.com/FhHRx.gif')
+                50% 50%
+                no-repeat;
+  }
+
+  /* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+  body.loading .modal {
+    overflow: hidden;
+  }
+
+  /* Anytime the body has the loading class, our
+   modal element will be visible */
+  body.loading .modal {
+    display: block;
+  }
+</style>
+
+<div class="modal" id="loader">
+
+</div>
 
 <div class="search-field">
+<<<<<<< HEAD
   <%= form_tag(google_path, :method => "get" ) do %>
+=======
+  <%= form_tag(google_path, :method => "get") do %>
+    <h2>Start location</h2>
+>>>>>>> d19ddea760e0adac49f4cd0b9a6afce58bc27db6
     <p>
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Choose starting point", onFocus: "geolocate()", type:"text" %>
       <button type="button" name="button" id='get-location-data'>Get Location</button>
@@ -12,6 +48,10 @@
     </p>
 
     <p><%= submit_tag "Run Baby, RUN!!!", class: "submit"%></p>
+
+    <% if flash[:error] %>
+      <p><%= flash[:error] %></p>
+    <% end %>
   <% end %>
 </div>
 
@@ -19,8 +59,13 @@
 
 <script>
 
+  // setting up event listener on the start field for getting current location
+        var loader = document.getElementById('loader');
         var locationButton = document.getElementById('get-location-data')
         locationButton.addEventListener('click', function() {
+
+        // loader
+          // loader.style.display = "block";
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 myposition = position
@@ -29,19 +74,34 @@
                 lng: position.coords.longitude
                 };
 
+      // ajax call to google maps to find readible address from location data
+
               response = $.ajax({
                 url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
                 method: 'GET',
                 dataType: 'json'
               }).done(function(data) {
+
+                // loader disable
+
+                // loader.style.display = "none";
+
                 document.getElementById('autocomplete').value = response.responseJSON.results[0].formatted_address
-              })
+              });
+
             })
           }
         })
 
+    // setting up event listener on the destination field for getting current location
+
       var locationButton2 = document.getElementById('get-location-data2')
       locationButton2.addEventListener('click', function() {
+
+        // loader enabled
+
+        // loader.style.display = "block";
+
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
               myposition = position
@@ -50,13 +110,22 @@
               lng: position.coords.longitude
             };
 
+        // ajax call to google maps to find readible address from location data
+
             response = $.ajax({
               url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
               method: 'GET',
               dataType: 'json'
             }).done(function(data) {
               document.getElementById('autocomplete2').value = response.responseJSON.results[0].formatted_address
-            })
+              // loader disabled
+
+              // loader.style.display = "none";
+            });
+
+            var body = document.querySelector('body');
+            body.className = 'loading'
+
           })
         }
       })
@@ -65,6 +134,7 @@
 
         function initAutocomplete() {
           // Create the autocomplete object, restricting the search to geographical
+
           // location types.
 
           autocomplete2 = new google.maps.places.Autocomplete(
@@ -74,7 +144,8 @@
           autocomplete = new google.maps.places.Autocomplete(
               /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
               {types: ['geocode']});
-              initMap()
+
+              // initMap()
 
         }
 
@@ -110,22 +181,68 @@
                   }
                 });
               }
+
+        // finding geolocation
+
+
+
+        // setting up event listener on submit location Button
+
+          var submit = document.querySelector('.submit')
+          submit.addEventListener('click', function(event) {
+            loader.style.display = "block";
+            event.preventDefault();
+
+            // get start lat and lon using google API
+
+            var start_address = document.getElementById('autocomplete').value
+            var start_cordinates = $.ajax({
+              url: "https://maps.googleapis.com/maps/api/geocode/json?address="+start_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+              get: 'GET'
+            }).done(function() {
+
+              var start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
+              var start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
+              console.log('start location');
+
+            // get start lat and lon using google API
+
+                var end_address = document.getElementById('autocomplete2').value
+                var end_cordinates = $.ajax({
+                  url: "https://maps.googleapis.com/maps/api/geocode/json?address="+end_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+                  get: 'GET'
+
+                }).done(function() {
+
+                  var end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
+                  var end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
+                  console.log('end location');
+
+            // get the data from taxi-fare-api
+
+                  var response = $.ajax({
+
+                      url: 'http://localhost:3000/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
+                      method: 'GET',
+                      dataType: 'json',
+
+                  }).done(function(data) {
+
+                    console.log(data);
+
+                    // to enable maps
+
+                    initMap()
+
+                    loader.style.display = "none";
+
+                    // START CODING FOR THE DISPLAYING THE RESULTS ON THE DOM HERE!!
+
+                    })
+
+                  })
+              })
+
+            })
+
       </script>
-
-<% if @parsed_taxi_fare_response %>
-  <div class="results">
-    <% @parsed_taxi_fare_response[:uber].each do |option| %>
-      <h3><%= checktype(option["type"])  %></h3>
-      <p><%= option["fare"]  %>  <%= option["currency"] %></p>
-      <p>Travel time: <%= option["duration"]/60 %> minutes</p>
-    <% end %>
-    <% @parsed_taxi_fare_response[:lyft].each do |option| %>
-      <h3><%= option["type"]  %></h3>
-      <p><%= option["fare"]  %>  <%= option["currency"] %></p>
-      <p>Travel time: <%= option["duration"]/60 %> minutes</p>
-    <% end %>
-  </div>
-
-  <button type="button" name="button">Show destination</button>
-
-<% end %>

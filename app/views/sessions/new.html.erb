@@ -11,4 +11,8 @@
 
 		<%= f.submit 'login', class: "submit" %>
 	<% end %>
+
+	<% if flash[:error] %> 
+		<%= flash[:error] %> 
+	<% end %> 
 </div>

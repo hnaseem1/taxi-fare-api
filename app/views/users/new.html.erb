@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 <div class="form">
 	<%= form_for @user, url: user_path do |f| %>
 		<%= image_tag "/assets/icon_signup_dude.png", class: "icon_dude" %>
 		<p>
 			<%= f.text_field :first_name, placeholder: "First Name" %>
 		</p>
+=======
+<% if @user.errors.any? %>
+	<% @user.errors.full_messages.each do |msg| %> 
+		<%= msg %> 
+	<% end %>
+<% end %> 
+>>>>>>> d19ddea760e0adac49f4cd0b9a6afce58bc27db6
 
 		<p>
 			<%= f.text_field :last_name, placeholder: "Last Name" %>
@@ -31,6 +39,12 @@
 	<% end %>
 </div>
 
+<<<<<<< HEAD
+=======
+
+
+<% end %>
+>>>>>>> d19ddea760e0adac49f4cd0b9a6afce58bc27db6
 
 <!-- The video -->
 
