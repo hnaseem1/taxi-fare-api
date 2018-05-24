@@ -12,6 +12,6 @@ class UserMailer < ApplicationMailer
 		@user = user
 		@ride = ride
 
-		mail(to: @user.email. subject: "You took a ride to #{@ride.end_address}!")
+		mail(to: @user.email, subject: "You took a ride to #{@ride.end_address}!")
 	end
 end
