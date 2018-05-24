@@ -146,6 +146,7 @@
 
         }
 
+      // function to initiate maps with point a to point b
 
         function initMap() {
                 var directionsService = new google.maps.DirectionsService;
@@ -183,7 +184,7 @@
 
 
 
-        // setting up event listener on submit location Button
+          // setting up event listener on submit location Button
 
           var submit = document.querySelector('.submit')
           submit.addEventListener('click', function(event) {
@@ -202,7 +203,7 @@
               var start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
               console.log('start location');
 
-            // get start lat and lon using google API
+                // get start lat and lon using google API
 
                 var end_address = document.getElementById('autocomplete2').value
                 var end_cordinates = $.ajax({
@@ -215,7 +216,7 @@
                   var end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
                   console.log('end location');
 
-            // get the data from taxi-fare-api
+                // get the data from taxi-fare-api
 
                   var response = $.ajax({
 
