@@ -17,6 +17,10 @@ class UsersController < ApplicationController
 
   	if @user.save
       session[:user_id] = @user.id
+
+      ##calling the mailer method when the user is saved without errors
+      ##passing the user instance to the usermailer welcome_email method
+      UserMailer.welcome_email(@user).deliver_now
   		redirect_to user_path
   	else 
   		render :new 
