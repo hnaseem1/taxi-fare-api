@@ -54,9 +54,15 @@ class GoogleController < ApplicationController
 
         ride.save
 
-      end
-
       # if javascript gets disabled the app would still work using the controller method
+
+
+        ##email the user with the ride information. pass the ride instance to the mailer method
+        UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+
+      end 
+
+
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
 
 
