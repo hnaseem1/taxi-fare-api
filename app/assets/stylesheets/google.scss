@@ -63,11 +63,13 @@ body.loading .modal {
   }
 }
 
-.results {
+.result {
   padding: 1em;
+  color: #DDD;
 
   h3 {
     font-weight: 250;
+    padding: 1em;
   }
 
   p {
