@@ -55,7 +55,7 @@ body {
         display: inline-block;
         transition: all .5s ease-in-out;
       }
-  
+
       .menuitems:after {
         display:block;
         height: 1px;
@@ -114,6 +114,7 @@ body {
         left: 50px;
         font-size: 36px !important;
         margin-right: 50px;
+        opacity: 1;
         color:#fff;
         transition:background-position .3s;
       }
