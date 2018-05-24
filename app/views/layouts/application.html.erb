@@ -36,13 +36,11 @@
     // When the user clicks on the button, toggle between hiding and showing the dropdown content
 
     var nav   = document.querySelector("nav");
-    var main  = document.querySelector("#main");
     var menu  = document.querySelector(".menulist");
     var close = document.querySelector("#closebtn");
 
     //default to measure if/else from
     nav.style.height = "50px";
-    main.style.marginTop = "50px";
     for (i = 0; i < menu.length; i++){menu[i].style.marginTop="100px";};
 
     close.addEventListener("click", function(){

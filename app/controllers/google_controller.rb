@@ -33,14 +33,18 @@ class GoogleController < ApplicationController
 
 
 
-        if current_user
-          
-          @sl = sl
-          @slon = slon
-          @el = el
-          @elon = elon
-          @start_location = start_location
-          @end_location = end_location
+
+
+      if current_user
+
+
+        @sl = sl
+        @slon = slon
+        @el = el
+        @elon = elon
+        @start_location = start_location
+        @end_location = end_location
+
 
           ride = Ride.new
           ride.latitude_start = @sl
@@ -53,6 +57,8 @@ class GoogleController < ApplicationController
 
           ride.save
 
+      # if javascript gets disabled the app would still work using the controller method
+
 
           ##email the user with the ride information. pass the ride instance to the mailer method
           #UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
@@ -63,7 +69,8 @@ class GoogleController < ApplicationController
 
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
-       # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
+
+
     else
 
       # flash[:error] = 'Please Enter Something!'
