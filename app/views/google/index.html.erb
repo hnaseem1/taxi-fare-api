@@ -1,6 +1,6 @@
 
 <div class="search-field">
-  <%= form_tag(google_path, :method => "get" ) do %>
+  <%= form_tag(google_path, :method => "get") do %>
     <h2>Start location</h2>
     <p>
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>

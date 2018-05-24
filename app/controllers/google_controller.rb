@@ -18,10 +18,12 @@ class GoogleController < ApplicationController
 
         end_response = HTTParty.get(google_end_location)
         end_response_body = JSON.parse(end_response.body)
+
       rescue SocketError => e
-        print e 
+        print e
         return false
       end
+
       sl        =   start_response_body['results'][0]["geometry"]['location']['lat'].to_s
       slon      =   start_response_body['results'][0]["geometry"]['location']['lng'].to_s
       el        =   end_response_body['results'][0]["geometry"]['location']['lat'].to_s
@@ -29,8 +31,10 @@ class GoogleController < ApplicationController
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
-    else 
-      flash[:error] = 'You must give a start/end location'
+    else
+
+      # flash[:error] = 'Please Enter Something!'
+
     end
 
 
