@@ -36,6 +36,8 @@ class GoogleController < ApplicationController
         @slon = slon
         @el = el
         @elon = elon
+        @start_location = start_location
+        @end_location = end_location
 
         ride = Ride.new
         ride.latitude_start = @sl
@@ -43,7 +45,9 @@ class GoogleController < ApplicationController
         ride.latitude_end = @el
         ride.longitude_end = @elon
         ride.user_id = current_user.id
-        
+        ride.start_address = @start_location
+        ride.end_address = @end_location
+
         ride.save
 
       end 
