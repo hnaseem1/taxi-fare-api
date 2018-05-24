@@ -214,6 +214,8 @@
 
                   }).done(function(data) {
 
+//use "dt" on console to access the data from the request
+  dt = data
                     // to enable maps
                     initMap()
 
@@ -228,8 +230,13 @@
                       var fare = document.createElement("p")
                       var currency = document.createElement("p")
 
+                      if (data.uber[i].type === "TAXI") {
+                        currency.innerText = "Metered"
+                      }else {
+                        currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                      }
+
                       h3.innerText = data.uber[i].type
-                      currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
                       div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
                       div.style.border = "1px solid darkblue"
                       div.appendChild(h3)
