@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
 
   def sort_uber_and_lyft_prices(data)
     results = {uber: sort(data[:uber]),lyft: sort(data[:lyft])}
-    
+
   end
 
 
@@ -76,8 +76,8 @@ class ApplicationController < ActionController::Base
     results = []
     keysarry.sort.each do |k|
       results << new_hash[k]
-    end 
-    
+    end
+
     results
   end
 
