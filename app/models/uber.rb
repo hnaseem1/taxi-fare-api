@@ -24,15 +24,29 @@ class Uber < ApplicationRecord
 
           hash = {}
 
-          hash["type"]      = option["localized_display_name"]
+          if option["localized_display_name"] == 'POOL'
+
+            hash["type"]      = 'uberPOOL'
+
+          else
+
+            hash["type"]      = option["localized_display_name"]
+
+          end
+
           hash["distance"]  = option["distance"]
           fare              = option["estimate"].split("$")[1].split('-') if option["estimate"].split("$")[1]
+
           if fare
-            hash["fare"]    = (fare[0].to_i + fare[1].to_i) / 2
+
+            hash["fare"]      = (fare[0].to_i + fare[1].to_i) / 2
             hash["currency"]  = option["currency_code"]
+
           else
-            hash["fare"]    = 'Metered'
+
+            hash["fare"]      = 'Metered'
             hash["currency"]  = ''
+
           end
 
           hash["duration"]  = option["duration"]
