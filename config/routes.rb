@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
   # get 'reset/show'
-  # get 'reset/new'
+  #get 'reset/new'
   # get 'reset/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
 
   resource :sessions, only: [:new, :create, :destroy]
-  resource :reset, only: [:new, :show, :create]
+  resource :resets, only: [:new, :show, :create], controller: "reset"
 
   get '/price/show', to: 'price#show'
 end

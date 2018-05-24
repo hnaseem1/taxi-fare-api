@@ -1,3 +1,4 @@
 class Reset < ApplicationRecord
-	belongs to :user
+	belongs_to :user
+	validates :token, presence: true, uniqueness: true
 end

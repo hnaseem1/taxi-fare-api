@@ -1,2 +1,7 @@
 <h1>Reset#new</h1>
 <p>Find me in app/views/reset/new.html.erb</p>
+
+<%= form_for :reset, url: new_resets_path do |f| %> 
+	<%= f.text_field :email, placeholder: "Your Email" %> 
+	<%= f.submit 'Send reset link' %> 
+<% end %> 
