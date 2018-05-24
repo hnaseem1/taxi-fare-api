@@ -221,42 +221,92 @@
                     // to hide loading page
                     loader.style.display = "none";
 
-                    // to show the UBER rides
-                    var result = document.getElementById('div_result')
-                    for (var i = 0; i < data.uber.length; i++) {
-                      var div = document.createElement("div")
-                      var h3 = document.createElement("h3")
-                      var fare = document.createElement("p")
-                      var currency = document.createElement("p")
+                    // display all the results
+                    displayAll(data)
 
-                      h3.innerText = data.uber[i].type
-                      currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
-                      div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
-                      div.style.border = "1px solid darkblue"
-                      div.appendChild(h3)
-                      div.appendChild(currency)
-                      result.appendChild(div)
-                      }
+                    // Display lowest
+                    // displayInAscOrder(data)
 
-                      // to show the LYFT rides
+                    // Display only SUV
 
-                      for (var i = 0; i < data.lyft.length; i++) {
-                        var div = document.createElement("div")
-                        var h3 = document.createElement("h3")
-                        var fare = document.createElement("p")
-                        var currency = document.createElement("p")
-                        h3.innerText = data.lyft[i].type
-                        currency.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
-                        div.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
-                        div.style.border = "1px solid pink"
-                        div.appendChild(h3)
-                        div.appendChild(currency)
-                        result.appendChild(div)
-                        }
+
                     })
                   })
               })
 
             })
+
+
+            function displayAll(data) {
+              // to show the UBER rides
+              var result = document.getElementById('div_result')
+              for (var i = 0; i < data.uber.length; i++) {
+                var div = document.createElement("div")
+                var h3 = document.createElement("h3")
+                var fare = document.createElement("p")
+                var currency = document.createElement("p")
+
+                h3.innerText = data.uber[i].type
+                currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                div.style.border = "1px solid darkblue"
+                div.appendChild(h3)
+                div.appendChild(currency)
+                result.appendChild(div)
+                }
+
+                // to show the LYFT rides
+
+                for (var i = 0; i < data.lyft.length; i++) {
+                  var div = document.createElement("div")
+                  var h3 = document.createElement("h3")
+                  var fare = document.createElement("p")
+                  var currency = document.createElement("p")
+                  h3.innerText = data.lyft[i].type
+                  currency.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                  div.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
+                  div.style.border = "1px solid pink"
+                  div.appendChild(h3)
+                  div.appendChild(currency)
+                  result.appendChild(div)
+                }
+            }
+
+            function displayInAscOrder(data) {
+
+              var results = []
+
+
+              for (var i = 0; i < data.uber.length; i++) {
+                results.push(data.uber[i])
+              }
+
+              for (var i = 0; i < data.lyft.length; i++) {
+                results.push(data.lyft[i])
+              }
+
+              sorted_results = results.sort(function(a, b) {
+                return a.fare - b.fare
+              })
+
+              var result = document.getElementById('div_result')
+              for (var i = 0; i < sorted_results.length; i++) {
+
+                var div = document.createElement("div")
+                var h3 = document.createElement("h3")
+                var fare = document.createElement("p")
+                var currency = document.createElement("p")
+
+                h3.innerText = sorted_results[i].type
+                currency.innerText = "$ " + sorted_results[i].currency + " " + sorted_results[i].fare
+                div.classList.add("uber_ride", sorted_results[i].type.replace(/\s/g, ''))
+                div.style.border = "1px solid darkblue"
+                div.appendChild(h3)
+                div.appendChild(currency)
+                result.appendChild(div)
+
+              }
+
+          }
 
       </script>

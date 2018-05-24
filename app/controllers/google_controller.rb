@@ -34,6 +34,8 @@ class GoogleController < ApplicationController
 
 
       if current_user
+
+
         @sl = sl
         @slon = slon
         @el = el
@@ -52,10 +54,12 @@ class GoogleController < ApplicationController
 
         ride.save
 
-      end 
+      end
 
+      # if javascript gets disabled the app would still work using the controller method
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
-       # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
+
+
     else
 
       # flash[:error] = 'Please Enter Something!'
