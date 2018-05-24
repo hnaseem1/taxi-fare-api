@@ -191,8 +191,10 @@
 
                   }).done(function(data) {
 
+                    // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
+
                     // to enable maps
                     initMap()
 
@@ -204,7 +206,14 @@
 
                     // Display lowest
                     displayInAscOrder(data)
+
+
                     // Display only SUV
+                    // Display car for 4 people
+                    // Display car for 6 people
+                    // Display car for more than 6 people
+                    // Display only Pool Options
+
 
                   })
                 })
