@@ -2,18 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .new_session {
-
-  h2 {
-    background: rgba(1,1,1,0.45);
-    color: #DDD;
-    padding: 1.2em;
-  }
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
 
   background: rgba(1,1,1,0.5);
-  margin: auto auto 0 auto;
-  padding-bottom: 0.8em;
-  text-align: center;
-  width: 60%;
 
   p {
     margin: 0.5em;

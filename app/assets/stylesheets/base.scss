@@ -1,0 +1,77 @@
+
+html, body {
+  // background-image: url("dark_sky.jpeg");
+  background-color: #DDD;
+  background-repeat: none;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica, Arial, 'sans-serif';
+  height: 100vh;
+  width: 100%;
+
+
+  h2 {
+    background: rgba(1,1,1,0.45);
+    color: #DDD;
+    padding: 1.2em;
+    font-weight: 250;
+    text-transform: uppercase;
+  }
+
+  .icon_dude {
+    margin: 5em;
+    height: 200px;
+    width: auto;
+  }
+
+  nav {
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: #333;
+    padding: 1.5em;
+    font-size: 2.25em;
+
+    a {
+      text-decoration: none;
+      color: #EEE;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
+
+  p {
+    margin: 0.5em;
+    font-size: 0.75em;
+
+    input {
+      background-color: #CCC;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      margin-top: 0.5em;
+      text-align: center;
+      height: 3em;
+      width: 75%;
+    }
+  }
+
+
+
+  .submit {
+    background: #3C99F9;
+    border: none;
+    border-radius: 5px;
+    color: #EEE;
+    margin-top: 0.5em;
+    height: 2.5em;
+    width: 75%;
+    font-size: 1.25em;
+  }
+
+}

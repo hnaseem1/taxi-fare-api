@@ -2,18 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #map {
-        height: 70%;
-        width: 70%;
-        margin: 0 auto;
+  height: 70%;
+  width: 70%;
+  margin: 2em auto;
 }
 
-.input-field {
-  width: 40%;
-}
 
 .search-field {
-  padding: 1em;
+
+  background: rgba(1,1,1,0.5);
+  margin: 2em auto;
+  padding: 1.5em 0;
   text-align: center;
+  width: 80%;
+
+  p {
+    margin: 1.5em;
+
+    .input-field {
+     background-color: #CCC;
+     border: none;
+     border-radius: 5px;
+     height: 2em;
+    }
+
+    button {
+      background: #BBB;
+      border: none;
+      color: #EEE;
+      height: 2.25em;
+      width: 15%;
+    }
+  }
+
+  .submit {
+   height: 2.5em;
+   width: 30%;
+  }
 }
 
 .results {
