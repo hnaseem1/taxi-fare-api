@@ -147,6 +147,7 @@
 
           var submit = document.querySelector('.submit')
           submit.addEventListener('click', function(event) {
+
             var startField = document.getElementById('autocomplete').value
             var destinastionField = document.getElementById('autocomplete2').value
             if (startField && destinastionField) {
@@ -190,6 +191,8 @@
 
                   }).done(function(data) {
 
+                    $(".uber_ride").remove();
+                    $(".lyft_ride").remove();
                     // to enable maps
                     initMap()
 
