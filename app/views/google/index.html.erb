@@ -34,13 +34,13 @@
   <%= form_tag(google_path, :method => "get") do %>
     <h2>Start location</h2>
     <p>
-      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", type:"text" %>
       <button type="button" name="button" id='get-location-data'>Get Location</button>
     </p>
 
     <h2>Destination</h2>
     <p>
-      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", onFocus: "geolocate()", type:"text" %>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
       <button type="button" name="button" id='get-location-data2'>Get Location</button>
     </p>
 
