@@ -24,7 +24,11 @@ class UsersController < ApplicationController
   end
 
   def show
-	@user = current_user
+    @user = current_user
     @match = current_user.match
+
+    ##to show the statistics for the user
+    @user_rides = current_user.rides
+
   end
 end

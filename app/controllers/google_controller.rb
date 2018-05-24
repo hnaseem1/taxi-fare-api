@@ -27,6 +27,31 @@ class GoogleController < ApplicationController
       el        =   end_response_body['results'][0]["geometry"]['location']['lat'].to_s
       elon      =   end_response_body['results'][0]["geometry"]['location']['lng'].to_s
 
+      ##saving to the user/ride table
+
+
+
+      if current_user
+        @sl = sl
+        @slon = slon
+        @el = el
+        @elon = elon
+        @start_location = start_location
+        @end_location = end_location
+
+        ride = Ride.new
+        ride.latitude_start = @sl
+        ride.longitude_start = @slon
+        ride.latitude_end = @el
+        ride.longitude_end = @elon
+        ride.user_id = current_user.id
+        ride.start_address = @start_location
+        ride.end_address = @end_location
+
+        ride.save
+
+      end 
+
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")
     else 
