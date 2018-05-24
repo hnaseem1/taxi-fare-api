@@ -54,6 +54,10 @@
 
 <div id="map" style="display: none"></div>
 
+<div class="result" id="div_result">
+
+</div>
+
 <script>
 
   // setting up event listener on the start field for getting current location
@@ -61,8 +65,6 @@
         var locationButton = document.getElementById('get-location-data')
         locationButton.addEventListener('click', function() {
 
-        // loader
-          // loader.style.display = "block";
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 myposition = position
@@ -79,9 +81,6 @@
                 dataType: 'json'
               }).done(function(data) {
 
-                // loader disable
-
-                // loader.style.display = "none";
 
                 document.getElementById('autocomplete').value = response.responseJSON.results[0].formatted_address
               });
@@ -94,10 +93,6 @@
 
       var locationButton2 = document.getElementById('get-location-data2')
       locationButton2.addEventListener('click', function() {
-
-        // loader enabled
-
-        // loader.style.display = "block";
 
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -115,14 +110,8 @@
               dataType: 'json'
             }).done(function(data) {
               document.getElementById('autocomplete2').value = response.responseJSON.results[0].formatted_address
-              // loader disabled
 
-              // loader.style.display = "none";
             });
-
-            var body = document.querySelector('body');
-            body.className = 'loading'
-
           })
         }
       })
@@ -226,18 +215,45 @@
 
                   }).done(function(data) {
 
-                    console.log(data);
-
                     // to enable maps
-
                     initMap()
 
+                    // to hide loading page
                     loader.style.display = "none";
 
-                    // START CODING FOR THE DISPLAYING THE RESULTS ON THE DOM HERE!!
+                    // to show the UBER rides
+                    var result = document.getElementById('div_result')
+                    for (var i = 0; i < data.uber.length; i++) {
+                      var div = document.createElement("div")
+                      var h3 = document.createElement("h3")
+                      var fare = document.createElement("p")
+                      var currency = document.createElement("p")
 
+                      h3.innerText = data.uber[i].type
+                      currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                      div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                      div.style.border = "1px solid darkblue"
+                      div.appendChild(h3)
+                      div.appendChild(currency)
+                      result.appendChild(div)
+                      }
+
+                      // to show the LYFT rides
+
+                      for (var i = 0; i < data.lyft.length; i++) {
+                        var div = document.createElement("div")
+                        var h3 = document.createElement("h3")
+                        var fare = document.createElement("p")
+                        var currency = document.createElement("p")
+                        h3.innerText = data.lyft[i].type
+                        currency.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                        div.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
+                        div.style.border = "1px solid pink"
+                        div.appendChild(h3)
+                        div.appendChild(currency)
+                        result.appendChild(div)
+                        }
                     })
-
                   })
               })
 
