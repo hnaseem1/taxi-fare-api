@@ -52,7 +52,7 @@ class GoogleController < ApplicationController
 
         ride.save
 
-      end 
+      end
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")

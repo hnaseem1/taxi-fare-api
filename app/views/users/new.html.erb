@@ -1,41 +1,44 @@
-<% if @user.errors.any? %>
-	<% @user.errors.full_messages.each do |msg| %> 
-		<%= msg %> 
+<div class="form">
+	<%= form_for @user, url: user_path do |f| %>
+		<%= image_tag "/assets/icon_signup_dude.png", class: "icon_dude" %>
+		<p>
+			<%= f.text_field :first_name, placeholder: "First Name" %>
+		</p>
+
+		<p>
+			<% if @user.errors.any? %>
+				<% @user.errors.full_messages.each do |msg| %>
+					<%= msg %>
+				<% end %>
+			<% end %>
+		</p>
+
+		<p>
+			<%= f.text_field :last_name, placeholder: "Last Name" %>
+		</p>
+
+		<p>
+			<%= f.text_field :email, placeholder: "Email" %>
+		</p>
+
+		<p>
+			<%= f.password_field :password, placeholder: "password" %>
+		</p>
+
+		<p>
+			<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
+		</p>
+
+		<p>
+			<%= f.label :match %>
+			<%= f.check_box :match %>
+		</p>
+
+		<%= f.submit 'Sign up', class: "submit" %>
+
 	<% end %>
-<% end %> 
+</div>
 
-<%= form_for @user, url: user_path do |f| %>
-	<h2>Sign Up</h2>
-	<p>
-		<%= f.text_field :first_name, placeholder: "First Name" %>
-	</p>
-
-	<p>
-		<%= f.text_field :last_name, placeholder: "Last Name" %>
-	</p>
-
-	<p>
-		<%= f.text_field :email, placeholder: "Email" %>
-	</p>
-
-	<p>
-		<%= f.password_field :password, placeholder: "password" %>
-	</p>
-
-	<p>
-		<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
-	</p>
-
-	<p>
-		<%= f.label :match %>
-		<%= f.check_box :match %>
-	</p>
-
-	<%= f.submit 'Sign up', class: "submit" %>
-
-
-
-<% end %>
 
 <!-- The video -->
 
@@ -64,4 +67,3 @@ function myFunction() {
 		}
 }
 </script> -->
-
