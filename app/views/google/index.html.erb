@@ -31,12 +31,7 @@
 </div>
 
 <div class="search-field">
-<<<<<<< HEAD
   <%= form_tag(google_path, :method => "get" ) do %>
-=======
-  <%= form_tag(google_path, :method => "get") do %>
-    <h2>Start location</h2>
->>>>>>> d19ddea760e0adac49f4cd0b9a6afce58bc27db6
     <p>
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Choose starting point", onFocus: "geolocate()", type:"text" %>
       <button type="button" name="button" id='get-location-data'>Get Location</button>
