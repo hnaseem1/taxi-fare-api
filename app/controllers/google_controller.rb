@@ -52,10 +52,12 @@ class GoogleController < ApplicationController
 
         ride.save
 
+
         ##email the user with the ride information. pass the ride instance to the mailer method
         UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
 
       end 
+
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
        # taxi_fare_response = HTTParty.get("http://localhost:3000/price/show?sl=#{sl}&slon=#{slon}&el=#{el}&elon=#{elon}")

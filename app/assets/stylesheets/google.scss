@@ -1,30 +1,86 @@
 // Place all the styles related to the Google controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#map {
-        height: 70%;
-        width: 70%;
-        margin: 0 auto;
+
+// loader
+.modal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+              url('http://i.stack.imgur.com/FhHRx.gif')
+              50% 50%
+              no-repeat;
 }
 
-.input-field {
-  width: 40%;
+/* When the body has the loading class, we turn
+ the scrollbar off with overflow:hidden */
+body.loading .modal {
+  overflow: hidden;
 }
 
+/* Anytime the body has the loading class, our
+ modal element will be visible */
+body.loading .modal {
+  display: block;
+}
+
+// form for starting location and end destination
 .search-field {
-  padding: 1em;
+
+  background: rgba(1,1,1,0.5);
+  margin: 2em auto;
+  padding: 1.5em 0;
   text-align: center;
+  width: 80%;
+
+  p {
+    margin: 1.5em;
+
+    .input-field {
+     background-color: #CCC;
+     border: none;
+     border-radius: 5px;
+     height: 2em;
+    }
+
+    button {
+      background: #BBB;
+      border: none;
+      color: #EEE;
+      height: 2.25em;
+      width: 15%;
+    }
+  }
+
+  .submit {
+   height: 2.5em;
+   width: 30%;
+  }
 }
 
-.results {
+.result {
   padding: 1em;
+  color: #DDD;
 
   h3 {
     font-weight: 250;
+    padding: 1em;
   }
 
   p {
     font-size: 0.75em;
     margin: 1.5em;
   }
+}
+
+#map {
+  width: 70%;
+  height: 45%;
+
+  margin: 0 10em;
 }

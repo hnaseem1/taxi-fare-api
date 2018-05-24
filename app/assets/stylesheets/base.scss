@@ -1,0 +1,152 @@
+
+html, body {
+  // background-image: url("dark_sky.jpeg");
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgba(1,1,1,0.5);
+  font-family: Helvetica, Arial, 'sans-serif';
+  height: 100vh;
+  width: 100%;
+
+
+  h2 {
+    background: rgba(1,1,1,0.45);
+    color: #DDD;
+    padding: 1.2em;
+    font-weight: 250;
+    text-transform: uppercase;
+  }
+
+  .icon_dude {
+    margin: 5em;
+    height: 200px;
+    width: auto;
+  }
+
+  nav {
+    background-color: #000040;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 1em;
+    font-size: 2.25em;
+    transition: all 0.4s ease-in-out;
+
+    .menulist {
+      // display: none;
+      margin: 0;
+      text-align: center;
+
+      a {
+        color: #EEE;
+        margin-left: 5px;
+        margin-right: 5px;
+
+        text-decoration: none;
+        list-style: none;
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        display: inline-block;
+        transition: all .5s ease-in-out;
+      }
+
+      .menuitems:after {
+        display:block;
+        height: 1px;
+        background: #fff;
+        transition: width .2s;
+      }
+
+      .menuitems:hover::after {
+        width:100%;
+      }
+    }
+
+
+    .hamburger {
+      width: 50px;
+      height: auto;
+
+      // hamburger rotation animation
+
+      .line1, .line2, .line3 {
+        margin-top:5px;
+        background-color:#fff;
+        width:25px;
+        height:3px;
+        display:block;
+        position:relative;
+        opacity:1.0;
+        border-radius:15%;
+        transition: all .3s;
+      }
+
+      .line1:active {
+        transform: rotate(270deg);
+        opacity: 0;
+        background-color: yellow;
+        top: 5px;
+      }
+
+      .line2:active {
+        transform: rotate(45deg);
+        background-color: yellow;
+      }
+
+      .line3:active {
+        transform: rotate(-45deg);
+        background-color: yellow;
+        top:-7px;
+      }
+  //
+      #closebtn {
+        height:25px;
+        width:25px;
+        position: absolute;
+        text-decoration:none;
+        top: 35px;
+        left: 50px;
+        font-size: 36px !important;
+        margin-right: 50px;
+        opacity: 1;
+        color:#fff;
+        transition:background-position .3s;
+      }
+
+    }
+
+  }
+
+  p {
+    margin: 0.5em;
+    font-size: 0.75em;
+
+    input {
+      background-color: #CCC;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      margin-top: 0.5em;
+      text-align: center;
+      height: 3em;
+      width: 75%;
+    }
+  }
+
+
+
+  .submit {
+    background: #3C99F9;
+    border: none;
+    border-radius: 5px;
+    color: #EEE;
+    margin-top: 0.5em;
+    height: 2.5em;
+    width: 75%;
+    font-size: 1.25em;
+  }
+
+}

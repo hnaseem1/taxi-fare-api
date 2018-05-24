@@ -8,20 +8,78 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <br>
   <header>
     <nav>
-      <%= link_to 'home', root_path %>
-      <% if current_user %>
-        | <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %> | <%= link_to 'log out', sessions_path("current"), method: :delete %>
-      <% else %>
-        | <%= link_to 'log in', new_sessions_path %> | <%= link_to 'create account', new_user_path %>
-      <% end %>
+      <div class="hamburger">
+        <span id="closebtn" type="button">
+          <span class="line1"></span>
+          <span class="line2"></span>
+          <span class="line3"></span>
+        </span>
+      </div>
+      <div class="menulist">
+        <%= link_to 'home', root_path %>
+        <% if current_user %>
+          | <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %> | <%= link_to 'log out', sessions_path("current"), method: :delete %>
+        <% else %>
+          | <%= link_to 'log in', new_sessions_path %> | <%= link_to 'create account', new_user_path %>
+        <% end %>
+      </div>
     </nav>
   </header>
   <body>
     <%= yield %>
   </body>
+
+  <script>
+
+    // When the user clicks on the button, toggle between hiding and showing the dropdown content
+
+    var nav   = document.querySelector("nav");
+    var main  = document.querySelector("#main");
+    var menu  = document.querySelector(".menulist");
+    var close = document.querySelector("#closebtn");
+
+    //default to measure if/else from
+    nav.style.height = "50px";
+    main.style.marginTop = "50px";
+    for (i = 0; i < menu.length; i++){menu[i].style.marginTop="100px";};
+
+    close.addEventListener("click", function(){
+      var menuIcon = close.children;
+      for (i = 0; i < menuIcon.length; i++){
+        menuIcon[i].classList.toggle("active");
+      }
+      menu.style.display = "block";
+
+      //to close
+    	if (nav.style.height <= "275px") {
+      	nav.style.height = "50px";
+      	main.style.marginTop = "50px";
+
+
+      	for (var i = 0; i < menu.length; i++){
+      	menu[i].style.opacity="0.0";
+      	menu[i].style.marginTop="100px";
+      	};
+
+    	}
+    	//to open
+    	else if (nav.style.height <= "50px") {
+      	nav.style.height = "275px";
+      	main.style.marginTop = "275px";
+
+      	for (var i = 0; i < menu.length; i++){
+      	menu[i].style.opacity="1.0";
+      	menu[i].style.marginTop="0px";
+    	  };
+    	}
+    });
+
+    function navToggle() {
+
+    };
+  </script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"
       async defer></script>

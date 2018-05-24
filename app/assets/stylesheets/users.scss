@@ -1,45 +1,81 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.new_user {
+
+// Signup form
+.form {
+  margin: 0 auto;
   text-align: center;
 
-  p {
-    margin: 0.5em;
-    font-size: 0.75em;
+
+  .new_user {
+
+    height: 100%;
+    margin: 0 auto;
+
+    p {
+      margin: 0.5em;
+      font-size: 0.75em;
+
+      input {
+        background-color: #CCC;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        margin-top: 0.5em;
+        text-align: center;
+        height: 3em;
+        width: 75%;
+      }
+
+      #user_first_name {
+        margin: 0;
+      }
+
+      #user_match {
+        height: 1.5em;
+      }
+    }
+
+    p:nth-child(9) {
+      font-size: 1.5em;
+    }
+
   }
-}
-// Style the video: 100% width and height to cover the entire window
-#myVideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-}
 
-// Add some content at the bottom of the video/page
-.content {
-    position: fixed;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #f1f1f1;
-    width: 100%;
-    padding: 20px;
-}
 
-// Style the button used to pause/play the video
-#myBtn {
-    width: 200px;
-    font-size: 18px;
-    padding: 10px;
-    border: none;
-    background: #000;
-    color: #fff;
-    cursor: pointer;
-}
-
-#myBtn:hover {
-    background: #ddd;
-    color: black;
+  // Style the video: 100% width and height to cover the entire window
+  #myVideo {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
   }
+
+  // Add some content at the bottom of the video/page
+  .content {
+      position: fixed;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: #f1f1f1;
+      width: 100%;
+      padding: 20px;
+  }
+
+  // Style the button used to pause/play the video
+  #myBtn {
+      width: 200px;
+      font-size: 18px;
+      padding: 10px;
+      border: none;
+      background: #000;
+      color: #fff;
+      cursor: pointer;
+  }
+
+  #myBtn:hover {
+      background: #ddd;
+      color: black;
+    }
+}
