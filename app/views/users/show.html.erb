@@ -5,3 +5,13 @@
 <% else %>
 	<p>You have not authorized being matched with other users for pooling rides</p>
 <% end %> 
+
+<% if @user_rides %> 
+	<% @user_rides.each do |ride| %> 
+		<ul>
+			<li>From: <%= ride.start_address %></li>
+			<li>To: <%= ride.end_address %></li>
+			<li></li>
+		</ul>
+	<% end %> 
+<% end %> 
