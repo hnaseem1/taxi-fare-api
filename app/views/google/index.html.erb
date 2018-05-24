@@ -147,6 +147,11 @@
 
           var submit = document.querySelector('.submit')
           submit.addEventListener('click', function(event) {
+            var startField = document.getElementById('autocomplete').value
+            var destinastionField = document.getElementById('autocomplete2').value
+            if (startField && destinastionField) {
+
+
             loader.style.display = "block";
             event.preventDefault();
 
@@ -185,69 +190,23 @@
 
                   }).done(function(data) {
 
-//use "dt" on console to access the data from the request
-  dt = data
                     // to enable maps
                     initMap()
 
                     // to hide loading page
                     loader.style.display = "none";
 
-
                     // display all the results
-                    displayAll(data)
+                    // displayAll(data)
 
                     // Display lowest
-                    // displayInAscOrder(data)
-
+                    displayInAscOrder(data)
                     // Display only SUV
 
-
-                    // to show the UBER rides
-                    var result = document.getElementById('div_result')
-                    for (var i = 0; i < data.uber.length; i++) {
-                      var div = document.createElement("div")
-                      var h3 = document.createElement("h3")
-                      var fare = document.createElement("p")
-                      var currency = document.createElement("p")
-
-                      if (data.uber[i].type === "TAXI") {
-                        currency.innerText = "Metered"
-                      }else {
-                        currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
-                      }
-
-                      h3.innerText = data.uber[i].type
-                      div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
-                      div.style.border = "1px solid darkblue"
-                      div.appendChild(h3)
-                      div.appendChild(currency)
-                      result.appendChild(div)
-                      }
-
-                      // to show the LYFT rides
-
-                      for (var i = 0; i < data.lyft.length; i++) {
-                        var div = document.createElement("div")
-                        var h3 = document.createElement("h3")
-                        var fare = document.createElement("p")
-                        var currency = document.createElement("p")
-                        h3.innerText = data.lyft[i].type
-                        currency.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
-                        div.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
-                        div.style.border = "1px solid pink"
-                        div.appendChild(h3)
-                        div.appendChild(currency)
-                        result.appendChild(div)
-                        }
-
-                    })
                   })
+                })
               })
-
-            })
-
-
+            }})
 
             function displayAll(data) {
               // to show the UBER rides
@@ -322,5 +281,3 @@
           }
 
       </script>
-
-
