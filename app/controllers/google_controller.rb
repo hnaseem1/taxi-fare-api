@@ -33,6 +33,8 @@ class GoogleController < ApplicationController
 
 
 
+
+
       if current_user
 
 
@@ -43,24 +45,27 @@ class GoogleController < ApplicationController
         @start_location = start_location
         @end_location = end_location
 
-        ride = Ride.new
-        ride.latitude_start = @sl
-        ride.longitude_start = @slon
-        ride.latitude_end = @el
-        ride.longitude_end = @elon
-        ride.user_id = current_user.id
-        ride.start_address = @start_location
-        ride.end_address = @end_location
 
-        ride.save
+          ride = Ride.new
+          ride.latitude_start = @sl
+          ride.longitude_start = @slon
+          ride.latitude_end = @el
+          ride.longitude_end = @elon
+          ride.user_id = current_user.id
+          ride.start_address = @start_location
+          ride.end_address = @end_location
+
+          ride.save
 
       # if javascript gets disabled the app would still work using the controller method
 
 
-        ##email the user with the ride information. pass the ride instance to the mailer method
-        UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+          ##email the user with the ride information. pass the ride instance to the mailer method
+          #UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+        else 
+          p 'something wrong'
 
-      end 
+        end 
 
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
@@ -71,9 +76,6 @@ class GoogleController < ApplicationController
       # flash[:error] = 'Please Enter Something!'
 
     end
-
-
-
   end
 
   private
