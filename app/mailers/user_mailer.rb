@@ -21,4 +21,9 @@ class UserMailer < ApplicationMailer
 		@reset_url = reset_url
 		mail(to: @user.email, subject: "#{@user.first_name}, here is your password reset link")
 	end
+
+	def password_reset_success_email(user)
+		@user = user
+		mail(to:@user.email, subject: "#{@user.first_name}, you just successfully reset your password!")
+	end
 end
