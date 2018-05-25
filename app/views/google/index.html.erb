@@ -33,6 +33,7 @@
 
 		<div class="filter-criteria">
 			<span>Capacity</span>
+
 			<label><input type="checkbox" name="capacity" value="2">2</label>
       <label><input type="checkbox" name="capacity" value="2">4</label>
       <label><input type="checkbox" name="capacity" value="2">6</label>
@@ -231,6 +232,9 @@
                     // Display car for more than 6 people
                     // Display only Pool Options
 
+                    var filters = document.querySelector('.filters');
+
+                    filters.style.display = "block";
 
                   })
                 })
