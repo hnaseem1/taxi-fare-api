@@ -12,8 +12,7 @@ class ResetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    skip
-    get reset_url
+    post resets_path(reset: {email: 'someemail'})
     assert_response :success
   end
 
