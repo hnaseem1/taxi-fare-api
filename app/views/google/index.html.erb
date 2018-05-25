@@ -222,7 +222,7 @@
                     // displayAll(data)
 
                     // Display lowest
-                    displayInAscOrder(data)
+                    // displayInAscOrder(data)
 
 
                     // Display only SUV
@@ -234,27 +234,89 @@
                     var filters = document.querySelector('.filters');
                     filters.style.display = "block";
 
+                    var result = document.getElementById('div_result')
+
                     var capacity2 = document.querySelector("input[value='2']");
-
-                    var capacity4 = document.querySelector("input[value='4']");
-
-                    var capacity6 = document.querySelector("input[value='6']");
-
                     capacity2.addEventListener('change', function(e) {
                       if (this.checked) {
                         console.log(e);
+
+                        result.classList.remove('hidden');
+
+                        for (var i = 0; i < data.uber.length; i++) {
+                          var div       = document.createElement("div")
+                          var h3        = document.createElement("h3")
+                          var fare      = document.createElement("p")
+                          var currency  = document.createElement("p")
+
+                          if (data.uber[i].capacity == 4) {
+                            h3.innerText  = data.uber[i].type
+                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                            div.style.border = "1px solid darkblue"
+                            div.appendChild(h3)
+                            div.appendChild(currency)
+                            result.appendChild(div)
+                          }
+                        }
+                      } else {
+                        result.classList.add('hidden');
                       }
                     })
 
+                    var capacity4 = document.querySelector("input[value='4']");
                     capacity4.addEventListener('change', function(e) {
                       if (this.checked) {
                         console.log(e);
+
+                        result.classList.remove('hidden');
+
+                        for (var i = 0; i < data.uber.length; i++) {
+                          var div       = document.createElement("div")
+                          var h3        = document.createElement("h3")
+                          var fare      = document.createElement("p")
+                          var currency  = document.createElement("p")
+
+                          if (data.uber[i].capacity == 4) {
+                            h3.innerText  = data.uber[i].type
+                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                            div.style.border = "1px solid darkblue"
+                            div.appendChild(h3)
+                            div.appendChild(currency)
+                            result.appendChild(div)
+                          }
+                        }
+                      } else {
+                        result.classList.add('hidden');
                       }
                     })
 
+                    var capacity6 = document.querySelector("input[value='6']");
                     capacity6.addEventListener('change', function(e) {
                       if (this.checked) {
                         console.log(e);
+
+                        result.classList.remove('hidden');
+
+                        for (var i = 0; i < data.uber.length; i++) {
+                          var div       = document.createElement("div")
+                          var h3        = document.createElement("h3")
+                          var fare      = document.createElement("p")
+                          var currency  = document.createElement("p")
+
+                          if (data.uber[i].capacity == 4) {
+                            h3.innerText  = data.uber[i].type
+                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                            div.style.border = "1px solid darkblue"
+                            div.appendChild(h3)
+                            div.appendChild(currency)
+                            result.appendChild(div)
+                          }
+                        }
+                      } else {
+                        result.classList.add('hidden');
                       }
                     })
 
