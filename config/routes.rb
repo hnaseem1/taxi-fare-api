@@ -24,4 +24,5 @@ Rails.application.routes.draw do
 
 
   get '/price/show', to: 'price#show'
+
 end

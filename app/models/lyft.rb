@@ -2,7 +2,6 @@ class Lyft < ApplicationRecord
 
   def self.get(start_lat,start_long,end_lat,end_long)
 
-    # key for third-party api
     lyft_key = ENV['LYFT_KEY']
 
     # end point to GET price estimates
@@ -34,6 +33,8 @@ class Lyft < ApplicationRecord
 
         hash["duration"]  = option["estimated_duration_seconds"]
 
+        hash["ETA"]       = Lyft.get_eta(start_lat, start_long, hash["type"])
+
         data_array.push(hash)
 
       end
@@ -47,6 +48,40 @@ class Lyft < ApplicationRecord
     # returning the required data in a form of meaningful data structure defined above
     return data_array
 
+  end
+
+  # a method that talks to another api for getting ETA
+  def self.get_eta(start_lat, start_long, type)
+
+    # key for third-party api
+    lyft_eta_key = ENV['LYFT_ETA_KEY']
+
+    # endpoint
+    api_endpoint = "https://api.lyft.com/v1/eta?lat=#{start_lat}&lng=#{start_long}"
+
+    # response for ETA
+    response = HTTParty.get(api_endpoint, headers: {"Authorization" => "Bearer #{lyft_eta_key}"})
+
+    # parsing data
+    eta_data = JSON.parse(response.body)
+
+    # finding the correct eta
+    if eta_data["eta_estimates"]
+
+      eta_data["eta_estimates"].each do |option|
+
+        if option["display_name"] == type
+
+          return option["eta_seconds"]
+
+        end
+      end
+    else
+
+    # throws an error if something goes wrong
+        return "ETA Unavailable"
+
+    end
   end
 
 end
