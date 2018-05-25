@@ -1,9 +1,10 @@
 
 html, body {
-  // background-image: url("dark_sky.jpeg");
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  background-image: url("dark_sky.jpeg");
+  background-repeat: none;
 }
 
 body {
@@ -36,32 +37,31 @@ body {
     transition: all 0.4s ease-in-out;
 
     .menulist {
-      // display: none;
+      display: none;
       margin: 0;
-      text-align: center;
+      transition: .2s ease-in-out;
 
       a {
         color: #EEE;
-        margin-left: 5px;
-        margin-right: 5px;
+        display: block;
 
         text-decoration: none;
         list-style: none;
         font-family: "Lato", sans-serif;
         font-weight: 300;
-        display: inline-block;
         transition: all .5s ease-in-out;
+        padding: 10px 0;
       }
 
-      .menuitems:after {
-        display:block;
-        height: 1px;
-        background: #fff;
+      a:after {
         transition: width .2s;
       }
 
-      .menuitems:hover::after {
-        width:100%;
+      a:hover {
+        width: 100%;
+
+        transition: underline .2s;
+        text-decoration: underline;
       }
     }
 
@@ -112,10 +112,19 @@ body {
         font-size: 36px !important;
         margin-right: 50px;
         opacity: 1;
-        color:#fff;
+        color: #fff;
+        cursor: pointer;
         transition:background-position .3s;
       }
 
+    }
+
+    #main {
+      transition: margin-top .4s;
+      text-align:center;
+      margin:auto;
+      padding: 16px;
+      font-size:30px;
     }
 
   }

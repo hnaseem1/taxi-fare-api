@@ -20,10 +20,14 @@
       <div class="menulist">
         <%= link_to 'home', root_path %>
         <% if current_user %>
-          | <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %> | <%= link_to 'log out', sessions_path("current"), method: :delete %>
+          <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %>
+          <%= link_to 'log out', sessions_path("current"), method: :delete %>
         <% else %>
-          | <%= link_to 'log in', new_sessions_path %> | <%= link_to 'create account', new_user_path %>
+          <%= link_to 'log in', new_sessions_path %>
+          <%= link_to 'create account', new_user_path %>
         <% end %>
+      </div>
+      <div id="main">
       </div>
     </nav>
   </header>
@@ -37,21 +41,26 @@
 
     var nav   = document.querySelector("nav");
     var menu  = document.querySelector(".menulist");
+    var main = document.getElementById("main");
     var close = document.querySelector("#closebtn");
 
     //default to measure if/else from
     nav.style.height = "50px";
-    for (i = 0; i < menu.length; i++){menu[i].style.marginTop="100px";};
+    main.style.marginTop = "50px";
 
     close.addEventListener("click", function(){
       var menuIcon = close.children;
       for (i = 0; i < menuIcon.length; i++){
         menuIcon[i].classList.toggle("active");
       }
-      menu.style.display = "block";
+
 
       //to close
-    	if (nav.style.height <= "275px") {
+    	if (nav.style.height <= "225px") {
+        // make menulist disappear
+        menu.style.display = "none";
+
+        // nav height decreases
       	nav.style.height = "50px";
       	main.style.marginTop = "50px";
 
@@ -64,8 +73,14 @@
     	}
     	//to open
     	else if (nav.style.height <= "50px") {
-      	nav.style.height = "275px";
+        // make menulist appear
+        menu.style.display = "block";
+
+        // nav height increases
+      	nav.style.height = "225px";
       	main.style.marginTop = "275px";
+
+
 
       	for (var i = 0; i < menu.length; i++){
       	menu[i].style.opacity="1.0";

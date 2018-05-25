@@ -63,6 +63,14 @@ body.loading .modal {
   }
 }
 
+#map {
+  width: 70%;
+  height: 45%;
+
+  margin: 0 10em;
+}
+
+// results section to make each result into a cards that appear as a grid
 .result {
   padding: 1em;
   color: #DDD;
@@ -76,11 +84,4 @@ body.loading .modal {
     font-size: 0.75em;
     margin: 1.5em;
   }
-}
-
-#map {
-  width: 70%;
-  height: 45%;
-
-  margin: 0 10em;
 }
