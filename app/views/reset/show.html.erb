@@ -1,0 +1,8 @@
+<h1>Reset#show</h1>
+<%= form_for :reset, url: pass_reset_success_path do |f| %> 
+	<%= f.text_field :token, placeholder: "your reset token" %> 
+	<%= f.password_field :password, placeholder: "new password" %>
+	<%= f.password_field :password_confirmation, placeholder: "confirm password" %> 
+	<%= f.submit 'change password' %> 
+
+<% end %> 

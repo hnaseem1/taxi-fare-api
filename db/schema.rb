@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_24_154009) do
+ActiveRecord::Schema.define(version: 2018_05_24_212740) do
+
+  create_table "resets", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "rides", force: :cascade do |t|
     t.float "latitude_start"
