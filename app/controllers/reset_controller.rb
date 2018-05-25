@@ -41,7 +41,9 @@ class ResetController < ApplicationController
         
         if change_user_pass.save
           @reset_instance.token = "User Already Used This Token"
+
           @reset_instance.save
+          UserMailer.password_reset_success_email(change_user_pass).deliver_now
         end
 
         redirect_to new_sessions_path
