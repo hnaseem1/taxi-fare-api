@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ResetControllerTest < ActionDispatch::IntegrationTest
+class ResetsControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
     get pass_reset_path
     assert_response :success
