@@ -57,7 +57,7 @@ class Uber < ApplicationRecord
 
       else
 
-        data_array[0] = "UNVALID PARAMS"
+        data_array[0] = "INVALID PARAMS"
 
       end
 

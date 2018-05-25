@@ -4,8 +4,8 @@ class GoogleController < ApplicationController
 
     if params[:start_location] && params[:end_location] && !params[:start_location].blank? && !params[:end_location].blank?
 
-      start_location= params[:start_location]
-      end_location= params[:end_location]
+      start_location  = params[:start_location]
+      end_location    = params[:end_location]
 
       google_start_location = getMapsLocation(start_location)
       google_end_location   = getMapsLocation(end_location)
@@ -13,11 +13,11 @@ class GoogleController < ApplicationController
   # &components=country:CA
 
       begin
-        start_response = HTTParty.get(google_start_location)
-        start_response_body = JSON.parse(start_response.body)
+        start_response        = HTTParty.get(google_start_location)
+        start_response_body   = JSON.parse(start_response.body)
 
-        end_response = HTTParty.get(google_end_location)
-        end_response_body = JSON.parse(end_response.body)
+        end_response        = HTTParty.get(google_end_location)
+        end_response_body   = JSON.parse(end_response.body)
 
       rescue SocketError => e
         print e
@@ -62,10 +62,10 @@ class GoogleController < ApplicationController
 
           ##email the user with the ride information. pass the ride instance to the mailer method
           #UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
-        else 
+        else
           p 'something wrong'
 
-        end 
+        end
 
 
       @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
