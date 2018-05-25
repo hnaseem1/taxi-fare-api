@@ -28,7 +28,24 @@ class ResetController < ApplicationController
   end
 
   def reset_pass
-    @token = params[:reset][:token]
-    byebug
+    @token = params[:reset][:token]  
+    @reset_instance = Reset.find_by(token: @token)
+    @password = params[:reset][:password]
+    @user = @reset_instance.user_id
+
+    if @token
+      if  @user == @reset_instance.user_id
+        change_user_pass = User.find(@user)
+        change_user_pass.password =  @password
+        change_user_pass.password_confirmation = @password
+        change_user_pass.save
+        p change_user_pass.errors.full_messages
+
+      else 
+        redirect_to new_resets_path
+      end
+    else 
+      redirect_to new_resets_path
+    end
   end
 end
