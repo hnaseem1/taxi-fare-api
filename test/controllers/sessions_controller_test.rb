@@ -14,8 +14,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   #
   test "should get destroy" do
     skip
+    controller.session[:user_id] = 12
     delete sessions_path
-    assert_response :success
+    refute controller.session[:user_id]
   end
 
 end
