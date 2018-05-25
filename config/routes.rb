@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resource :sessions, only: [:new, :create, :destroy]
 
   get '/price/show', to: 'price#show'
+
 end
