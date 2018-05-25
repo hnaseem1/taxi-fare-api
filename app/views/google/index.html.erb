@@ -158,29 +158,26 @@
 
             // get start lat and lon using google API
 
-            var start_address = document.getElementById('autocomplete').value
+            start_address = document.getElementById('autocomplete').value
             var start_cordinates = $.ajax({
               url: "https://maps.googleapis.com/maps/api/geocode/json?address="+start_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
               get: 'GET'
             }).done(function() {
 
-              var start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
-              var start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
-              console.log('start location');
+              start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
+              start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
 
                 // get start lat and lon using google API
 
-                var end_address = document.getElementById('autocomplete2').value
+                end_address = document.getElementById('autocomplete2').value
                 var end_cordinates = $.ajax({
                   url: "https://maps.googleapis.com/maps/api/geocode/json?address="+end_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
                   get: 'GET'
 
                 }).done(function() {
 
-                  var end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
-                  var end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
-                  console.log('end location');
-
+                  end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
+                  end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
                 // get the data from taxi-fare-api
 
                   var response = $.ajax({
@@ -190,7 +187,7 @@
                       dataType: 'json',
 
                   }).done(function(data) {
-
+dt = data
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
@@ -202,10 +199,10 @@
                     loader.style.display = "none";
 
                     // display all the results
-                    // displayAll(data)
+                    displayAll(data)
 
                     // Display lowest
-                    displayInAscOrder(data)
+                    //displayInAscOrder(data)
 
 
                     // Display only SUV
@@ -228,19 +225,27 @@
                 var h3 = document.createElement("h3")
                 var fare = document.createElement("p")
                 var currency = document.createElement("p")
+                var request_link = document.createElement("a")
+                var request_button = document.createElement("button")
 
                 h3.innerText = data.uber[i].type
                 currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
                 div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
                 div.style.border = "1px solid darkblue"
+                request_link.setAttribute('target', '_blank')
+                request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+                request_button.innerText = 'Request my UBER'
+                request_link.appendChild(request_button)
                 div.appendChild(h3)
                 div.appendChild(currency)
+                div.appendChild(request_link)
                 result.appendChild(div)
                 }
 
                 // to show the LYFT rides
 
                 for (var i = 0; i < data.lyft.length; i++) {
+                  var possible_rides = ["Lyft Line", "Lyft", "Lyft Plus",]
                   var div = document.createElement("div")
                   var h3 = document.createElement("h3")
                   var fare = document.createElement("p")
@@ -252,6 +257,22 @@
                   div.appendChild(h3)
                   div.appendChild(currency)
                   result.appendChild(div)
+
+                  if (possible_rides.includes(data.lyft[i].type)) {
+                    var request_button = document.createElement("button")
+                    var request_link = document.createElement("a")
+                    var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                    request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                    request_link.setAttribute('target', '_blank')
+                    request_button.innerText = 'Request my ' + data.lyft[i].type
+                    request_link.appendChild(request_button)
+                    div.appendChild(request_link)
+
+                  }else {
+
+                  }
+
+
                 }
             }
 
@@ -289,7 +310,6 @@
                 result.appendChild(div)
 
               }
-
           }
 
       </script>
