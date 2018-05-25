@@ -25,9 +25,13 @@ class Lyft < ApplicationRecord
         hash = {}
 
         hash["type"]      = option["display_name"]
+
         hash["distance"]  = option["estimated_distance_miles"]
+
         hash["fare"]      = (option["estimated_cost_cents_max"] + option["estimated_cost_cents_min"])/200
+
         hash["currency"]  = option["currency"]
+
         hash["duration"]  = option["estimated_duration_seconds"]
 
         data_array.push(hash)
