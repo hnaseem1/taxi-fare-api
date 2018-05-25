@@ -21,7 +21,7 @@ class ResetController < ApplicationController
   			token = @reset.token
         @reset_url = "#{root_path}/reset/#{token}"
 
-  			UserMailer.password_reset_email(@user, token, @reset_url)
+  			UserMailer.password_reset_email(@user, token, @reset_url).deliver_now
         redirect_to pass_reset_path
   		end
   	end
@@ -38,9 +38,13 @@ class ResetController < ApplicationController
         change_user_pass = User.find(@user)
         change_user_pass.password =  @password
         change_user_pass.password_confirmation = @password
-        change_user_pass.save
-        p change_user_pass.errors.full_messages
+        
+        if change_user_pass.save
+          @reset_instance.token = "User Already Used This Token"
+          @reset_instance.save
+        end
 
+        redirect_to new_sessions_path
       else 
         redirect_to new_resets_path
       end
