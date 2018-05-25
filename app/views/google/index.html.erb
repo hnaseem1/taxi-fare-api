@@ -21,7 +21,7 @@
     <% end %>
   <% end %>
 </div>
-
+<p id="total"></p>
 <div id="map" style="display: none"></div>
 
 <div class="result" id="div_result">
@@ -107,46 +107,70 @@
 
       // function to initiate maps with point a to point b
 
-        function initMap() {
-                var directionsService = new google.maps.DirectionsService;
-                var directionsDisplay = new google.maps.DirectionsRenderer;
-                var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 9,
-                  center: {lat: 43.7151, lng: -79.4362}
-                });
-                directionsDisplay.setMap(map);
 
-                var onChangeHandler = function() {
-                  calculateAndDisplayRoute(directionsService, directionsDisplay);
+      function initMap() {
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: {lat: 43.6867, lng: -79.3682}  // Australia.
+              });
 
-                };
-                document.getElementById('autocomplete').addEventListener('change', onChangeHandler);
-                document.getElementById('autocomplete2').addEventListener('change', onChangeHandler);
-                onChangeHandler()
+              var directionsService = new google.maps.DirectionsService;
+              var directionsDisplay = new google.maps.DirectionsRenderer({
+                draggable: true,
+                map: map,
+              });
+
+              directionsDisplay.addListener('directions_changed', function() {
+                computeTotalDistance(directionsDisplay.getDirections());
+                document.getElementById('autocomplete').value = myroute.legs[0].start_address
+                document.getElementById('autocomplete2').value = myroute.legs[0].end_address
+              });
+
+            ori = document.getElementById('autocomplete').value,
+            dest = document.getElementById('autocomplete2').value,
+
+              displayRoute(ori, dest, directionsService,
+                  directionsDisplay);
+            }
+
+            function displayRoute(origin, destination, service, display) {
+              service.route({
+                origin: origin,
+                destination: destination,
+                travelMode: 'DRIVING',
+              }, function(response, status) {
+                if (status === 'OK') {
+
                 document.getElementById('map').style.display = ''
 
+                  display.setDirections(response);
+                } else {
+                  alert('Could not display directions due to: ' + status);
+                }
+              });
+            }
+
+            function computeTotalDistance(result) {
+              var total = 0;
+              myroute = result.routes[0];
+              for (var i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
               }
-
-              function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-                directionsService.route({
-                  origin: document.getElementById('autocomplete').value,
-                  destination: document.getElementById('autocomplete2').value,
-                  travelMode: 'DRIVING'
-                }, function(response, status) {
-                  if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
-                  }
-                });
-              }
-
-        // finding geolocation
-
+              total = total / 1000;
+              document.getElementById('total').innerHTML = 'Distance' + total + ' km';
+            }
 
 
           // setting up event listener on submit location Button
 
           var submit = document.querySelector('.submit')
-          submit.addEventListener('click', function(event) {
+          submit.addEventListener('click', function (event) {
+            event.preventDefault();
+            apis_requests()
+          })
+
+
+          function apis_requests() {
 
             var startField = document.getElementById('autocomplete').value
             var destinastionField = document.getElementById('autocomplete2').value
@@ -154,7 +178,6 @@
 
 
             loader.style.display = "block";
-            event.preventDefault();
 
             // get start lat and lon using google API
 
@@ -187,7 +210,6 @@
                       dataType: 'json',
 
                   }).done(function(data) {
-dt = data
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
@@ -215,7 +237,7 @@ dt = data
                   })
                 })
               })
-            }})
+            }}
 
             function displayAll(data) {
               // to show the UBER rides
