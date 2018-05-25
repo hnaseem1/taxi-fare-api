@@ -224,12 +224,12 @@
               // to show the UBER rides
               var result = document.getElementById('div_result')
               for (var i = 0; i < data.uber.length; i++) {
-                var div = document.createElement("div")
-                var h3 = document.createElement("h3")
-                var fare = document.createElement("p")
-                var currency = document.createElement("p")
+                var div       = document.createElement("div")
+                var h3        = document.createElement("h3")
+                var fare      = document.createElement("p")
+                var currency  = document.createElement("p")
 
-                h3.innerText = data.uber[i].type
+                h3.innerText  = data.uber[i].type
                 currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
                 div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
                 div.style.border = "1px solid darkblue"
@@ -275,9 +275,9 @@
               var result = document.getElementById('div_result')
               for (var i = 0; i < sorted_results.length; i++) {
 
-                var div = document.createElement("div")
-                var h3 = document.createElement("h3")
-                var fare = document.createElement("p")
+                var div      = document.createElement("div")
+                var h3       = document.createElement("h3")
+                var fare     = document.createElement("p")
                 var currency = document.createElement("p")
 
                 h3.innerText = sorted_results[i].type
