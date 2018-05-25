@@ -50,7 +50,7 @@ class Uber < ApplicationRecord
           end
 
           hash["duration"]  = option["duration"]
-          hash["ETA"]       = Uber.get_eta(start_lat, start_long, option["localized_display_name"])
+          hash["eta"]       = Uber.get_eta(start_lat, start_long, option["localized_display_name"])
 
           data_array.push(hash)
 

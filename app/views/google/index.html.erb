@@ -6,12 +6,17 @@
   <%= form_tag(google_path, :method => "get" ) do %>
     <p>
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", type:"text" %>
-      <button type="button" name="button" id='get-location-data'>Get Location</button>
+
+        <button type="button" name="button" id='get-location-data'>Get Location</button>
+        <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
+
     </p>
 
     <p>
       <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
-      <button type="button" name="button" id='get-location-data2'>Get Location</button>
+
+        <button type="button" name="button" id='get-location-data2'>Get Location</button>
+        <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </p>
 
     <p><%= submit_tag "Run Baby, RUN!!!", class: "submit"%></p>
@@ -187,7 +192,8 @@
                       dataType: 'json',
 
                   }).done(function(data) {
-dt = data
+
+                    dt = data
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
@@ -225,11 +231,13 @@ dt = data
                 var h3 = document.createElement("h3")
                 var fare = document.createElement("p")
                 var currency = document.createElement("p")
+                var eta = document.createElement("p")
                 var request_link = document.createElement("a")
                 var request_button = document.createElement("button")
 
                 h3.innerText = data.uber[i].type
                 currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
                 div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
                 div.style.border = "1px solid darkblue"
                 request_link.setAttribute('target', '_blank')
@@ -238,6 +246,7 @@ dt = data
                 request_link.appendChild(request_button)
                 div.appendChild(h3)
                 div.appendChild(currency)
+                div.appendChild(eta)
                 div.appendChild(request_link)
                 result.appendChild(div)
                 }
@@ -250,12 +259,15 @@ dt = data
                   var h3 = document.createElement("h3")
                   var fare = document.createElement("p")
                   var currency = document.createElement("p")
+                  var eta = document.createElement("p")
                   h3.innerText = data.lyft[i].type
                   currency.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                  eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
                   div.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
                   div.style.border = "1px solid pink"
                   div.appendChild(h3)
                   div.appendChild(currency)
+                  div.appendChild(eta)
                   result.appendChild(div)
 
                   if (possible_rides.includes(data.lyft[i].type)) {

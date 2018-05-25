@@ -3,6 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // loader
+
+// Variables
+
+
 .modal {
   display:    none;
   position:   fixed;
@@ -31,6 +35,7 @@ body.loading .modal {
 
 // form for starting location and end destination
 .search-field {
+
 
   background: rgba(1,1,1,0.5);
   margin: 2em auto;
@@ -64,10 +69,20 @@ body.loading .modal {
 }
 
 #map {
-  width: 70%;
-  height: 45%;
 
-  margin: 0 10em;
+  height: 45%;
+  margin: 2em auto;
+  padding: 1.5em 0;
+  text-align: center;
+  width: 80%;
+}
+
+.location-loader1 {
+  display: none;
+}
+
+.location-loader2 {
+  display: none;
 }
 
 // results section to make each result into a cards that appear as a grid
