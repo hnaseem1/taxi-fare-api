@@ -1,5 +1,5 @@
 <div class="form">
-	<%= form_for @user, url: user_path do |f| %>
+	<%= form_for @user,  url: { action: "create" } do |f| %>
 		<%= image_tag "/assets/icon_signup_dude.png", class: "icon_dude" %>
 		<p>
 			<%= f.text_field :first_name, placeholder: "First Name" %>
