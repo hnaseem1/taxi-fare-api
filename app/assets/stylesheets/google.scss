@@ -70,28 +70,35 @@ body.loading .modal {
   margin: 0 10em;
 }
 
-// results section to make each result into a cards that appear as a grid
-.result {
-  padding: 1em;
-  color: #DDD;
-
-  h3 {
-    font-weight: 250;
+// only appear during an ajax call
+  // results section to make each result into a cards that appear as a grid
+  .result {
     padding: 1em;
+    color: #DDD;
+    margin-left: 225px;
+
+    h3 {
+      font-weight: 250;
+      padding: 1em;
+    }
+
+    p {
+      font-size: 0.75em;
+      margin: 1.5em;
+    }
   }
 
-  p {
-    font-size: 0.75em;
-    margin: 1.5em;
+  // filters form section
+
+  .filters {
+    display: none;
+    margin-left: 20px;
+    width: 100px;
+
+    padding: 5px 30px 30px;
+  	background-color: #CCC;
+  	border: 1px solid #DBE3E7;
+  	border-radius: 3px;
+    position: relative;
+    top: 50%;
   }
-}
-
-// filters form section
-
-.filters {
-  display: none;
-  color: #FFF;
-  // position: fixed;
-  text-align: center;
-  // width: 100px;
-}

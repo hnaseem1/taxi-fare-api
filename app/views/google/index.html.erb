@@ -24,19 +24,15 @@
 
 <div id="map" style="display: none"></div>
 
-<div class="result" id="div_result">
-
-</div>
-
 <aside class="filters">
 	<form>
 
 		<div class="filter-criteria">
-			<span>Capacity</span>
+			<h3>Capacity</h3>
 
-			<label><input type="checkbox" name="capacity" value="2">2</label>
-      <label><input type="checkbox" name="capacity" value="2">4</label>
-      <label><input type="checkbox" name="capacity" value="2">6</label>
+			<h5><label><input type="checkbox" name="capacity" value="2">2</label></h5>
+      <h5><label><input type="checkbox" name="capacity" value="4">4</label></h5>
+      <h5><label><input type="checkbox" name="capacity" value="6">6</label></h5>
 		</div>
 
 		<button>Clear filters</button>
@@ -44,6 +40,9 @@
 	</form>
 
 </aside>
+<div class="result" id="div_result">
+
+</div>
 
 
 <script>
@@ -233,8 +232,31 @@
                     // Display only Pool Options
 
                     var filters = document.querySelector('.filters');
-
                     filters.style.display = "block";
+
+                    var capacity2 = document.querySelector("input[value='2']");
+
+                    var capacity4 = document.querySelector("input[value='4']");
+
+                    var capacity6 = document.querySelector("input[value='6']");
+
+                    capacity2.addEventListener('change', function(e) {
+                      if (this.checked) {
+                        console.log(e);
+                      }
+                    })
+
+                    capacity4.addEventListener('change', function(e) {
+                      if (this.checked) {
+                        console.log(e);
+                      }
+                    })
+
+                    capacity6.addEventListener('change', function(e) {
+                      if (this.checked) {
+                        console.log(e);
+                      }
+                    })
 
                   })
                 })
