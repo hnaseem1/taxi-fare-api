@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   #get 'reset/new'
   # get 'reset/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  ##password reset route
+  get   '/reset', to: 'reset#create'
+  get   '/reset/confirm', to: 'reset#show', as: 'pass_reset'
+
+  post '/reset/confirm/success', to: 'reset#reset_pass', as: 'pass_reset_success'
 
   root 'google#index'
 

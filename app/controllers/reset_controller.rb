@@ -18,10 +18,17 @@ class ResetController < ApplicationController
   		@reset.token = @reset_hash
 
   		if @reset.save
-  			#@reset_url = 
   			token = @reset.token
-  			#UserMailer.password_reset_email(@user, token, @reset_url)
+        @reset_url = "#{root_path}/reset/#{token}"
+
+  			UserMailer.password_reset_email(@user, token, @reset_url)
+        redirect_to pass_reset_path
   		end
   	end
+  end
+
+  def reset_pass
+    @token = params[:reset][:token]
+    byebug
   end
 end
