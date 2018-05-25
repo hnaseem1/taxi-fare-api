@@ -6,7 +6,7 @@ This is a web app that essentially compares products of the biggest players of r
 
 Highlights of the project:
 
-* Most popular web technologies are used to develop this application such as Ruby on Rails, Javascript, Ajax, PostgreSQL, HTML5, CSS3 and SASS 
+* Most popular web technologies are used to develop this application such as Ruby on Rails, Javascript, Ajax, PostgreSQL, HTML5, CSS3 and SASS. Combines the power of MVC with JQuerty with a sprinkle of HTML and CSS! 
 
 * Uses data from third-party APIs such as Uber, Lyft and Google APIs
 
