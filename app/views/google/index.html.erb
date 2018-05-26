@@ -46,41 +46,31 @@
 
 
 <script>
-
   // setting up event listener on the start field for getting current location
-        var loader = document.getElementById('loader');
-        var locationButton = document.getElementById('get-location-data')
-        locationButton.addEventListener('click', function() {
-
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                myposition = position
-               var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-                };
-
+  var loader = document.getElementById('loader');
+  var locationButton = document.getElementById('get-location-data')
+  locationButton.addEventListener('click', function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+          myposition = position
+         var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+          };
       // ajax call to google maps to find readible address from location data
-
               response = $.ajax({
                 url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
                 method: 'GET',
                 dataType: 'json'
               }).done(function(data) {
-
-
                 document.getElementById('autocomplete').value = response.responseJSON.results[0].formatted_address
               });
-
             })
           }
         })
-
     // setting up event listener on the destination field for getting current location
-
       var locationButton2 = document.getElementById('get-location-data2')
       locationButton2.addEventListener('click', function() {
-
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
               myposition = position
@@ -88,42 +78,30 @@
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-
         // ajax call to google maps to find readible address from location data
-
             response = $.ajax({
               url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
               method: 'GET',
               dataType: 'json'
             }).done(function(data) {
               document.getElementById('autocomplete2').value = response.responseJSON.results[0].formatted_address
-
             });
           })
         }
       })
-
         var autocomplete, autocomplete2;
-
         function initAutocomplete() {
           // Create the autocomplete object, restricting the search to geographical
-
           // location types.
-
           autocomplete2 = new google.maps.places.Autocomplete(
               /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
               {types: ['geocode']});
-
           autocomplete = new google.maps.places.Autocomplete(
               /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
               {types: ['geocode']});
-
               // initMap()
-
         }
-
       // function to initiate maps with point a to point b
-
         function initMap() {
                 var directionsService = new google.maps.DirectionsService;
                 var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -132,18 +110,14 @@
                   center: {lat: 43.7151, lng: -79.4362}
                 });
                 directionsDisplay.setMap(map);
-
                 var onChangeHandler = function() {
                   calculateAndDisplayRoute(directionsService, directionsDisplay);
-
                 };
                 document.getElementById('autocomplete').addEventListener('change', onChangeHandler);
                 document.getElementById('autocomplete2').addEventListener('change', onChangeHandler);
                 onChangeHandler()
                 document.getElementById('map').style.display = ''
-
               }
-
               function calculateAndDisplayRoute(directionsService, directionsDisplay) {
                 directionsService.route({
                   origin: document.getElementById('autocomplete').value,
@@ -155,66 +129,44 @@
                   }
                 });
               }
-
         // finding geolocation
-
-
-
           // setting up event listener on submit location Button
-
           var submit = document.querySelector('.submit')
           submit.addEventListener('click', function(event) {
-
             var startField = document.getElementById('autocomplete').value
             var destinastionField = document.getElementById('autocomplete2').value
             if (startField && destinastionField) {
-
-
             loader.style.display = "block";
             event.preventDefault();
-
             // get start lat and lon using google API
-
             var start_address = document.getElementById('autocomplete').value
             var start_cordinates = $.ajax({
               url: "https://maps.googleapis.com/maps/api/geocode/json?address="+start_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
               get: 'GET'
             }).done(function() {
-
               var start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
               var start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
               console.log('start location');
-
                 // get start lat and lon using google API
-
                 var end_address = document.getElementById('autocomplete2').value
                 var end_cordinates = $.ajax({
                   url: "https://maps.googleapis.com/maps/api/geocode/json?address="+end_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
                   get: 'GET'
-
                 }).done(function() {
-
                   var end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
                   var end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
                   console.log('end location');
-
                 // get the data from taxi-fare-api
-
                   var response = $.ajax({
-
                       url: 'http://localhost:3000/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
                       method: 'GET',
                       dataType: 'json',
-
                   }).done(function(data) {
-
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
-
                     // to enable maps
                     initMap()
-
                     // to hide loading page
                     loader.style.display = "none";
 
@@ -222,8 +174,7 @@
                     // displayAll(data)
 
                     // Display lowest
-                    // displayInAscOrder(data)
-
+                    displayInAscOrder(data)
 
                     // Display only SUV
                     // Display car for 4 people
@@ -231,100 +182,12 @@
                     // Display car for more than 6 people
                     // Display only Pool Options
 
-                    var filters = document.querySelector('.filters');
-                    filters.style.display = "block";
 
-                    var result = document.getElementById('div_result')
-
-                    var capacity2 = document.querySelector("input[value='2']");
-                    capacity2.addEventListener('change', function(e) {
-                      if (this.checked) {
-                        console.log(e);
-
-                        result.classList.remove('hidden');
-
-                        for (var i = 0; i < data.uber.length; i++) {
-                          var div       = document.createElement("div")
-                          var h3        = document.createElement("h3")
-                          var fare      = document.createElement("p")
-                          var currency  = document.createElement("p")
-
-                          if (data.uber[i].capacity == 4) {
-                            h3.innerText  = data.uber[i].type
-                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
-                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
-                            div.style.border = "1px solid darkblue"
-                            div.appendChild(h3)
-                            div.appendChild(currency)
-                            result.appendChild(div)
-                          }
-                        }
-                      } else {
-                        result.classList.add('hidden');
-                      }
-                    })
-
-                    var capacity4 = document.querySelector("input[value='4']");
-                    capacity4.addEventListener('change', function(e) {
-                      if (this.checked) {
-                        console.log(e);
-
-                        result.classList.remove('hidden');
-
-                        for (var i = 0; i < data.uber.length; i++) {
-                          var div       = document.createElement("div")
-                          var h3        = document.createElement("h3")
-                          var fare      = document.createElement("p")
-                          var currency  = document.createElement("p")
-
-                          if (data.uber[i].capacity == 4) {
-                            h3.innerText  = data.uber[i].type
-                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
-                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
-                            div.style.border = "1px solid darkblue"
-                            div.appendChild(h3)
-                            div.appendChild(currency)
-                            result.appendChild(div)
-                          }
-                        }
-                      } else {
-                        result.classList.add('hidden');
-                      }
-                    })
-
-                    var capacity6 = document.querySelector("input[value='6']");
-                    capacity6.addEventListener('change', function(e) {
-                      if (this.checked) {
-                        console.log(e);
-
-                        result.classList.remove('hidden');
-
-                        for (var i = 0; i < data.uber.length; i++) {
-                          var div       = document.createElement("div")
-                          var h3        = document.createElement("h3")
-                          var fare      = document.createElement("p")
-                          var currency  = document.createElement("p")
-
-                          if (data.uber[i].capacity == 4) {
-                            h3.innerText  = data.uber[i].type
-                            currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
-                            div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
-                            div.style.border = "1px solid darkblue"
-                            div.appendChild(h3)
-                            div.appendChild(currency)
-                            result.appendChild(div)
-                          }
-                        }
-                      } else {
-                        result.classList.add('hidden');
-                      }
-                    })
 
                   })
                 })
               })
             }})
-
             function displayAll(data) {
               // to show the UBER rides
               var result = document.getElementById('div_result')
@@ -333,7 +196,6 @@
                 var h3        = document.createElement("h3")
                 var fare      = document.createElement("p")
                 var currency  = document.createElement("p")
-
                 h3.innerText  = data.uber[i].type
                 currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
                 div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
@@ -342,9 +204,7 @@
                 div.appendChild(currency)
                 result.appendChild(div)
                 }
-
                 // to show the LYFT rides
-
                 for (var i = 0; i < data.lyft.length; i++) {
                   var div = document.createElement("div")
                   var h3 = document.createElement("h3")
@@ -359,42 +219,102 @@
                   result.appendChild(div)
                 }
             }
-
             function displayInAscOrder(data) {
-
               var results = []
-
-
               for (var i = 0; i < data.uber.length; i++) {
                 results.push(data.uber[i])
               }
-
               for (var i = 0; i < data.lyft.length; i++) {
                 results.push(data.lyft[i])
               }
-
               sorted_results = results.sort(function(a, b) {
                 return a.fare - b.fare
               })
-
               var result = document.getElementById('div_result')
               for (var i = 0; i < sorted_results.length; i++) {
-
                 var div      = document.createElement("div")
+                div.classList.add('single_result')
                 var h3       = document.createElement("h3")
-                var fare     = document.createElement("p")
-                var currency = document.createElement("p")
+                var cost     = document.createElement("p")
 
                 h3.innerText = sorted_results[i].type
-                currency.innerText = "$ " + sorted_results[i].currency + " " + sorted_results[i].fare
+                cost.innerText = "$" + sorted_results[i].fare + " " + sorted_results[i].currency
                 div.classList.add("uber_ride", sorted_results[i].type.replace(/\s/g, ''))
                 div.style.border = "1px solid darkblue"
                 div.appendChild(h3)
-                div.appendChild(currency)
+                div.appendChild(cost)
                 result.appendChild(div)
 
               }
 
-          }
+              var filters = document.querySelector('.filters');
+              filters.style.display = "block";
 
-      </script>
+              var result = document.getElementById('div_result')
+
+              var capacity2 = document.querySelector("input[value='2']");
+              capacity2.addEventListener('change', function(e) {
+                if (this.checked) {
+                  console.log(e);
+                  result.classList.remove('hidden');
+                  for (var i = 0; i < data.uber.length; i++) {
+                    var div       = document.createElement("div")
+                    var h3        = document.createElement("h3")
+                    var fare      = document.createElement("p")
+                    var currency  = document.createElement("p")
+                    if (data.uber[i].capacity == 4) {
+                      h3.innerText  = data.uber[i].type
+                      currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                      div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                      div.style.border = "1px solid darkblue"
+                      div.appendChild(h3)
+                      div.appendChild(currency)
+                      result.appendChild(div)
+                    }
+                  }
+                } else {
+                  result.classList.add('hidden');
+                }
+              })
+              var capacity4 = document.querySelector("input[value='4']");
+              capacity4.addEventListener('change', function(e) {
+                if (this.checked) {
+                  console.log(e);
+                  result.classList.remove('hidden');
+                  for (var i = 0; i < data.uber.length; i++) {
+                    var div       = document.createElement("div")
+                    var h3        = document.createElement("h3")
+                    var fare      = document.createElement("p")
+                    var currency  = document.createElement("p")
+                    if (data.uber[i].capacity == 4) {
+                      h3.innerText  = data.uber[i].type
+                      currency.innerText = "$ " + data.uber[i].currency + " " + data.uber[i].fare
+                      div.classList.add("uber_ride", data.uber[i].type.replace(/\s/g, ''))
+                      div.style.border = "1px solid darkblue"
+                      div.appendChild(h3)
+                      div.appendChild(currency)
+                      result.appendChild(div)
+                    }
+                  }
+                } else {
+                  result.classList.add('hidden');
+                }
+              })
+              var capacity6 = document.querySelector("input[value='6']");
+              capacity6.addEventListener('change', function(e) {
+                if (this.checked) {
+                  console.log(e);
+                  result.classList.remove('hidden');
+                  for (var i = 0; i < data.uber.length; i++) {
+                    if (data.uber[i].capacity == 4) {
+                      div.classList.add('show');
+                    }
+                  }
+                } else {
+                  result.classList.add('hidden');
+                  div.classList.add('hidden');
+                }
+              })
+
+          }
+</script>
