@@ -54,11 +54,14 @@ body.loading .modal {
     }
 
     button {
-      background: #BBB;
+      background: #3C99F9;
       border: none;
-      color: #EEE;
+      color: white;
       height: 2.25em;
       width: 15%;
+      width: 6%;
+      padding-bottom: 2.3em;
+      padding-top: 1.5em;
     }
   }
 
@@ -100,3 +103,16 @@ body.loading .modal {
     margin: 1.5em;
   }
 }
+
+// #get-location-data {
+//   width: 6%;
+//   padding-bottom: 2.3em;
+//   padding-top: 1.5em;
+//
+// }
+//
+// #get-location-data2 {
+//   width: 6%;
+//   padding-bottom: 2.3em;
+//   padding-top: 1.5em;
+// }

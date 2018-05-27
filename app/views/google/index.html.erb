@@ -7,7 +7,7 @@
     <p>
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", type:"text" %>
 
-        <button type="button" name="button" id='get-location-data'>Get Location</button>
+        <button type="button" name="button" id='get-location-data' class="location-button">GET</button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
 
     </p>
@@ -15,11 +15,11 @@
     <p>
       <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
 
-        <button type="button" name="button" id='get-location-data2'>Get Location</button>
+        <button type="button" name="button" id='get-location-data2' class="location-button">GET</button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </p>
 
-    <p><%= submit_tag "Run Baby, RUN!!!", class: "submit"%></p>
+    <p><%= submit_tag "Search", class: "submit"%></p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
@@ -38,8 +38,10 @@
   // setting up event listener on the start field for getting current location
         var loader = document.getElementById('loader');
         var locationButton = document.getElementById('get-location-data')
+        var inputField = document.getElementById('autocomplete')
         locationButton.addEventListener('click', function() {
-
+          inputField.disabled = true;
+          inputField.placeholder = 'Getting your location...'
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 myposition = position
@@ -56,8 +58,8 @@
                 dataType: 'json'
               }).done(function(data) {
 
-
-                document.getElementById('autocomplete').value = response.responseJSON.results[0].formatted_address
+                inputField.disabled = false;
+                inputField.value = response.responseJSON.results[0].formatted_address
               });
 
             })
@@ -67,8 +69,10 @@
     // setting up event listener on the destination field for getting current location
 
       var locationButton2 = document.getElementById('get-location-data2')
+      var inputField2 = document.getElementById('autocomplete2')
       locationButton2.addEventListener('click', function() {
-
+        inputField2.disabled = true;
+        inputField2.placeholder = 'Getting your location...'
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
               myposition = position
@@ -84,7 +88,8 @@
               method: 'GET',
               dataType: 'json'
             }).done(function(data) {
-              document.getElementById('autocomplete2').value = response.responseJSON.results[0].formatted_address
+              inputField2.disabled = false;
+              inputField2.value = response.responseJSON.results[0].formatted_address
 
             });
           })
