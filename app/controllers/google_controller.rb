@@ -46,22 +46,14 @@ class GoogleController < ApplicationController
         @end_location = end_location
 
 
-          ride = Ride.new
-          ride.latitude_start = @sl
-          ride.longitude_start = @slon
-          ride.latitude_end = @el
-          ride.longitude_end = @elon
-          ride.user_id = current_user.id
-          ride.start_address = @start_location
-          ride.end_address = @end_location
-
+          ride = Ride.new(latitude_start: @sl, longitude_start: @slon, latitude_end: @el, longitude_end: @elon, user_id: current_user.id, start_address: @start_location, end_address: @end_location)
           ride.save
 
       # if javascript gets disabled the app would still work using the controller method
 
 
           ##email the user with the ride information. pass the ride instance to the mailer method
-          #UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+          UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
         else
           p 'something wrong'
 
