@@ -8,27 +8,22 @@ class ResetsController < ApplicationController
   end
 
   def create
-  	@reset = Reset.new
   	@email = params[:reset][:email]
+    #search for user
   	@user = User.find_by(email: @email)
-
+    #if user exists
   	if @user
-  		@reset_hash = SecureRandom.hex(10)
-  		@reset.user_id = @user.id
-  		@reset.token = @reset_hash
-
-  		if @reset.save
-  			token = @reset.token
-        @reset_url = "#{root_path}/reset/#{token}"
-
+        Reset.generate_reset_token(@user)
+        token = Reset.generate_reset_token(@user)
   			UserMailer.password_reset_email(@user, token, @reset_url).deliver_now
         redirect_to pass_reset_path
-  		end
   	end
   end
 
   def reset_pass
+    ##get the token from the params hash
     @token = params[:reset][:token]
+    #if it exists
     if @token 
       @reset = Reset.find_by(token: @token)
       if @reset
