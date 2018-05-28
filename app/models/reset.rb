@@ -10,8 +10,8 @@ class Reset < ApplicationRecord
 		##create a new instance of a reset and save it to the matching user
 		reset = Reset.new(user_id: user_id, token: token)
 		reset.save
-		return token 
-	end 
+		return token
+	end
 
 
 	def self.verify_user_requested_reset(token)
@@ -19,7 +19,7 @@ class Reset < ApplicationRecord
 		if user
 			return User.find(user.user_id)
 		else
-			return false 
+			return false
 		end
 	end
 	def self.change_password(user, pass, passconf)
@@ -36,7 +36,8 @@ class Reset < ApplicationRecord
 			return true
 		end
 	end
-	private 
+
+	private
 	def unique_token
 		unless token == "User Already Used This Token" || !(Reset.find_by(token: token))
 			errors.add(:token, "is not unique")
