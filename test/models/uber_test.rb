@@ -14,7 +14,7 @@ class UberTest < ActiveSupport::TestCase
   test "api responding with ETA" do
 
     response = Uber.get(Cordinates[0], Cordinates[1], Cordinates[2], Cordinates[3])
-    assert response[0]["ETA"]
+    assert response[0]["eta"]
 
   end
 

@@ -31,22 +31,18 @@ class GoogleController < ApplicationController
 
       ##saving to the user/ride table
 
-
-
-
-
       if current_user
 
 
-        @sl = sl
-        @slon = slon
-        @el = el
-        @elon = elon
-        @start_location = start_location
-        @end_location = end_location
+        # @sl = sl
+        # @slon = slon
+        # @el = el
+        # @elon = elon
+        # @start_location = start_location
+        # @end_location = end_location
 
 
-          ride = Ride.new(latitude_start: @sl, longitude_start: @slon, latitude_end: @el, longitude_end: @elon, user_id: current_user.id, start_address: @start_location, end_address: @end_location)
+          ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           ride.save
 
       # if javascript gets disabled the app would still work using the controller method
@@ -60,7 +56,7 @@ class GoogleController < ApplicationController
         end
 
 
-      @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
+      # @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
 
 
     else
