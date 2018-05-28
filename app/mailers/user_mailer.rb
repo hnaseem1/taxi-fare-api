@@ -16,6 +16,7 @@ class UserMailer < ApplicationMailer
 	end
 
 	def password_reset_email(user, reset_hash, reset_url)
+		@time = (Time.now.utc - 4.hours).strftime("%a %b %e %T %Y")
 		@user = user
 		@reset = reset_hash
 		@reset_url = reset_url
@@ -23,6 +24,7 @@ class UserMailer < ApplicationMailer
 	end
 
 	def password_reset_success_email(user)
+		@time = (Time.now.utc - 4.hours).strftime("%a %b %e %T %Y")
 		@user = user
 		mail(to:@user.email, subject: "#{@user.first_name}, you just successfully reset your password!")
 	end
