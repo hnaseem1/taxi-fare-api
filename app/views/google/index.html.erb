@@ -26,6 +26,7 @@
     <% end %>
   <% end %>
 </div>
+
 <p id="total"></p>
 <div id="map" style="display: none"></div>
 
@@ -50,7 +51,7 @@
                 lng: position.coords.longitude
                 };
 
-      // ajax call to google maps to find readible address from location data
+    // ajax call to google maps to find readible address from location data
 
               response = $.ajax({
                 url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
@@ -81,7 +82,7 @@
               lng: position.coords.longitude
             };
 
-        // ajax call to google maps to find readible address from location data
+    // ajax call to google maps to find readible address from location data
 
             response = $.ajax({
               url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
@@ -99,7 +100,8 @@
         var autocomplete, autocomplete2;
 
         function initAutocomplete() {
-          // Create the autocomplete object, restricting the search to geographical
+
+    // Create the autocomplete object, restricting the search to geographical
 
           // location types.
 
@@ -115,7 +117,7 @@
 
         }
 
-      // function to initiate maps with point a to point b
+  // function to initiate maps with point a to point b
 
 
       function initMap() {
@@ -171,7 +173,7 @@
             }
 
 
-          // setting up event listener on submit location Button
+    // setting up event listener on submit location Button
 
           var submit = document.querySelector('.submit')
           submit.addEventListener('click', function (event) {
@@ -189,7 +191,7 @@
 
             loader.style.display = "block";
 
-            // get start lat and lon using google API
+        // get start lat and lon using google API
 
             start_address = document.getElementById('autocomplete').value
             var start_cordinates = $.ajax({
@@ -232,10 +234,10 @@
                     loader.style.display = "none";
 
                     // display all the results
-                    displayAll(data)
+                    // displayAll(data)
 
                     // Display lowest
-                    // displayInAscOrder(data)
+                    displayInAscOrder(data)
 
 
                     // Display only SUV
