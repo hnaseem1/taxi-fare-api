@@ -32,6 +32,7 @@ class ResetsController < ApplicationController
         @user = Reset.change_password(@user, password, password_confirmation)
         if @user.save
           Reset.exhaust_token(@token)
+
           UserMailer.password_reset_success_email(@user).deliver_now
           redirect_to new_sessions_path
         else 
