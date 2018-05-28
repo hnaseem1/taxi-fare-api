@@ -187,6 +187,8 @@
             var destinastionField = document.getElementById('autocomplete2').value
             if (startField && destinastionField) {
 
+      // Saves the history to the database
+      
             $.ajax({
                 url: "/google",
                 method: "GET",
