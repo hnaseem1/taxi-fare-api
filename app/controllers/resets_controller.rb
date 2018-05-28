@@ -36,7 +36,8 @@ class ResetsController < ApplicationController
         @user.password =  params[:reset][:password]
         @user.password_confirmation = params[:reset][:password_confirmation]
         if @user.save
-          @reset.token = "User Already Used This Token"
+          exhaust_token = SecureRandom.hex(12)
+          @reset.token = exhaust_token
           @reset.save
           UserMailer.password_reset_success_email(@user).deliver_now
           redirect_to new_sessions_path
