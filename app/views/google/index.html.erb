@@ -188,7 +188,7 @@
             if (startField && destinastionField) {
 
       // Saves the history to the database
-      
+
             $.ajax({
                 url: "/google",
                 method: "GET",
@@ -232,6 +232,7 @@
 
                   }).done(function(data) {
 
+                    dt = data
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();

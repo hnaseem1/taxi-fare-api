@@ -1,7 +1,4 @@
 class ResetsController < ApplicationController
-  def show
-
-  end
 
   def new
   	render :new
@@ -29,25 +26,31 @@ class ResetsController < ApplicationController
 
   def reset_pass
     @token = params[:reset][:token]
-    if @token 
+
+    if @token
       @reset = Reset.find_by(token: @token)
+
       if @reset
         @user = User.find(@reset.user_id)
         @user.password =  params[:reset][:password]
         @user.password_confirmation = params[:reset][:password_confirmation]
+
         if @user.save
           @reset.token = "User Already Used This Token"
           @reset.save
           UserMailer.password_reset_success_email(@user).deliver_now
           redirect_to new_sessions_path
-        else 
+
+        else
           redirect_to new_resets_path
+
         end
+
       else
         redirect_to new_resets_path
       end
     else
-      redirect_to new_resets_path 
+      redirect_to new_resets_path
     end
   end
 

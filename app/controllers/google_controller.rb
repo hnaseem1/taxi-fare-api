@@ -33,50 +33,44 @@ class GoogleController < ApplicationController
 
       if current_user
 
+          ride = Ride.new(latitude_start: sl,
+            longitude_start: slon,
+            latitude_end: el,
+            longitude_end: elon,
+            user_id: current_user.id,
+            start_address: start_location,
+            end_address: end_location)
 
-        # @sl = sl
-        # @slon = slon
-        # @el = el
-        # @elon = elon
-        # @start_location = start_location
-        # @end_location = end_location
-
-
-          ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           ride.save
 
-      # if javascript gets disabled the app would still work using the controller method
-
-
           ##email the user with the ride information. pass the ride instance to the mailer method
+
           UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+
         else
-          p 'something wrong'
+
+          p "Couldn't save history"
 
         end
 
 
-      # @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
-
-
-    else
-
-      # flash[:error] = 'Please Enter Something!'
-
     end
+
   end
 
   private
 
+  # methods to keep the code DRY
+
   def position
 
-    google_key=ENV["GOOGLE_KEY"]
+    ENV["GOOGLE_KEY"]
 
   end
 
   def getMapsLocation(cordinate)
 
-    google_key=ENV["GOOGLE_KEY"]
+    google_key = position
 
     URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}")
 

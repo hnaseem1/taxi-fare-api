@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
  before_action :user_already_logged_in, only: %i(new)
+
   def new
     render :new
   end
 
   def create
-    
+
   	user_email = params[:session][:email]
   	user_password = params[:session][:password]
   	user = User.find_by(email: user_email)
@@ -16,7 +17,7 @@ class SessionsController < ApplicationController
   	elsif user_email == nil && user_password == nil || user_email == nil || user_password == nil
       flash[:error] = "enter login credentials"
   		render :new
-    else 
+    else
       flash[:error] = "incorrect user name or password"
       render :new
   	end
