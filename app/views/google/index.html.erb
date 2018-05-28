@@ -28,11 +28,14 @@
 </div>
 
 <p id="total"></p>
-<div id="map" style="display: none"></div>
+<div id="map" style="display: none;"></div>
 
 <div class="result" id="div_result">
 
 </div>
+
+<!-- div for taxi price -->
+
 
 <script>
 
@@ -170,6 +173,7 @@
               }
               total = total / 1000;
               document.getElementById('total').innerHTML = 'Distance' + total + ' km';
+              estimateTaxiPrice(total)
             }
 
 
@@ -238,6 +242,7 @@
 
                     // to enable maps
                     initMap()
+                    rideTime = data.uber[0].duration / 60
 
                     // to hide loading page
                     loader.style.display = "none";
@@ -388,6 +393,31 @@
                 }
 
               }
+          }
+
+          function estimateTaxiPrice(distance) {
+
+            var result = document.getElementById('div_result')
+            //variables for estimating taxi price
+            var baseFee = 4.25;
+            var perKm = 1.75;
+            var perMin = 0.55
+            var cost = ((distance * perKm) + (perMin * rideTime)) + baseFee;
+            
+            //set up elements 
+            var div = document.createElement("div");
+            var h3 = document.createElement("h3");
+            var currency = document.createElement("p");
+
+            h3.innerText = "Taxi Service Estimation";
+            currency.innerText = "$CAD " + cost;
+            
+            
+            div.style.border = "1px solid pink";
+            div.appendChild(h3);
+            div.appendChild(currency);
+            result.appendChild(div);
+
           }
 
       </script>
