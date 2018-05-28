@@ -33,7 +33,7 @@ class Lyft < ApplicationRecord
 
         hash["duration"]  = option["estimated_duration_seconds"]
 
-        hash["ETA"]       = Lyft.get_eta(start_lat, start_long, hash["type"])
+        hash["eta"]       = Lyft.get_eta(start_lat, start_long, hash["type"])
 
         data_array.push(hash)
 
