@@ -239,7 +239,7 @@
                     // removes the results from the previous request if there is any
                     $(".uber_ride").remove();
                     $(".lyft_ride").remove();
-
+                    $(".taxi").remove();
                     // to enable maps
                     initMap()
                     rideTime = data.uber[0].duration / 60
@@ -406,6 +406,8 @@
             
             //set up elements 
             var div = document.createElement("div");
+            div.classList.add('taxi')
+
             var h3 = document.createElement("h3");
             var currency = document.createElement("p");
 
