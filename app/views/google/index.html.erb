@@ -181,13 +181,20 @@
             apis_requests()
           })
 
-
           function apis_requests() {
 
             var startField = document.getElementById('autocomplete').value
             var destinastionField = document.getElementById('autocomplete2').value
             if (startField && destinastionField) {
 
+            $.ajax({
+                url: "/google",
+                method: "GET",
+                data: {
+                  start_location: JSON.stringify(startField),
+                  end_location: JSON.stringify(destinastionField),
+                }
+              })
 
             loader.style.display = "block";
 
