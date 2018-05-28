@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 	def welcome_email(user)
 		@user = user
 		@company = "taxi-fare-api"
-		@url = "app-path.com"
+		@url = "https://taxi-fare-api.herokuapp.com"
 		mail(to: @user.email, subject: "welcome to taxi-fare-api!")
 	end
 
@@ -15,12 +15,11 @@ class UserMailer < ApplicationMailer
 		mail(to: @user.email, subject: "You took a ride to #{@ride.end_address}!")
 	end
 
-	def password_reset_email(user, reset_hash, reset_url)
+	def password_reset_email(user, reset_hash)
 		@time = (Time.now.utc - 4.hours).strftime("%a %b %e %T %Y")
 		@user = user
 		@reset = reset_hash
-		@reset_url = reset_url
-		mail(to: @user.email, subject: "#{@user.first_name}, here is your password reset link")
+		mail(to: @user.email, subject: "#{@user.first_name}, here is your password reset token")
 	end
 
 	def password_reset_success_email(user)
