@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  get 'documentations/index'
   # get 'reset/show'
   #get 'reset/new'
   # get 'reset/create'
