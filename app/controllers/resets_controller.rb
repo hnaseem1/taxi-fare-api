@@ -25,16 +25,19 @@ class ResetsController < ApplicationController
     token = params[:reset][:token]
     password = params[:reset][:password]
     password_confirmation = params[:reset][:password_confirmation]
+
     #if it exists
     if token
       if Reset.verify_user_requested_reset(token)
         user = Reset.verify_user_requested_reset(token)
         user = Reset.change_password(user, password, password_confirmation)
+
         if user.save
           Reset.exhaust_token(token)
 
           UserMailer.password_reset_success_email(user).deliver_now
           redirect_to new_sessions_path
+
         else
           redirect_to new_resets_path
         end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :user_already_logged_in, only: %i(new)  
+  before_action :user_already_logged_in, only: %i(new)
   before_action :ensure_logged_in, only: %i(show)
 
   def new
@@ -22,8 +22,8 @@ class UsersController < ApplicationController
       ##passing the user instance to the usermailer welcome_email method
       UserMailer.welcome_email(@user).deliver_now
   		redirect_to user_path
-  	else 
-  		render :new 
+  	else
+  		render :new
   	end
   end
 
