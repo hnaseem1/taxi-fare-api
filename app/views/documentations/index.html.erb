@@ -1,8 +1,21 @@
-<h1>Documentations#index</h1>
-<p>Find me in app/views/documentations/index.html.erb</p>
+<h1>API documentation</h1>
+<div>
+	<p>Our API makes 4 requests to UBER (ETA &amp; price estimate endpoints) and LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
+</div>
+
 <h2>data returned in the API</h2>
 <ul>
 	<li>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</li>
+		<ul>
+			<li>Type: type of product offered. POOL by Uber is renamed to UberPOOL for clarity.</li>
+			<li>Distance:</li>
+			<li>Fare:</li>
+			<li>currency:</li>
+			<li>Duration:</li>
+			<li>ETA:</li>
+		</ul>
+	<li>The keys in the response in our api is the same for both companies (ex; fare and type are the same for each of the products they offer)</li>
+
 </ul>
 
 <p>endpoint: GET/price/show?sl=43.6549496&amp;slon=-79.3759257&amp;el=43.6920997&amp;elon=-79.5402031</p>
