@@ -20,7 +20,22 @@ class GoogleController < ApplicationController
       ##saving to the user/ride table
 
       if current_user
+          fav_start = params[:fav_start]
+          fav_end = params[:fav_end]
 
+
+          if fav_start == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, start_favourite: true)
+          end
+
+          if fav_end == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, end_favourite: true)
+          end
+
+          if fav_start == 'true' && fav_end == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
+          end
+        
           ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           ride.save
 
