@@ -144,6 +144,7 @@ console.log('start initAutocomplete');
 //====================================================================================================================================
 
   // function to initiate maps with point a to point b
+  var executed = 0
 
 function initMap() {
   console.log('start MAP');
@@ -232,20 +233,13 @@ console.log('STARTING SETMARKERS');
 
   //   console.log('drivers_location = data');
   // drivers_location = data
-
-
+  if (executed > 0) {
+  }else {
+    executed += 1
     var image = {
       // src: 'assets/images/car.png',
-      url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-      size: new google.maps.Size(20, 32),
-      origin: new google.maps.Point(0, 0),
-      // The anchor for this image is the base of the flagpole at (0, 32).
+      url: '<%= image_path('car.png') %>',
       anchor: new google.maps.Point(16, 16)
-    };
-
-    var shape = {
-      coords: [1, 1, 1, 20, 18, 20, 18, 1],
-      type: 'poly'
     };
 
     for (var i = 0; i < data.length; i++) {
@@ -253,12 +247,12 @@ console.log('STARTING SETMARKERS');
       var marker = new google.maps.Marker({
         position: {lat: data_location[0], lng: data_location[1]},
         map: map,
+        animation: google.maps.Animation.DROP,
         icon: image,
-        shape: shape,
       });
     }
-  })
-
+  }
+})
   var streetviewbutton = document.getElementById('streetview_button')
   streetviewbutton.style.display = 'block'
   console.log('Finished setMarkers');
