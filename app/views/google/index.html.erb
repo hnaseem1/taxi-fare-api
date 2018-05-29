@@ -4,22 +4,24 @@
 
 <div class="search-field">
   <%= form_tag(google_path, :method => "get" ) do %>
-    <p>
+  
+    <div class="location-start">
       <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", type:"text" %>
 
-        <button type="button" name="button" id='get-location-data' class="location-button">GET</button>
+        <button type="button" name="button" class='get-location-data' class="location-button">GET</button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
+    </div>
 
-    </p>
-
-    <p>
+    <div class="location-end">
       <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
 
-        <button type="button" name="button" id='get-location-data2' class="location-button">GET</button>
+        <button type="button" name="button" class='get-location-data' class="location-button">GET</button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
-    </p>
+    </div>
 
-    <p><%= submit_tag "Search", class: "submit"%></p>
+    <p>
+      <%= submit_tag "Search", class: "submit"%>
+    </p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
@@ -303,12 +305,11 @@
                         result.classList.add('hidden');
                         result.classList.remove('show');
 
-                        var filterResult       = document.createElement("div")
+                        var filterResult         = document.createElement("div")
                         filterResult.setAttribute("id", "filter_result")
                         filterResult.classList.add('result');
 
                         if (filterResult.innerText == "") {
-
                           // uber rides
                           for (var i = 0; i < data.uber.length; i++) {
                             if ( data.uber[i].capacity == 2 ) {
@@ -319,13 +320,15 @@
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
+                              var start_address  = document.getElementById('autocomplete').value
 
                               company.classList.add("uber_ride")
-                              h3.innerText = data.uber[i].type
-                              cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                              eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                              h3.innerText       = data.uber[i].type
+                              cost.innerText     = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                              eta.innerText      = "Arrival Time " + data.uber[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+
                               request_button.innerText = 'Request my UBER'
                               request_link.appendChild(request_button)
                               company.append(h3)
@@ -336,33 +339,40 @@
                               body.append(filterResult)
                             }
                           }
-
                           // Lyft rides
                           for (var i = 0; i < data.lyft.length; i++) {
-                            if ( data.lyft[i].capacity == 2 ) {
-                              var body           = document.querySelector('body')
-                              var company        = document.createElement('div')
+                            if ( data.uber[i].capacity == 2 ) {
+                              var possible_rides = ["Lyft Line", "Lyft", "Lyft Plus", "Lyft Premier", "Lyft Lux", "Lyft LUX SUV"]
+                              var company        = document.createElement("div")
                               var h3             = document.createElement("h3")
                               var cost           = document.createElement("p")
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
 
-                              company.classList.add("lyft_ride")
-                              h3.innerText = data.lyft[i].type
-                              cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                              eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                              var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                              company.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
+                              h3.innerText       = data.lyft[i].type
+                              cost.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                              eta.innerText      = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                              request_button.innerText = 'Request my LYFT'
-                              request_link.appendChild(request_button)
+
                               company.append(h3)
                               company.append(cost)
                               company.appendChild(eta)
-                              company.appendChild(request_link)
                               filterResult.append(company)
                               body.append(filterResult)
+
+                              if (possible_rides.includes(data.lyft[i].type)) {
+                                var request_button = document.createElement("button")
+                                var request_link = document.createElement("a")
+                                var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                                request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                                request_link.setAttribute('target', '_blank')
+                                request_button.innerText = 'Request my ' + data.lyft[i].type
+                                request_link.appendChild(request_button)
+                                company.appendChild(request_link)
+                              }
                             }
                           }
                         }
@@ -397,13 +407,15 @@
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
+                              var start_address  = document.getElementById('autocomplete').value
 
                               company.classList.add("uber_ride")
-                              h3.innerText = data.uber[i].type
-                              cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                              eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                              h3.innerText       = data.uber[i].type
+                              cost.innerText     = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                              eta.innerText      = "Arrival Time " + data.uber[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+
                               request_button.innerText = 'Request my UBER'
                               request_link.appendChild(request_button)
                               company.append(h3)
@@ -416,30 +428,38 @@
                           }
                           // Lyft rides
                           for (var i = 0; i < data.lyft.length; i++) {
-                            if ( data.lyft[i].capacity == 4 ) {
-                              var body           = document.querySelector('body')
-                              var company        = document.createElement('div')
+                            if ( data.uber[i].capacity == 4 ) {
+                              var possible_rides = ["Lyft Line", "Lyft", "Lyft Plus", "Lyft Premier", "Lyft Lux", "Lyft LUX SUV"]
+                              var company        = document.createElement("div")
                               var h3             = document.createElement("h3")
                               var cost           = document.createElement("p")
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
 
-                              company.classList.add("lyft_ride")
-                              h3.innerText = data.lyft[i].type
-                              cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                              eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                              var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                              company.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
+                              h3.innerText       = data.lyft[i].type
+                              cost.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                              eta.innerText      = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                              request_button.innerText = 'Request my LYFT'
-                              request_link.appendChild(request_button)
+
                               company.append(h3)
                               company.append(cost)
                               company.appendChild(eta)
-                              company.appendChild(request_link)
                               filterResult.append(company)
                               body.append(filterResult)
+
+                              if (possible_rides.includes(data.lyft[i].type)) {
+                                var request_button = document.createElement("button")
+                                var request_link = document.createElement("a")
+                                var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                                request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                                request_link.setAttribute('target', '_blank')
+                                request_button.innerText = 'Request my ' + data.lyft[i].type
+                                request_link.appendChild(request_button)
+                                company.appendChild(request_link)
+                              }
                             }
                           }
                         }
@@ -458,11 +478,12 @@
                         result.classList.add('hidden');
                         result.classList.remove('show');
 
-                        var filterResult       = document.createElement("div")
+                        var filterResult      = document.createElement("div")
                         filterResult.setAttribute("id", "filter_result")
                         filterResult.classList.add('result');
 
                         if (filterResult.innerHTML == "") {
+
                           // uber rides
                           for (var i = 0; i < data.uber.length; i++) {
                             if ( data.uber[i].capacity == 6 ) {
@@ -473,13 +494,15 @@
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
+                              var start_address  = document.getElementById('autocomplete').value
 
                               company.classList.add("uber_ride")
-                              h3.innerText = data.uber[i].type
-                              cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                              eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                              h3.innerText       = data.uber[i].type
+                              cost.innerText     = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                              eta.innerText      = "Arrival Time " + data.uber[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+
                               request_button.innerText = 'Request my UBER'
                               request_link.appendChild(request_button)
                               company.append(h3)
@@ -492,30 +515,38 @@
                           }
                           // Lyft rides
                           for (var i = 0; i < data.lyft.length; i++) {
-                            if ( data.lyft[i].capacity == 6 ) {
-                              var body           = document.querySelector('body')
-                              var company        = document.createElement('div')
+                            if ( data.uber[i].capacity == 6 ) {
+                              var possible_rides = ["Lyft Line", "Lyft", "Lyft Plus", "Lyft Premier", "Lyft Lux", "Lyft LUX SUV"]
+                              var company        = document.createElement("div")
                               var h3             = document.createElement("h3")
                               var cost           = document.createElement("p")
                               var eta            = document.createElement("p")
                               var request_link   = document.createElement("a")
                               var request_button = document.createElement("button")
 
-                              company.classList.add("lyft_ride")
-                              h3.innerText = data.lyft[i].type
-                              cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                              eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                              var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                              company.classList.add("lyft_ride", data.lyft[i].type.replace(/\s/g, ''))
+                              h3.innerText       = data.lyft[i].type
+                              cost.innerText = "$ " + data.lyft[i].currency + " " + data.lyft[i].fare
+                              eta.innerText      = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
                               request_link.setAttribute('target', '_blank')
                               request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                              request_button.innerText = 'Request my LYFT'
-                              request_link.appendChild(request_button)
+
                               company.append(h3)
                               company.append(cost)
                               company.appendChild(eta)
-                              company.appendChild(request_link)
                               filterResult.append(company)
                               body.append(filterResult)
+
+                              if (possible_rides.includes(data.lyft[i].type)) {
+                                var request_button = document.createElement("button")
+                                var request_link = document.createElement("a")
+                                var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                                request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                                request_link.setAttribute('target', '_blank')
+                                request_button.innerText = 'Request my ' + data.lyft[i].type
+                                request_link.appendChild(request_button)
+                                company.appendChild(request_link)
+                              }
                             }
                           }
                         }
@@ -565,7 +596,7 @@
                 div.appendChild(eta)
                 div.appendChild(request_link)
                 result.appendChild(div)
-                }
+              }
 
               // to show the LYFT rides
               for (var i = 0; i < data.lyft.length; i++) {

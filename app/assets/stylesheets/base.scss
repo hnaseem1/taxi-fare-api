@@ -1,3 +1,7 @@
+$nav-blue:   #071933;
+$main-blue:  #0C2C5A;
+$space-blue: rgba(255,255,255,0.15);
+$light-blue: #91C5FF;
 
 html, body {
   box-sizing: border-box;
@@ -29,7 +33,7 @@ body {
   }
 
   nav {
-    background-color: #000040;
+    background-color: $nav-blue;
     text-align: center;
     text-transform: uppercase;
     padding: 1em;
@@ -129,33 +133,40 @@ body {
 
   }
 
-  p {
-    margin: 0.5em;
-    font-size: 0.75em;
 
-    input {
-      background-color: #CCC;
-      border: none;
-      border-radius: 5px;
-      font-size: 20px;
-      margin-top: 0.5em;
-      text-align: center;
-      height: 3em;
-      width: 75%;
+  form {
+    background: $main-blue;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+
+    div {
+      margin: 1.5em;
+
+
+      .input-field {
+        background-color: $space-blue;
+        border: none;
+        border-radius: 4px;
+        height: 45px;
+
+      }
+
     }
-  }
 
 
 
-  .submit {
-    background: #3C99F9;
-    border: none;
-    border-radius: 5px;
-    color: #EEE;
-    margin-top: 0.5em;
-    height: 2.5em;
-    width: 75%;
-    font-size: 1.25em;
+    .submit {
+      background: $light-blue;
+      border: none;
+      border-radius: 4px;
+      color: $main-blue;
+      margin-top: 40px;
+      height: 45px;
+      width: 100%;
+      font-size: 1.25em;
+    }
+
   }
 
 }
