@@ -41,6 +41,14 @@
       <h5><label><input type="checkbox" name="capacity" value="6">6</label></h5>
 		</div>
 
+    <div class="filter-criteria">
+			<h3>Provider</h3>
+
+			<h5><label><input type="checkbox" name="capacity" value="uber">Uber</label></h5>
+      <h5><label><input type="checkbox" name="capacity" value="lyft">Lyft</label></h5>
+      <h5><label><input type="checkbox" name="capacity" value="taxi">Taxi</label></h5>
+		</div>
+
 		<button>Clear filters</button>
 
 	</form>
@@ -520,6 +528,11 @@
                       }
                     })
 
+                    // provider: uber, lyft, or taxi checkboxes
+                    var uberOnly = document.querySelector("input[value='uber']")
+                    uberOnly.addEventListener('change', function() {
+
+                    })
 
                   })
                 })
@@ -666,8 +679,8 @@
             var perKm = 1.75;
             var perMin = 0.55
             var cost = ((distance * perKm) + (perMin * rideTime)) + baseFee;
-            
-            //set up elements 
+
+            //set up elements
             var div = document.createElement("div");
             div.classList.add('taxi')
 
@@ -676,8 +689,8 @@
 
             h3.innerText = "Taxi Service Estimation";
             currency.innerText = "$CAD " + cost;
-            
-            
+
+
             div.style.border = "1px solid pink";
             div.appendChild(h3);
             div.appendChild(currency);
@@ -686,4 +699,3 @@
           }
 
       </script>
-
