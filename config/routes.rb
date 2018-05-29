@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
 
+ 
+  get 'rideicons/show'
+
   get 'documentations/index'
+  
   # get 'reset/show'
   #get 'reset/new'
   # get 'reset/create'
