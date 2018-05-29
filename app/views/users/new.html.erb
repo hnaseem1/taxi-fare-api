@@ -18,7 +18,7 @@
 		</p>
 
 		<p>
-			<%= f.text_field :email, placeholder: "Email" %>
+			<%= f.email_field :email, placeholder: "Email" %>
 		</p>
 
 		<p>
@@ -27,11 +27,6 @@
 
 		<p>
 			<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
-		</p>
-
-		<p>
-			<%= f.label :match %>
-			<%= f.check_box :match %>
 		</p>
 
 		<%= f.submit 'Sign up', class: "submit" %>

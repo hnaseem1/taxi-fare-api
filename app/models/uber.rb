@@ -11,11 +11,15 @@ class Uber < ApplicationRecord
     # fetching response from api
     uber_response = HTTParty.get(api_endpoint, headers: {"Authorization" => "Token #{uber_key}"})
 
+    # fetching eta data from api_data
+    eta_data = Uber.get_eta(start_lat, start_long)
+
     # parsing data to JSON
     uber_data = JSON.parse(uber_response.body)
 
     # data structure for returning values in a form of array of hashes
     data_array = []
+
 
     # some logic for sorting the api data into more readible and required information
       if uber_data["prices"]
@@ -74,7 +78,7 @@ class Uber < ApplicationRecord
           end
 
           hash["duration"]  = option["duration"]
-          hash["eta"]       = Uber.get_eta(start_lat, start_long, option["localized_display_name"])
+          hash["eta"]       = Uber.find_eta(eta_data, option["localized_display_name"])
 
           data_array.push(hash)
 
@@ -91,7 +95,28 @@ class Uber < ApplicationRecord
 
   end
 
-  def self.get_eta(start_lat, start_long, type)
+  # method calls finds the eta using the type of ride
+  def self.find_eta(data, type)
+
+    # finding the correct eta
+    if data["times"]
+
+      data["times"].each do |option|
+
+        if option["localized_display_name"] == type
+
+          return option["estimate"]
+
+        end
+      end
+    else
+        # throws an error if something goes wrong
+      return "ETA Unavailable"
+    end
+  end
+
+  # method calls the eta data
+  def self.get_eta(start_lat, start_long)
 
     uber_key = ENV['UBER_KEY']
 
@@ -104,23 +129,9 @@ class Uber < ApplicationRecord
     # parsing data
     eta_data = JSON.parse(response.body)
 
-    # finding the correct eta
-    if eta_data["times"]
+    # return data
+    return eta_data
 
-      eta_data["times"].each do |option|
-
-        if option["localized_display_name"] == type
-
-          return option["estimate"]
-
-        end
-      end
-    else
-
-    # throws an error if something goes wrong
-        return "ETA Unavailable"
-
-    end
   end
 
 end
