@@ -42,6 +42,7 @@ body.loading .modal {
 .search-field {
   .location-start, .location-end {
     position: relative;
+    margin-top: 20px;
   }
 
   .input-field {
@@ -50,7 +51,7 @@ body.loading .modal {
     border-bottom-left-radius: 10px;
 
     position: relative;
-    left: -68px;
+    left: -65px;
 
   }
 
@@ -97,6 +98,18 @@ body.loading .modal {
   display: none;
 }
 
+
+// landing page message that is only present before a search query begins
+
+.welcome-message {
+  img {
+    height: 100%;
+    width: 100%;
+    // background-image: image-url("map.svg");
+    background-repeat: no-repeat;
+  }
+
+}
 // only appear during an ajax call
   // results section to make each result into a cards that appear as a grid
   .result {
@@ -111,7 +124,6 @@ body.loading .modal {
 
     p {
       font-size: 0.75em;
-      margin: 1.5em;
     }
   }
 
