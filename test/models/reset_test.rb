@@ -8,7 +8,6 @@ class ResetTest < ActiveSupport::TestCase
 		user.email = 'testemail'
 		user.password = 'pass'
 		user.password_confirmation = 'pass'
-		user.match = true
 		user.save
 		user
 	end
