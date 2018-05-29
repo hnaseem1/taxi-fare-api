@@ -10,7 +10,7 @@ class GoogleController < ApplicationController
       google_start_location = getMapsLocation(start_location)
       google_end_location   = getMapsLocation(end_location)
 
-  # &components=country:CA
+      # &components=country:CA can be used to just focus on one country
 
       begin
         start_response        = HTTParty.get(google_start_location)
@@ -23,6 +23,8 @@ class GoogleController < ApplicationController
         print e
         return false
       end
+
+      # variables from the params
 
       sl        =   start_response_body['results'][0]["geometry"]['location']['lat'].to_s
       slon      =   start_response_body['results'][0]["geometry"]['location']['lng'].to_s
