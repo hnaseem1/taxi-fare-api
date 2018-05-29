@@ -19,7 +19,7 @@ class UserTest < ActiveSupport::TestCase
 		user.email = 'testemail'
 		user.password = 'pass'
 		user.password_confirmation = 'pass'
-		user.match = true
+
 		user.save
 		assert_equal(true, user.errors.any?)
 	end
