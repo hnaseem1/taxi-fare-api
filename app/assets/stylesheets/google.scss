@@ -40,13 +40,17 @@ body.loading .modal {
 
 // form for starting location and end destination
 .search-field {
+  .location-start, .location-end {
+    position: relative;
+  }
+
   .input-field {
     width: 80%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-  }
 
-  .fields {
+    position: relative;
+    left: -68px;
 
   }
 
@@ -58,6 +62,10 @@ body.loading .modal {
     color: $main-blue;
     height: 100px;
     width: 15%;
+
+    position: absolute;
+    bottom: 1px;
+    right: 20px;
 
     img {
       height: 50px;
