@@ -30,11 +30,13 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal(true, user.errors.any?)
 	end
 
+
 	test 'places_visited_returns_true' do
 		user = User.new(first_name: 'test', last_name: 'tester', email: 'testmail@test.com', password: '123', password_confirmation: '123')
+
 		user.save
 		ride = Ride.new(latitude_start: 43.647432, longitude_start: -79.3870747, latitude_end: 53.5468538, longitude_end: -113.4913583, user_id: user.id, start_address: 'some addr', end_address: 'another addr')
 		ride.save
-		assert(User.places_visited(user))
+		assert_equal('some addr', User.places_visited(user)[:start][0])
 	end
 end
