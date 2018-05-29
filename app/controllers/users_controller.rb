@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   	@user.email = params[:user][:email]
   	@user.password = params[:user][:password]
   	@user.password_confirmation = params[:user][:password_confirmation]
-  	@user.match = ActiveRecord::Type::Boolean.new.cast(params[:user][:match])
+
 
   	if @user.save
       session[:user_id] = @user.id
@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @match = current_user.match
 
     ##to show the statistics for the user
     @user_rides = current_user.rides
