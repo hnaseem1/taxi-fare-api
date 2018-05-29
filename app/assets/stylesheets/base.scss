@@ -78,10 +78,10 @@ body {
       // hamburger rotation animation
 
       .line1, .line2, .line3 {
-        margin-top:5px;
-        background-color:#fff;
-        width:25px;
-        height:3px;
+        margin-top: 12px;
+        background-color: $light-blue;
+        width: 65px;
+        height: 6px;
         display:block;
         position:relative;
         opacity:1.0;
