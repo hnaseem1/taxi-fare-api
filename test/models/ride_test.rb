@@ -1,65 +1,64 @@
 require 'test_helper'
 
 class RideTest < ActiveSupport::TestCase
+
+	setup do
+		@user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password: 'testtest', password_confirmation: 'testtest')
+		@user.save
+		@ride = Ride.new
+		@ride.latitude_start = 12
+		@ride.longitude_start = 1212
+		@ride.latitude_end = 12
+		@ride.longitude_end = 12
+		@ride.provider = 'uber'
+		@ride.price = 12
+		@ride.user_id = @user.id
+		@ride.start_address = 'start address'
+		@ride.end_address = 'end address'
+		@ride.start_favourite = nil
+		@ride.end_favourite = nil
+		@ride.save	
+	end
+
+	test 'ride in setup must be valid' do
+		assert_not_nil(@ride)
+		assert_not_nil(@ride.id)
+	end
+
 	test 'cannot_create_ride_without_user' do
-		ride = Ride.new
-		ride.latitude_start = 12
-		ride.longitude_start = 1212
-		ride.latitude_end = 12
-		ride.longitude_end = 12
-		ride.provider = 'uber'
-		ride.price = 12
-		ride.user_id = ''
-		ride.start_address = 'some address'
-		ride.end_address = 'address'
-		ride.save
-		assert_equal(true, ride.errors.any?)
+		@ride.user_id = nil
+		refute(@ride.valid?)
 	end
 
-	test 'return_start_location_favourite_for_user' do
-		user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password_digest: '12ewaglkfaer')
-		user.save
-		ride = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narnia', start_favourite: true)
-		ride.save
-		assert_equal('some place', Ride.favourite_places(user)[:start][0])
-	end
-	test 'return_end_location_favourite_for_user' do
-		
-		user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password_digest: '12ewaglkfaer')
-		user.save
-		ride = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narnia', start_favourite: false, end_favourite: true)
-		ride.save
-		assert_equal('narnia', Ride.favourite_places(user)[:end][0])
+	test 'favourite_places_should_return_a_populated_hash_if_the_user_has_favorite_rides' do
+		@ride.start_favourite = true
+		@ride.save		
+		assert_equal(1, @user.rides.count)
+		assert_equal(true, Ride.favourite_places(@user).is_a?(Hash))
+		assert_equal('start address', Ride.favourite_places(@user)[:start][0])
 	end
 
-	test 'return_ride_favourite_start_location_for_user' do
-		
-		user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password_digest: '12ewaglkfaer')
-		user.save
-		ride = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narnia', start_favourite: false, end_favourite: false, ride_favourite: true)
-		ride.save
-		assert_equal('some place', Ride.favourite_places(user)[:ride][:start][0])
+	test 'favorite_places_should_return_false_if_user_has_no_rides' do
 	end
 
-	test 'return_ride_favourite_end_location_for_user' do
-		
-		user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password_digest: '12ewaglkfaer')
-		user.save
-		ride = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narnia', start_favourite: false, end_favourite: false, ride_favourite: true)
-		ride.save
-		assert_equal('narnia', Ride.favourite_places(user)[:ride][:end][0])
+	test 'return_start_location_if_ride_is_a_favourite_for_user' do
+		@ride.start_favourite = true
+		@ride.save
+		assert_equal('start address', Ride.favourite_places(@user)[:start][0])
 	end
 
-	test 'return_3_ride_favourite_end_locations_for_user' do
-		
-		user = User.new(first_name: 'bob', last_name: 'sagat', email: 'bob@sagat.com', password_digest: '12ewaglkfaer')
-		user.save
-		ride = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narnia', start_favourite: false, end_favourite: false, ride_favourite: true)
-		ride1 = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narniaa', start_favourite: false, end_favourite: false, ride_favourite: true)
-		ride2 = Ride.new(latitude_start: 12, longitude_start: 12.4, latitude_end: 11, longitude_end: 14, provider: 'uber', price: 123.4, user_id: user.id, start_address: 'some place', end_address: 'narniaaa', start_favourite: false, end_favourite: false, ride_favourite: true)
-		ride2.save
-		ride1.save
-		ride.save
-		assert_equal(3 , Ride.favourite_places(user)[:ride][:end].count)
+	test 'return_end_location_if_ride_is_a_favourite_for_user' do
+		@ride.end_favourite = true
+		@ride.save		
+		assert_equal('end address', Ride.favourite_places(@user)[:end][0])
 	end
+
+
+	test 'return multiple start and end locations if user has multiple favourites' do
+		skip
+		new_ride = @ride
+		new_ride.save
+		assert_equal(2 , Ride.favourite_places(@user)[:ride].count)
+	end
+
 end
