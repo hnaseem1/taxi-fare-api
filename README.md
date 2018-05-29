@@ -4,7 +4,8 @@ This is a final project for the Bitmaker 12-week Web Development Immersive codin
 This is a web app that essentially compares products of the biggest players of ride-sharing services. The app encourages competition within the crowdsourcing economy by making it easier for users to pick services based on fares, types and estimated times of arrival. Our app aims to bring people together who choose the same routes so they can save on costs by pooling rides together.
 Highlights of the project:
 
-    •    Web technologies used to develop this application are as follows: Ruby on Rails, Javascript, Ajax, PostgreSQL, HTML5, CSS3 and SASS.       Combines the power of MVC with jQuery and a sprinkle of HTML and CSS!
+    •    Web technologies used to develop this application are as follows: Ruby on Rails, Javascript, Ajax, PostgreSQL, HTML5, CSS3 and SASS.       
+    *    Combines the power of MVC with jQuery and a sprinkle of HTML and CSS!
 
     •    Uses data from third-party APIs such as Uber, Lyft and Google APIs
 
