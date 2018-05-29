@@ -191,6 +191,7 @@ function computeTotalDistance(result) {
   document.getElementById('total').innerHTML = 'Distance' + total + ' km';
   console.log('finish MAP');
   setMarkers(map)
+  estimateTaxiPrice(total)
 }
 
 //=======================================================================================================================================================================================================
