@@ -3,6 +3,7 @@ class Reset < ApplicationRecord
 	validates :token, presence: true
 	validate :unique_token
 
+	# generates a reset token
 	def self.generate_reset_token(user)
 
 		user_id = user.id
@@ -14,6 +15,7 @@ class Reset < ApplicationRecord
 
 	end
 
+	# varify if the user has requested the token
 	def self.verify_user_requested_reset(token)
 
 		user = Reset.find_by(token: token)
@@ -28,25 +30,36 @@ class Reset < ApplicationRecord
 
 	end
 
+	# changes password based
 	def self.change_password(user, pass, passconf)
+
 		user.password = pass
 		user.password_confirmation = passconf
 		return user
+
 	end
 
+	# exhausts token so it cant be used later
 	def self.exhaust_token(token)
+
 		used_token = Reset.find_by(token: token)
 		exhaust_token = SecureRandom.hex(12)
 		used_token.token = exhaust_token
+
 		if used_token.save
 			return true
 		end
+
 	end
 
-	private
-	def unique_token
-		unless token == "User Already Used This Token" || !(Reset.find_by(token: token))
-			errors.add(:token, "is not unique")
-		end
-	end
+	# private
+
+	# checks if the token is unique
+	# def unique_token
+	#
+	# 	unless token == "User Already Used This Token" || !(Reset.find_by(token: token))
+	# 		errors.add(:token, "is not unique")
+	# 	end
+	#
+	# end
 end
