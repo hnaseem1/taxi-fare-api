@@ -5,14 +5,12 @@ class Ride < ApplicationRecord
 	def self.favourite_places(user)
 		if Ride.where(user_id: user.id)
 			rides = Ride.where(user_id: user.id)
-			locations = {start: [], end: [], ride: {start: [], end: []}}
+			locations = {start: [], end: [], ride: []}
 		end
 
 		rides.each do |ride|
 			if ride.ride_favourite
-				locations[:ride][:start].push(ride.start_address)
-				locations[:ride][:end].push(ride.end_address) 
-				
+				locations[:ride].push({start: ride.start_address, end: ride.end_address})
 			elsif ride.end_favourite
 				locations[:end].push(ride.end_address)
 

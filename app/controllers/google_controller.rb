@@ -40,9 +40,15 @@ class GoogleController < ApplicationController
         # @elon = elon
         # @start_location = start_location
         # @end_location = end_location
+          fav_start = params[:fav_start]
+          fav_end = params[:fav_end]
+
+          if fav_start == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
+          end
 
 
-          ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
+          
           ride.save
 
       # if javascript gets disabled the app would still work using the controller method
