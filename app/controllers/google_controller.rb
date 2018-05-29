@@ -7,22 +7,10 @@ class GoogleController < ApplicationController
       start_location  = params[:start_location]
       end_location    = params[:end_location]
 
-      google_start_location = getMapsLocation(start_location)
-      google_end_location   = getMapsLocation(end_location)
+      start_response_body = JSON.parse(getMapsLocation(start_location).body)
+      end_response_body   = JSON.parse(getMapsLocation(end_location).body)
 
       # &components=country:CA can be used to just focus on one country
-
-      begin
-        start_response        = HTTParty.get(google_start_location)
-        start_response_body   = JSON.parse(start_response.body)
-
-        end_response        = HTTParty.get(google_end_location)
-        end_response_body   = JSON.parse(end_response.body)
-
-      rescue SocketError => e
-        print e
-        return false
-      end
 
       # variables from the params
 
@@ -38,8 +26,9 @@ class GoogleController < ApplicationController
           ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           ride.save
 
-          ##email the user with the ride information. pass the ride instance to the mailer method
-          UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+          ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
+          # UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
+
         else
           p 'something wrong'
 
@@ -54,17 +43,10 @@ class GoogleController < ApplicationController
 
   private
 
-  def position
-
-    google_key=ENV["GOOGLE_KEY"]
-
-  end
-
   def getMapsLocation(cordinate)
 
     google_key=ENV["GOOGLE_KEY"]
-
-    URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}")
+    HTTParty.get(URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}"))
 
   end
 

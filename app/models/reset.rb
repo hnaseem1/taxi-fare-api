@@ -52,14 +52,4 @@ class Reset < ApplicationRecord
 
 	end
 
-	# private
-
-	# checks if the token is unique
-	# def unique_token
-	#
-	# 	unless token == "User Already Used This Token" || !(Reset.find_by(token: token))
-	# 		errors.add(:token, "is not unique")
-	# 	end
-	#
-	# end
 end
