@@ -6,16 +6,18 @@
   <%= form_tag(google_path, :method => "get" ) do %>
 
     <div class="location-start">
-      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter your address", type:"text" %>
+      <%= label_tag "From" %>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Starting location", type:"text" %>
 
-        <button type="button" name="button" class='get-location-data' class="location-button">GET</button>
+        <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
     </div>
 
     <div class="location-end">
-      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter your address", type:"text" %>
+      <%= label_tag "To" %>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", type:"text" %>
 
-        <button type="button" name="button" class='get-location-data' class="location-button">GET</button>
+        <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </div>
 
@@ -463,7 +465,9 @@ console.log('DONE STARTING CALLING OUR API');
                     body.append(filterResult)
                   }
                 }
-              })
+              }
+            }
+          })
 
             loader.style.display = "block";
 
@@ -798,7 +802,9 @@ console.log('DONE STARTING CALLING OUR API');
                   })
                 })
               })
-            }}
+            }
+
+          }
 
             function displayAll(data) {
               // to show the UBER rides
