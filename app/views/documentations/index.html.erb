@@ -3,9 +3,10 @@
 	<p>Our API makes 4 requests to UBER (ETA &amp; price estimate endpoints) and LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
 </div>
 
-<h2>data returned in the API</h2>
+<h3>Data returned in the API</h3>
 <ul>
 	<li>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</li>
+	<br>
 		<ul>
 			<li>Type: type of product offered. POOL by Uber is renamed to UberPOOL for clarity.</li>
 			<li>Distance: distance between the start and end coordinates</li>
@@ -14,17 +15,19 @@
 			<li>Duration: duration of the ride between the two points specified</li>
 			<li>ETA: response time of the driver for the respective product</li>
 		</ul>
+		<br>
 	<li>The keys in the response in our api is the same for both companies (ex; fare and type are the same for each of the products they offer)</li>
 
 </ul>
 
 <ul>
 	<li>endpoint: GET/price/show?sl=43.6549496&amp;slon=-79.3759257&amp;el=43.6920997&amp;elon=-79.5402031</li>
+	<br>
 		<ul>
 			<li>sl= start latitude, expects a float</li>
 			<li>slon = start longitude, expects a float</li>
 			<li>el = end latitude, expects a float</li>
-			<li>elon = end longitude, expects a float</li>	
+			<li>elon = end longitude, expects a float</li>
 		</ul>
 </ul>
 
@@ -32,14 +35,90 @@
 
 
 
-<h3>format; json</h3>
+<h3>Example Response</h3>
 
 <ul>
-	<li>Format of the response: api_data = {:uber => [], :lyft => []} </li>
-	<li>Sample response: <p>{"uber":[{"type":"uberXL","distance":12.75,"fare":61,"currency":"CAD","duration":2460,"eta":300},{"type":"UberSELECT","distance":12.75,"fare":67,"currency":"CAD","duration":2460,"eta":300},{"type":"uberPOOL","distance":12.75,"fare":22,"currency":"CAD","duration":2460,"eta":300},{"type":"UberBLACK","distance":12.75,"fare":84,"currency":"CAD","duration":2460,"eta":300},{"type":"UberSUV","distance":12.75,"fare":97,"currency":"CAD","duration":2460,"eta":300},{"type":"uberX","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":300},{"type":"uberASSIST","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":660},{"type":"uberWAV","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":360},{"type":"TAXI","distance":12.75,"fare":"Metered","currency":"","duration":2460,"eta":120}],"lyft":[{"type":"Lyft Line","distance":13.45,"fare":25,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"},{"type":"Lyft","distance":13.45,"fare":36,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"},{"type":"Lyft Plus","distance":13.45,"fare":67,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"},{"type":"Lyft Premier","distance":13.45,"fare":73,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"},{"type":"Lyft Lux","distance":13.45,"fare":107,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"},{"type":"Lyft Lux SUV","distance":13.45,"fare":123,"currency":"CAD","duration":2750,"eta":"ETA Unavailable"}]}</p></li>
+	<li>Format of the response: api_data = {:uber => [], :lyft => []}, Data Type: JSON </li>
+	<li>Sample response: 200 OK
+	<br>
+		 <code>
+			 <br>
+			 {
+<br>
+				 "uber":
+<br>
+				 [
+<br>
+				 {"type":"uberXL","distance":12.75,"fare":61,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"UberSELECT","distance":12.75,"fare":67,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"uberPOOL","distance":12.75,"fare":22,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"UberBLACK","distance":12.75,"fare":84,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"UberSUV","distance":12.75,"fare":97,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"uberX","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":300},
+<br>
+				 {"type":"uberASSIST","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":660},
+<br>
+				 {"type":"uberWAV","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":360},
+<br>
+				 {"type":"TAXI","distance":12.75,"fare":"Metered","currency":"","duration":2460,"eta":120}
+<br>
+				 ],
+<br>
+				 "lyft":
+<br>
+				 [
+<br>
+				 {"type":"Lyft Line","distance":13.45,"fare":25,"currency":"CAD","duration":2750,"eta":"300"},
+<br>
+				 {"type":"Lyft","distance":13.45,"fare":36,"currency":"CAD","duration":2750,"eta":"200"},
+<br>
+				 {"type":"Lyft Plus","distance":13.45,"fare":67,"currency":"CAD","duration":2750,"eta":"360"},
+<br>
+				 {"type":"Lyft Premier","distance":13.45,"fare":73,"currency":"CAD","duration":2750,"eta":"360"},
+<br>
+				 {"type":"Lyft Lux","distance":13.45,"fare":107,"currency":"CAD","duration":2750,"eta":"660"},
+<br>
+				 {"type":"Lyft Lux SUV","distance":13.45,"fare":123,"currency":"CAD","duration":2750,"eta":"360"}
+<br>
+				 ]
+<br>
+			 }
+		 </code>
+	 </li>
 </ul>
 
 <h4>Errors</h4>
 <ul>
 	<li>'INVALID PARAMS' would be in the response for Uber and Lyft json keys if your request raised an exception within our API</li>
+	<li>Sample Response: 200 OK
+		<br>
+		<code>
+			<br>
+			{
+				<br>
+    "uber":
+		<br>
+		[
+		<br>
+        "INVALID PARAMS"
+		<br>
+    ],
+		<br>
+    "lyft":
+		<br>
+		[
+    <br>
+		    "INVALID PARAMS"
+		<br>
+		]
+		<br>
+}
+
+		</code>
+	</li>
 </ul>
