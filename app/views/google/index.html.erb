@@ -4,22 +4,26 @@
 
 <div class="search-field">
   <%= form_tag(google_path, :method => "get" ) do %>
-    <p>
-      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Enter the start location", type:"text" %>
 
-        <button type="button" name="button" id='get-location-data' class="location-button">GET</button>
+    <div class="location-start">
+      <%= label_tag "From" %>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "", type:"text" %>
+
+        <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
+    </div>
 
-    </p>
+    <div class="location-end">
+      <%= label_tag "To" %>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "", type:"text" %>
+
+        <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
+        <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
+    </div>
 
     <p>
-      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Enter the destination", type:"text" %>
-
-        <button type="button" name="button" id='get-location-data2' class="location-button">GET</button>
-        <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
+      <%= submit_tag "Search", class: "submit"%>
     </p>
-
-    <p><%= submit_tag "Search", class: "submit"%></p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
@@ -68,9 +72,9 @@ style="display:none"
 <script>
 
   // setting up the geolocation from the browser
-var locationButton = document.getElementById('get-location-data')
+var locationButton = document.querySelectorAll('.get-location-data')
 var inputField = document.getElementById('autocomplete')
-locationButton.addEventListener('click', function() {
+locationButton[0].addEventListener('click', function() {
   inputField.disabled = true;
   inputField.placeholder = 'Getting your location...'
   if (navigator.geolocation) {
@@ -92,9 +96,8 @@ locationButton.addEventListener('click', function() {
   }
 })
   // setting up event listener on the destination field for getting current location
-var locationButton2 = document.getElementById('get-location-data2')
 var inputField2 = document.getElementById('autocomplete2')
-locationButton2.addEventListener('click', function() {
+locationButton[1].addEventListener('click', function() {
   inputField2.disabled = true;
   inputField2.placeholder = 'Getting your location...'
   if (navigator.geolocation) {
@@ -301,15 +304,13 @@ function apis_requests() {
   start_address = document.getElementById('autocomplete').value
 
 console.log('START_ADDRESS TO COORD.');
-  var start_cordinates = $.ajax({
+    var start_cordinates = $.ajax({
     url: "https://maps.googleapis.com/maps/api/geocode/json?address="+start_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
     get: 'GET'
   }).done(function() {
     console.log('DONE START_ADDRESS TO COORD.');
-
     start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
     start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
-
       // get start lat and lon using google API
 console.log('END_ADDRESS TO COORD.');
       end_address = document.getElementById('autocomplete2').value
@@ -318,10 +319,8 @@ console.log('END_ADDRESS TO COORD.');
         get: 'GET'
       }).done(function() {
 console.log('DONE END_ADDRESS TO COORD.');
-
         end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
         end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
-
 // get the data from taxi-fare-api
 console.log('STARTING CALLING OUR API');
         var response = $.ajax({
@@ -330,55 +329,41 @@ console.log('STARTING CALLING OUR API');
             dataType: 'json',
         }).done(function(data) {
 console.log('DONE STARTING CALLING OUR API');
-
 // removes the results from the previous request if there is any
           $(".uber_ride").remove();
           $(".lyft_ride").remove();
           $(".taxi").remove();
-
 // to enable maps
           initMap()
-
 // GET THE RIDE DURATION TO USE ON TAXI
           rideTime = data.uber[0].duration / 60
-
-
           // to hide loading page
           loader.style.display = "none";
-
           // display all the results
           // displayAll(data)
-
           // Display lowest
           displayInAscOrder(data)
-
           // Display only SUV
           // Display car for 4 people
           // Display car for 6 people
           // Display car for more than 6 people
           // Display only Pool Options
-
           // Filters
           var filters = document.querySelector('.filters');
           filters.style.display = "block";
           var result = document.getElementById('div_result')
-
           // capacity: 2, 4, or 6 checkboxes
           var capacity2 = document.querySelector("input[value='2']");
           capacity2.addEventListener('change', function(e) {
             if (this.checked) {
               console.log(e);
-
               // default results of rides arranges in ascending order are hidden to make new cards from the results of the filter
               result.classList.add('hidden');
               result.classList.remove('show');
-
               var filterResult       = document.createElement("div")
               filterResult.setAttribute("id", "filter_result")
               filterResult.classList.add('result');
-
               if (filterResult.innerText == "") {
-
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
                   if ( data.uber[i].capacity == 2 ) {
@@ -389,7 +374,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("uber_ride")
                     h3.innerText = data.uber[i].type
                     cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
@@ -406,7 +390,6 @@ console.log('DONE STARTING CALLING OUR API');
                     body.append(filterResult)
                   }
                 }
-
                 // Lyft rides
                 for (var i = 0; i < data.lyft.length; i++) {
                   if ( data.lyft[i].capacity == 2 ) {
@@ -417,7 +400,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("lyft_ride")
                     h3.innerText = data.lyft[i].type
                     cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
@@ -436,7 +418,6 @@ console.log('DONE STARTING CALLING OUR API');
                   }
                 }
               }
-
             } else {
               // when unchecked, filter results are deleted and the default results are displayed
               $("#filter_result").remove();
@@ -444,18 +425,15 @@ console.log('DONE STARTING CALLING OUR API');
               result.classList.remove('hidden');
             }
           })
-
           var capacity4 = document.querySelector("input[value='4']");
           capacity4.addEventListener('change', function(e) {
             if (this.checked) {
               console.log(e);
               result.classList.add('hidden');
               result.classList.remove('show');
-
               var filterResult       = document.createElement("div")
               filterResult.setAttribute("id", "filter_result")
               filterResult.classList.add('result');
-
               if (filterResult.innerHTML == "") {
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
@@ -467,7 +445,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("uber_ride")
                     h3.innerText = data.uber[i].type
                     cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
@@ -494,7 +471,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("lyft_ride")
                     h3.innerText = data.lyft[i].type
                     cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
@@ -513,7 +489,6 @@ console.log('DONE STARTING CALLING OUR API');
                   }
                 }
               }
-
             } else {
               // when unchecked, filter results are deleted and the default results are displayed
               $("#filter_result").remove();
@@ -527,11 +502,9 @@ console.log('DONE STARTING CALLING OUR API');
               console.log(e);
               result.classList.add('hidden');
               result.classList.remove('show');
-
               var filterResult       = document.createElement("div")
               filterResult.setAttribute("id", "filter_result")
               filterResult.classList.add('result');
-
               if (filterResult.innerHTML == "") {
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
@@ -543,7 +516,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("uber_ride")
                     h3.innerText = data.uber[i].type
                     cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
@@ -570,7 +542,6 @@ console.log('DONE STARTING CALLING OUR API');
                     var eta            = document.createElement("p")
                     var request_link   = document.createElement("a")
                     var request_button = document.createElement("button")
-
                     company.classList.add("lyft_ride")
                     h3.innerText = data.lyft[i].type
                     cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
@@ -596,7 +567,6 @@ console.log('DONE STARTING CALLING OUR API');
               result.classList.remove('hidden');
             }
           })
-
           // provider: uber, lyft, or taxi checkboxes
           var uberOnly = document.querySelector("input[value='uber']")
           uberOnly.addEventListener('change', function() {

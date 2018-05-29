@@ -39,7 +39,7 @@
 
   <footer>
 
-    <%= link_to 'documentation', documentations_index_path %> 
+    <%= link_to 'documentation', documentations_index_path %>
     Project Created by: Gustavo, Karen, Hasan &amp; Shashike
 
   </footer>
@@ -54,7 +54,7 @@
     var close = document.querySelector("#closebtn");
 
     //default to measure if/else from
-    nav.style.height = "50px";
+    nav.style.height = "60px";
     main.style.marginTop = "50px";
 
     close.addEventListener("click", function(){
@@ -70,8 +70,8 @@
         menu.style.display = "none";
 
         // nav height decreases
-      	nav.style.height = "50px";
-      	main.style.marginTop = "50px";
+      	nav.style.height = "60px";
+      	// main.style.marginTop = "50px";
 
 
       	for (var i = 0; i < menu.length; i++){
@@ -81,7 +81,7 @@
 
     	}
     	//to open
-    	else if (nav.style.height <= "50px") {
+    	else if (nav.style.height <= "60px") {
         // make menulist appear
         menu.style.display = "block";
 
@@ -97,10 +97,6 @@
     	  };
     	}
     });
-
-    function navToggle() {
-
-    };
   </script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"

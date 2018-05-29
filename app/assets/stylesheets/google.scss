@@ -6,6 +6,11 @@
 
 // Variables
 
+$nav-blue:   #071933;
+$main-blue:  #0C2C5A;
+$space-blue: rgba(255,255,255,0.15);
+$light-blue: #91C5FF;
+
 
 .modal {
   display:    none;
@@ -35,40 +40,44 @@ body.loading .modal {
 
 // form for starting location and end destination
 .search-field {
+  .location-start, .location-end {
+    position: relative;
+  }
 
+  .input-field {
+    width: 80%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 
-  background: rgba(1,1,1,0.5);
-  margin: 2em auto;
-  padding: 1.5em 0;
-  text-align: center;
-  width: 80%;
+    position: relative;
+    left: -68px;
 
-  p {
-    margin: 1.5em;
+  }
 
-    .input-field {
-     background-color: #CCC;
-     border: none;
-     border-radius: 5px;
-     height: 2em;
-    }
+  .get-location-data {
+    background: $light-blue;
+    border: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: $main-blue;
+    height: 100px;
+    width: 15%;
 
-    button {
-      background: #3C99F9;
-      border: none;
-      color: white;
-      height: 2.25em;
-      width: 15%;
-      width: 6%;
-      padding-bottom: 2.3em;
-      padding-top: 1.5em;
+    position: absolute;
+    bottom: 1px;
+    right: 20px;
+
+    img {
+      height: 50px;
+      width: 50%;
     }
   }
 
-  .submit {
-   height: 2.5em;
-   width: 30%;
-  }
+
+
+
+
+
 }
 
 #map {
@@ -152,4 +161,3 @@ body.loading .modal {
 //   padding-bottom: 2.3em;
 //   padding-top: 1.5em;
 // }
-
