@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
 	def welcome_email(user)
 		@user = user
 		@company = "taxi-fare-api"
-		@url = "app-path.com"
+		@url = "https://taxi-fare-api.herokuapp.com"
 		mail(to: @user.email, subject: "welcome to taxi-fare-api!")
 	end
 

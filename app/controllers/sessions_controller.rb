@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    
+
   	user_email = params[:session][:email]
   	user_password = params[:session][:password]
   	user = User.find_by(email: user_email)
@@ -13,9 +13,11 @@ class SessionsController < ApplicationController
   	if user && user.authenticate(user_password)
   		session[:user_id] = user.id
   		redirect_to user_path
-  	elsif user_email == nil && user_password == nil || user_email == nil || user_password == nil
+
+    elsif user_email == nil && user_password == nil || user_email == nil || user_password == nil
       flash[:error] = "enter login credentials"
   		render :new
+
     else 
       flash[:error] = "incorrect user name or password"
       render :new

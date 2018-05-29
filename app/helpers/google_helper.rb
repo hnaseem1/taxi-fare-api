@@ -2,7 +2,7 @@ module GoogleHelper
 
   def checktype(type)
   	if type == "POOL"
-  		return "UberPOOL"
+  		return "uberPOOL"
   	end
   	type
   end
