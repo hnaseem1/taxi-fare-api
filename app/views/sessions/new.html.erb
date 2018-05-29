@@ -2,7 +2,7 @@
 	<%= form_for :session, url: sessions_path do |f| %>
 		<%= image_tag "icon_signup_dude.png", class: "icon_dude" %>
 		<p>
-			<%= f.text_field :email, placeholder: "Email" %>
+			<%= f.email_field :email, placeholder: "Email" %>
 		</p>
 
 		<p>
