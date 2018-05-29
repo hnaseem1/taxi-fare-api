@@ -7,10 +7,8 @@ class GoogleController < ApplicationController
       start_location  = params[:start_location]
       end_location    = params[:end_location]
 
-      start_response_body = JSON.parse(getMapsLocation(start_location).body)
-      end_response_body   = JSON.parse(getMapsLocation(end_location).body)
-
-      # &components=country:CA can be used to just focus on one country
+      start_response_body = JSON.parse(get_maps_location(start_location).body)
+      end_response_body   = JSON.parse(get_maps_location(end_location).body)
 
       # variables from the params
 
@@ -27,23 +25,18 @@ class GoogleController < ApplicationController
           ride.save
 
           ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
+
           # UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
 
-        else
-          p 'something wrong'
-
-        end
-
-    else
-
-      # flash[:error] = 'Please Enter Something!'
-
+      end
     end
+
   end
+
 
   private
 
-  def getMapsLocation(cordinate)
+  def get_maps_location(cordinate)
 
     google_key=ENV["GOOGLE_KEY"]
     HTTParty.get(URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}"))
