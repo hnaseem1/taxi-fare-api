@@ -3,9 +3,10 @@
 	<p>Our API makes 4 requests to UBER (ETA &amp; price estimate endpoints) and LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
 </div>
 
-<h2>data returned in the API</h2>
+<h3>Data returned in the API</h3>
 <ul>
 	<li>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</li>
+	<br>
 		<ul>
 			<li>Type: type of product offered. POOL by Uber is renamed to UberPOOL for clarity.</li>
 			<li>Distance: distance between the start and end coordinates</li>
@@ -14,12 +15,14 @@
 			<li>Duration: duration of the ride between the two points specified</li>
 			<li>ETA: response time of the driver for the respective product</li>
 		</ul>
+		<br>
 	<li>The keys in the response in our api is the same for both companies (ex; fare and type are the same for each of the products they offer)</li>
 
 </ul>
 
 <ul>
 	<li>endpoint: GET/price/show?sl=43.6549496&amp;slon=-79.3759257&amp;el=43.6920997&amp;elon=-79.5402031</li>
+	<br>
 		<ul>
 			<li>sl= start latitude, expects a float</li>
 			<li>slon = start longitude, expects a float</li>
@@ -32,11 +35,11 @@
 
 
 
-<h3>format; json</h3>
+<h3>Example Response</h3>
 
 <ul>
-	<li>Format of the response: api_data = {:uber => [], :lyft => []} </li>
-	<li>Sample response 200 OK:
+	<li>Format of the response: api_data = {:uber => [], :lyft => []}, Data Type: JSON </li>
+	<li>Sample response: 200 OK
 	<br>
 		 <code>
 			 <br>
@@ -92,4 +95,30 @@
 <h4>Errors</h4>
 <ul>
 	<li>'INVALID PARAMS' would be in the response for Uber and Lyft json keys if your request raised an exception within our API</li>
+	<li>Sample Response: 200 OK
+		<br>
+		<code>
+			<br>
+			{
+				<br>
+    "uber":
+		<br>
+		[
+		<br>
+        "INVALID PARAMS"
+		<br>
+    ],
+		<br>
+    "lyft":
+		<br>
+		[
+    <br>
+		    "INVALID PARAMS"
+		<br>
+		]
+		<br>
+}
+
+		</code>
+	</li>
 </ul>
