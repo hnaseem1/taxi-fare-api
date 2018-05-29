@@ -13,4 +13,15 @@
  *= require_tree .
  *= require_self
  */
- 
+
+ footer {
+   position:relative;
+   text-align: center;
+   padding-top: 2em;
+   color: white;
+   bottom:0;
+   top:423px;
+   width:100%;
+   height:60px;   /* Height of the footer */
+   background:#000040;
+}
