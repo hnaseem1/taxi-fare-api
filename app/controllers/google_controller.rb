@@ -10,7 +10,7 @@ class GoogleController < ApplicationController
       google_start_location = getMapsLocation(start_location)
       google_end_location   = getMapsLocation(end_location)
 
-  # &components=country:CA
+      # &components=country:CA can be used to just focus on one country
 
       begin
         start_response        = HTTParty.get(google_start_location)
@@ -24,6 +24,8 @@ class GoogleController < ApplicationController
         return false
       end
 
+      # variables from the params
+
       sl        =   start_response_body['results'][0]["geometry"]['location']['lat'].to_s
       slon      =   start_response_body['results'][0]["geometry"]['location']['lng'].to_s
       el        =   end_response_body['results'][0]["geometry"]['location']['lat'].to_s
@@ -34,6 +36,7 @@ class GoogleController < ApplicationController
       if current_user
           fav_start = params[:fav_start]
           fav_end = params[:fav_end]
+
 
           if fav_start == 'true'
             ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, start_favourite: true)
@@ -46,13 +49,9 @@ class GoogleController < ApplicationController
           if fav_start == 'true' && fav_end == 'true'
             ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
           end
-
-
-          
+        
+          ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           ride.save
-
-      # if javascript gets disabled the app would still work using the controller method
-
 
           ##email the user with the ride information. pass the ride instance to the mailer method
           UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
@@ -60,10 +59,6 @@ class GoogleController < ApplicationController
           p 'something wrong'
 
         end
-
-
-      # @parsed_taxi_fare_response = sort_uber_and_lyft_prices(getdata(sl,slon,el,elon))
-
 
     else
 

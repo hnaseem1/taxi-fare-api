@@ -10,11 +10,16 @@ class Lyft < ApplicationRecord
     # fetching response from api
     lyft_response = HTTParty.get(api_endpoint, headers: {"Authorization" => "Basic #{lyft_key}"})
 
+    # fetching eta data from api
+    eta_data = Lyft.get_eta(start_lat, start_long)
+
     # parsing data to JSON
     lyft_data = JSON.parse(lyft_response.body)
 
     # data structure for returning values in a form of array of hashes
     data_array = []
+
+
 
     # some logic for sorting the api data into more readible and required information
     if lyft_data["cost_estimates"]
@@ -26,22 +31,16 @@ class Lyft < ApplicationRecord
         hash["type"]      = option["display_name"]
 
         if hash["type"] == "Lyft Line"
+
           hash["capacity"] = 2
 
-        elsif hash["type"] == "Lyft"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Plus"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Premier"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Lux"
-          hash["capacity"] = 4
-
         elsif hash["type"] == "Lyft Lux SUV"
+
           hash["capacity"] = 6
+
+        else
+
+          hash["capacity"] = 4
 
         end
 
@@ -54,7 +53,7 @@ class Lyft < ApplicationRecord
 
         hash["duration"]  = option["estimated_duration_seconds"]
 
-        hash["eta"]       = Lyft.get_eta(start_lat, start_long, hash["type"])
+        hash["eta"]       = Lyft.find_eta(eta_data, hash["type"])
 
         data_array.push(hash)
 
@@ -71,8 +70,31 @@ class Lyft < ApplicationRecord
 
   end
 
+  # finds the eta based on type
+  def self.find_eta(eta_data, type)
+
+      # finding the correct eta
+      if eta_data["eta_estimates"]
+
+        eta_data["eta_estimates"].each do |option|
+
+          if option["display_name"] == type
+
+            return option["eta_seconds"]
+
+          end
+        end
+
+      else
+        # throws an error if something goes wrong
+        return "ETA Unavailable"
+
+      end
+    end
+
+
   # a method that talks to another api for getting ETA
-  def self.get_eta(start_lat, start_long, type)
+  def self.get_eta(start_lat, start_long)
 
     # key for third-party api
     lyft_eta_key = ENV['LYFT_ETA_KEY']
@@ -86,23 +108,9 @@ class Lyft < ApplicationRecord
     # parsing data
     eta_data = JSON.parse(response.body)
 
-    # finding the correct eta
-    if eta_data["eta_estimates"]
+    # returns data
+    return eta_data
 
-      eta_data["eta_estimates"].each do |option|
-
-        if option["display_name"] == type
-
-          return option["eta_seconds"]
-
-        end
-      end
-    else
-
-    # throws an error if something goes wrong
-        return "ETA Unavailable"
-
-    end
   end
 
 end

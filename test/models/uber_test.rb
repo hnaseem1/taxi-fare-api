@@ -36,24 +36,18 @@ class UberTest < ActiveSupport::TestCase
 
   test "get_eta giving back responses" do
 
-    response = Uber.get_eta(Cordinates[0], Cordinates[1], 'Lyft')
+    response = Uber.get_eta(Cordinates[0], Cordinates[1])
     assert response
 
   end
 
-  test "get_eta giving back nil responses" do
+  test "find_eta runs with valid parameters" do
 
-    response = Uber.get_eta(nil, nil, nil)
-    assert_equal(response, "ETA Unavailable")
-
-  end
-
-  test "get_eta giving back string responses" do
-
-    response = Uber.get_eta("A", Cordinates[1], nil)
-    assert_equal(response, "ETA Unavailable")
+    eta_data = Uber.get_eta(Cordinates[0], Cordinates[1])
+    type = "UberSUV"
+    response = Uber.find_eta(eta_data, type)
+    assert response
 
   end
-
 
 end
