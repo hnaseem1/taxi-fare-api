@@ -37,25 +37,11 @@ class Uber < ApplicationRecord
 
             hash["type"]      = option["localized_display_name"]
 
-            if hash["type"] == 'uberXL'
+            if hash["type"] == 'uberXL' && hash["type"] == 'uberSUV'
               hash["capacity"] = 6
 
-            elsif hash["type"] == 'UberSELECT'
-              hash["capacity"] = 4
+            else
 
-            elsif hash["type"] == 'UberBLACK'
-              hash["capacity"] = 4
-
-            elsif hash["type"] == 'UberSUV'
-              hash["capacity"] = 6
-
-            elsif hash["type"] == 'uberX'
-              hash["capacity"] = 4
-
-            elsif hash["type"] == 'uberASSIST'
-              hash["capacity"] = 4
-
-            elsif hash["type"] == 'uberWAV'
               hash["capacity"] = 4
 
             end

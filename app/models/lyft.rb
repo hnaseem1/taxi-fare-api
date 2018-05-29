@@ -31,22 +31,16 @@ class Lyft < ApplicationRecord
         hash["type"]      = option["display_name"]
 
         if hash["type"] == "Lyft Line"
+
           hash["capacity"] = 2
 
-        elsif hash["type"] == "Lyft"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Plus"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Premier"
-          hash["capacity"] = 4
-
-        elsif hash["type"] == "Lyft Lux"
-          hash["capacity"] = 4
-
         elsif hash["type"] == "Lyft Lux SUV"
+
           hash["capacity"] = 6
+
+        else
+
+          hash["capacity"] = 4
 
         end
 
