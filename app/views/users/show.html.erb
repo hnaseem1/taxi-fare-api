@@ -5,9 +5,7 @@
 		<p>Favourite start locations</p>
 		<% show_start_favs(@user_favourite_rides).each do |location| %> 
 		 	<ul>
-		 		
-		 		<li><%= location %></li>
-				
+		 		<li><%= location %></li> 
 		 	</ul>	 
 		<% end %> 
 	<% end %> 
@@ -37,4 +35,16 @@
 <% else %>
 
 Feel free to favorite some rides!
+<% end %> 
+
+<h1>Ride History</h1>
+<% current_user.rides.each do |ride| %> 
+	<ul>
+		<li>
+		From: <%= ride.start_address %> 
+		To: <%= ride.end_address %> 
+		<%= ride.created_at %> 
+		</li>
+	</ul>
+
 <% end %> 
