@@ -38,8 +38,8 @@ class GoogleController < ApplicationController
             ride.save
           end
         
-         # ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
-          
+         searched_ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
+         searched_ride.save
 
           ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
 
