@@ -1,7 +1,9 @@
-<h1>Reset#new</h1>
-<p>Find me in app/views/reset/new.html.erb</p>
+<h1>Password Reset</h1>
+<p>Please enter your email to recieve the link to reset your password</p>
 
+<div class="newpassbox">
 <%= form_for :reset, url: resets_path do |f| %> 
-	<%= f.text_field :email, placeholder: "Your Email" %> 
-	<%= f.submit 'Send reset link' %> 
+	<%= f.text_field :email, placeholder: "Your Email", class: 'emailField' %> 
+	<%= f.submit 'Send reset link', class: 'submit' %> 
 <% end %> 
+</div>
