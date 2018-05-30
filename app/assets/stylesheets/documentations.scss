@@ -1,3 +1,31 @@
 // Place all the styles related to the documentations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.container{
+  padding: 0 40px;
+
+  .article{
+
+    border-bottom: 1px solid grey;
+  }
+
+  h2{
+    padding: 15px;
+    background-color: transparent;
+    color: black;
+  font-weight: bold;
+  }
+}
+
+.nav_documentations{
+  background: rgba(1, 1, 1, 0.5);
+  font-size: 1.3em;
+
+
+  a {
+    text-decoration: none;
+    padding: 25px;
+    color: white;
+
+  }
+}
