@@ -1,27 +1,36 @@
+<nav class="nav_documentations">
+	<a href="#overview">Overview</a>
+	<a href="#riderequests">Ride Requests</a>
+	<a href="#datareturn">Data return</a>
+	<a href="#endpoint">Endpoint</a>
+	<a href="#example">Example</a>
+</nav>
+
 <div class="container">
+
 <div class="article">
 
+<h2 id="overview">Overview</h2>
 
-<h1>Overview</h1>
-
-<p>Welcome to Scoop Fare API documentation. Scoop Fare API was released to help developer to interact with LYFT and </p>
+<p>Welcome to Scoop Fare API documentation. This API is available to help developers to interact with LYFT and UBER API's in a easy way. Scoop Fare API return the all the UBER's and LYFT's rides available with the important details in just one request. </p>
 </div>
 
-<h1>API documentation</h1>
+<h2 id="riderequests">Ride Requests</h2>
 
-<div>
-	<p>Our API makes 4 requests to UBER (ETA &amp; price estimate endpoints) and LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
+<div class="article">
+	<p>For each request our API will make 4 requests, 2 for UBER (ETA &amp; price estimate endpoints) and 2 for LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
 </div>
+<div class="article">
 
-<h3>Data returned in the API</h3>
+<h2 id="datareturn">Data return</h2>
 <ul>
 	<li>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</li>
 	<br>
 		<ul>
 			<li>Type: type of product offered. POOL by Uber is renamed to UberPOOL for clarity.</li>
 			<li>Distance: distance between the start and end coordinates</li>
-			<li>Fare: the price for each of the respective products </li>
-			<li>Currency: default is CAD</li>
+			<li>Fare: the price for each of the respective products(UBER have a ride called TAXI that do not return fare, our api replace the value to "Metered")</li>
+			<li>Currency: the currency will be automaticaly change acoording with the used on the locations informed</li>
 			<li>Duration: duration of the ride between the two points specified</li>
 			<li>ETA: response time of the driver for the respective product</li>
 		</ul>
@@ -30,22 +39,30 @@
 
 </ul>
 
-<ul>
-	<li>endpoint: GET/price/show?sl=43.6549496&amp;slon=-79.3759257&amp;el=43.6920997&amp;elon=-79.5402031</li>
+</div>
+
+<div class="article">
+
+<h2 id="endpoint">Endpoint</h2>
+
+<p>The requests for our API should follow the bellow:</p>
+
+
+	<p>Send a GET request to: <br>
+		"/price/show?sl=<span>&lt; start latitude &gt;</span>&amp;slon=<span>&lt; start longitude &gt;</span>&amp;el=<span>&lt; end latitude &gt;</span>&amp;elon=<span>&lt; end longitude &gt;</span>"</p>
 	<br>
+	<p>Params used:</p>
 		<ul>
 			<li>sl= start latitude, expects a float</li>
 			<li>slon = start longitude, expects a float</li>
 			<li>el = end latitude, expects a float</li>
 			<li>elon = end longitude, expects a float</li>
 		</ul>
-</ul>
 
+</div>
 
-
-
-
-<h3>Example Response</h3>
+<div class="article">
+<h2 id="example">Example Response</h2>
 
 <ul>
 	<li>Format of the response: api_data = {:uber => [], :lyft => []}, Data Type: JSON </li>
@@ -132,4 +149,5 @@
 		</code>
 	</li>
 </ul>
+</div>
 </div>

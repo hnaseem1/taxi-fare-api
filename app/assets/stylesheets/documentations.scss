@@ -4,4 +4,28 @@
 .container{
   padding: 0 40px;
 
+  .article{
+
+    border-bottom: 1px solid grey;
+  }
+
+  h2{
+    padding: 15px;
+    background-color: transparent;
+    color: black;
+  font-weight: bold;
+  }
+}
+
+.nav_documentations{
+  background: rgba(1, 1, 1, 0.5);
+  font-size: 1.3em;
+
+
+  a {
+    text-decoration: none;
+    padding: 25px;
+    color: white;
+
+  }
 }
