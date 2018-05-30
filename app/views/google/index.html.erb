@@ -21,20 +21,27 @@
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </div>
 
-    <p>
-      <%= submit_tag "Search", class: "submit"%>
-    </p>
+      <%= check_box_tag :fav_start, params[:fav_start]  %> 
+      <%= label_tag 'fav start' %>
+      <%= check_box_tag :fav_end, params[:fav_end] %> 
+      <%= label_tag 'fav end' %>
+
+    <p><%= submit_tag "Search", class: "submit"%></p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
+    
+    <p>
+      <%= submit_tag "Search", class: "submit"%>
+    </p>
     <% end %>
-  <% end %>
-</div>
+   <% end %>
 
 <div class="welcome-message">
   <%= image_tag "map.svg" %>
 </div>
 
+</div>
 <p id="total"></p>
 <div id="map" style="display: none"></div>
 
@@ -87,7 +94,7 @@ locationButton[0].addEventListener('click', function() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
         };
-    // ajax call to google maps to find readible address from location data
+// ajax call to google maps to find readible address from location data
       response = $.ajax({
         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
         method: 'GET',
@@ -147,8 +154,8 @@ console.log('start initAutocomplete');
 
 //====================================================================================================================================
 
-  // function to initiate maps with point a to point b
-  var executed = 0
+// function to initiate maps with point a to point b
+var executed = 0
 
 function initMap() {
   console.log('start MAP');
@@ -196,13 +203,12 @@ function displayRoute(origin, destination, service, display) {
 }
 
 function computeTotalDistance(result) {
-  var total = 0;
+  total = 0;
   myroute = result.routes[0];
   for (var i = 0; i < myroute.legs.length; i++) {
     total += myroute.legs[i].distance.value;
   }
   total = total / 1000;
-  document.getElementById('total').innerHTML = 'Distance' + total + ' km';
   console.log('finish MAP');
   setMarkers(map)
   estimateTaxiPrice(total)
@@ -269,6 +275,7 @@ console.log('STARTING SETMARKERS');
 var submit = document.querySelector('.submit')
 submit.addEventListener('click', function (event) {
   event.preventDefault();
+  document.getElementById('streetview_button').style.display = 'none'
   apis_requests()
 })
 
@@ -279,6 +286,8 @@ submit.addEventListener('click', function (event) {
 function apis_requests() {
   var startField = document.getElementById('autocomplete').value
   var destinastionField = document.getElementById('autocomplete2').value
+  var favStart = document.getElementById('fav_start').checked
+  var favEnd = document.getElementById('fav_end').checked
   if (startField && destinastionField) {
 
 // =====    SHOW THE LOADING PAGE     =======
@@ -293,6 +302,8 @@ function apis_requests() {
     data: {
       start_location: JSON.stringify(startField),
       end_location: JSON.stringify(destinastionField),
+      fav_start: JSON.stringify(favStart),
+      fav_end: JSON.stringify(favEnd),
     }
   })
   console.log('DONE save the ride');
@@ -722,7 +733,7 @@ function estimateTaxiPrice(distance) {
   var currency = document.createElement("p");
 
   h3.innerText = "Taxi Service Estimation";
-  currency.innerText = "$CAD " + cost;
+  currency.innerText = "$CAD " + cost.toFixed(2);
 
 
   div.style.border = "1px solid pink";

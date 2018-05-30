@@ -7,22 +7,8 @@ class GoogleController < ApplicationController
       start_location  = params[:start_location]
       end_location    = params[:end_location]
 
-      google_start_location = getMapsLocation(start_location)
-      google_end_location   = getMapsLocation(end_location)
-
-      # &components=country:CA can be used to just focus on one country
-
-      begin
-        start_response        = HTTParty.get(google_start_location)
-        start_response_body   = JSON.parse(start_response.body)
-
-        end_response        = HTTParty.get(google_end_location)
-        end_response_body   = JSON.parse(end_response.body)
-
-      rescue SocketError => e
-        print e
-        return false
-      end
+      start_response_body = JSON.parse(get_maps_location(start_location).body)
+      end_response_body   = JSON.parse(get_maps_location(end_location).body)
 
       # variables from the params
 
@@ -34,37 +20,43 @@ class GoogleController < ApplicationController
       ##saving to the user/ride table
 
       if current_user
+          fav_start = params[:fav_start].to_s
+          fav_end = params[:fav_end].to_s
 
-          ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
-          ride.save
+          if fav_start == 'true' && fav_end == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
+            ride.save
+          end
 
-          ##email the user with the ride information. pass the ride instance to the mailer method
-          UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
-        else
-          p 'something wrong'
+          if fav_start == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, start_favourite: true)
+            ride.save
+          end
 
-        end
+          if fav_end == 'true'
+            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, end_favourite: true)
+            ride.save
+          end
+        
+         # ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
+          
 
-    else
+          ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
 
-      # flash[:error] = 'Please Enter Something!'
+          # UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
 
+      end
     end
+
   end
+
 
   private
 
-  def position
+  def get_maps_location(cordinate)
 
     google_key=ENV["GOOGLE_KEY"]
-
-  end
-
-  def getMapsLocation(cordinate)
-
-    google_key=ENV["GOOGLE_KEY"]
-
-    URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}")
+    HTTParty.get(URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}"))
 
   end
 

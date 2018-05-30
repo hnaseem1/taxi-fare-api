@@ -1,11 +1,40 @@
 <p>hi <%= @user.first_name.capitalize %></p>
 
-<% if @user_rides %> 
-	<% @user_rides.each do |ride| %> 
-		<ul>
-			<li>From: <%= ride.start_address %></li>
-			<li>To: <%= ride.end_address %></li>
-			<li>Date: <%= ride.created_at.strftime("%Y-%m-%d") %></li>
-		</ul>
+<% if @user_favourite_rides %> 
+	<% if show_start_favs(@user_favourite_rides) %> 
+		<p>Favourite start locations</p>
+		<% show_start_favs(@user_favourite_rides).each do |location| %> 
+		 	<ul>
+		 		
+		 		<li><%= location %></li>
+				
+		 	</ul>	 
+		<% end %> 
 	<% end %> 
+	<% if show_end_favs(@user_favourite_rides) %>
+		<p>Favourite end locations</p>
+		<% show_end_favs(@user_favourite_rides).each do |location| %>
+		 	<ul>
+		 		
+		 		<li><%= location %></li>
+				
+		 	</ul>
+		<% end %> 
+	<% end %> 
+	<% if show_ride_favs(@user_favourite_rides) != nil && show_ride_favs(@user_favourite_rides) != false %> 
+		<p>Favourite rides locations</p>
+		<% show_ride_favs(@user_favourite_rides).each do |trip| %> 
+		 	<ul>
+		 		
+		 		<li>start location:<%= trip[:start] %> end location <%= trip[:end] %></li>
+			
+		 	</ul>
+		<% end %> 
+	<% else %>
+		wow
+	<% end %> 
+
+<% else %>
+
+Feel free to favorite some rides!
 <% end %> 

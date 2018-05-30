@@ -14,4 +14,5 @@ class PriceController < ApplicationController
 
 
   end
+  
 end

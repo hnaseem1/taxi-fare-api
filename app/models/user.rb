@@ -18,4 +18,6 @@ class User < ApplicationRecord
 		end
 		return locations
 	end
+
+
 end
