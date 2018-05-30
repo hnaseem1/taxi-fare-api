@@ -56,13 +56,13 @@
       <h5><label><input type="checkbox" name="capacity" value="6">6</label></h5>
 		</div>
 
-    <div class="filter-criteria">
+    <!-- <div class="filter-criteria">
 			<h3>Provider</h3>
 
 			<h5><label><input type="checkbox" name="capacity" value="uber">Uber</label></h5>
       <h5><label><input type="checkbox" name="capacity" value="lyft">Lyft</label></h5>
       <h5><label><input type="checkbox" name="capacity" value="taxi">Taxi</label></h5>
-		</div>
+		</div> -->
 
 		<button>Clear filters</button>
 
@@ -343,13 +343,14 @@ var welcomeMessage = document.querySelector('.welcome-message')
 welcomeMessage.classList.add('hidden')
 
 console.log('DONE STARTING CALLING OUR API');
-// removes the results from the previous request if there is any
+
+        // removes the results from the previous request if there is any
           $(".uber_ride").remove();
           $(".lyft_ride").remove();
           $(".taxi").remove();
-// to enable maps
+        // to enable maps
           initMap()
-// GET THE RIDE DURATION TO USE ON TAXI
+        // GET THE RIDE DURATION TO USE ON TAXI
           rideTime = data.uber[0].duration / 60
           // to hide loading page
           loader.style.display = "none";
@@ -381,6 +382,9 @@ console.log('DONE STARTING CALLING OUR API');
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
                   if ( data.uber[i].capacity == 2 ) {
+                    $(".uber_ride").remove();
+                    $(".lyft_ride").remove();
+                    $(".taxi").remove();
                     var body           = document.querySelector('body')
                     var company        = document.createElement('div')
                     var h3             = document.createElement("h3")
@@ -449,6 +453,10 @@ console.log('DONE STARTING CALLING OUR API');
               filterResult.setAttribute("id", "filter_result")
               filterResult.classList.add('result');
               if (filterResult.innerHTML == "") {
+                $("footer").display = "none";
+                $(".uber_ride").remove();
+                $(".lyft_ride").remove();
+                $(".taxi").remove();
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
                   if ( data.uber[i].capacity == 4 ) {
@@ -520,6 +528,9 @@ console.log('DONE STARTING CALLING OUR API');
               filterResult.setAttribute("id", "filter_result")
               filterResult.classList.add('result');
               if (filterResult.innerHTML == "") {
+                $(".uber_ride").remove();
+                $(".lyft_ride").remove();
+                $(".taxi").remove();
                 // uber rides
                 for (var i = 0; i < data.uber.length; i++) {
                   if ( data.uber[i].capacity == 6 ) {
