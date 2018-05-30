@@ -22,14 +22,12 @@ class ResetsController < ApplicationController
 
   def reset_pass
     ##get the token from the params hash
-    password = params[:reset][:password]
-    password_confirmation = params[:reset][:password_confirmation]
-
+    
     #if it exists
     if token_params
       if Reset.verify_user_requested_reset(token_params)
         user = Reset.verify_user_requested_reset(token_params)
-        user = Reset.change_password(user, password, password_confirmation)
+        user = Reset.change_password(user, password_change_params[:password], password_change_params[:password_confirmation])
 
         if user.save
           Reset.exhaust_token(token_params)
@@ -62,6 +60,10 @@ class ResetsController < ApplicationController
 
   def token_params
     params.require(:reset).permit(:token)
+  end
+
+  def password_change_params
+    params.require(:reset).permit(:password, :password_confirmation)
   end
 
 
