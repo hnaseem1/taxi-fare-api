@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-
     ##to show the statistics for the user
     @user_favourite_rides = Ride.favourite_places(current_user)
   end

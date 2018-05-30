@@ -43,7 +43,7 @@ Feel free to favorite some rides!
 		<li>
 		From: <%= ride.start_address %> 
 		To: <%= ride.end_address %> 
-		<%= ride.created_at %> 
+		<%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %> 
 		</li>
 	</ul>
 
