@@ -21,21 +21,25 @@
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </div>
 
-      <%= check_box_tag :fav_start, params[:fav_start]  %> 
+      <%= check_box_tag :fav_start, params[:fav_start]  %>
       <%= label_tag 'fav start' %>
-      <%= check_box_tag :fav_end, params[:fav_end] %> 
+      <%= check_box_tag :fav_end, params[:fav_end] %>
       <%= label_tag 'fav end' %>
 
     <p><%= submit_tag "Search", class: "submit"%></p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
-    
+
     <p>
       <%= submit_tag "Search", class: "submit"%>
     </p>
     <% end %>
    <% end %>
+
+<div class="welcome-message">
+  <%= image_tag "map.svg" %>
+</div>
 
 </div>
 <p id="total"></p>
@@ -77,7 +81,7 @@ style="display:none"
 </iframe>
 
 <script>
-
+var loader = document.getElementById('loader');
   // setting up the geolocation from the browser
 var locationButton = document.querySelectorAll('.get-location-data')
 var inputField = document.getElementById('autocomplete')
@@ -212,6 +216,7 @@ function computeTotalDistance(result) {
 
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
+
 function showstreetview() {
   var frame = document.getElementById('streetview_iframe')
   frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
@@ -270,317 +275,349 @@ console.log('STARTING SETMARKERS');
 
 var submit = document.querySelector('.submit')
 submit.addEventListener('click', function (event) {
+
+  // =====    PREVENT THE BUTTON TO REFRESH THE PAGE     =======
   event.preventDefault();
-  document.getElementById('streetview_button').style.display = 'none'
+
+  // =====    PREVENT REFRESH THE STREETVIEW IFRAME (need to show the new destination if changed)    =======
+  document.getElementById('streetview_iframe').style.display = 'none'
+
+// =====    SHOW THE LOADING PAGE     =======
+    loader.style.display = "block";
+
+
+  saveride()
   apis_requests()
+
 })
+
+//=========================================================================================================================
+
+// FUNCTION TO SAVE THE RIDE IN DATABASE
+
+function saveride() {
+  var start_address = document.getElementById('autocomplete').value
+  var end_address = document.getElementById('autocomplete2').value
+  var favStart = document.getElementById('fav_start').checked
+  var favEnd = document.getElementById('fav_end').checked
+  if (start_address && end_address) {
+
+// Saves the history to the database
+console.log('start call to save the ride');
+    $.ajax({
+    url: "/google",
+    method: "GET",
+    data: {
+      start_location: JSON.stringify(start_address),
+      end_location: JSON.stringify(end_address),
+      fav_start: JSON.stringify(favStart),
+      fav_end: JSON.stringify(favEnd),
+      }
+    })
+console.log('DONE save the ride');
+  }
+}
+
+
 
 //=========================================================================================================================
 
     // FUNCTION THAT CALL OUR API AND COME BACK WITH THE DATA
 
 function apis_requests() {
-  var startField = document.getElementById('autocomplete').value
-  var destinastionField = document.getElementById('autocomplete2').value
-  var favStart = document.getElementById('fav_start').checked
-  var favEnd = document.getElementById('fav_end').checked
-  if (startField && destinastionField) {
-
-// =====    SHOW THE LOADING PAGE     =======
-    var loader = document.getElementById('loader');
-    loader.style.display = "block";
-
-    // Saves the history to the database
-    console.log('start call to save the ride');
-    $.ajax({
-    url: "/google",
-    method: "GET",
-    data: {
-      start_location: JSON.stringify(startField),
-      end_location: JSON.stringify(destinastionField),
-      fav_start: JSON.stringify(favStart),
-      fav_end: JSON.stringify(favEnd),
-    }
-  })
-  console.log('DONE save the ride');
+  var start_address = document.getElementById('autocomplete').value
+  var end_address = document.getElementById('autocomplete2').value
 
 // get start lat and lon using google API
 
-  start_address = document.getElementById('autocomplete').value
-
-console.log('START_ADDRESS TO COORD.');
-    var start_cordinates = $.ajax({
+    start_cordinates = $.ajax({
     url: "https://maps.googleapis.com/maps/api/geocode/json?address="+start_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
     get: 'GET'
-  }).done(function() {
-    console.log('DONE START_ADDRESS TO COORD.');
-    start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
-    start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
-      // get start lat and lon using google API
-console.log('END_ADDRESS TO COORD.');
-      end_address = document.getElementById('autocomplete2').value
-      var end_cordinates = $.ajax({
-        url: "https://maps.googleapis.com/maps/api/geocode/json?address="+end_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-        get: 'GET'
-      }).done(function() {
-console.log('DONE END_ADDRESS TO COORD.');
-        end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
-        end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
+}).done(function() {
+if (start_cordinates.responseJSON.status !== "OK") {
+alert("We can not operate with the start location informed\n\n Error: " + start_cordinates.responseJSON.status);
+loader.style.display = "none";
+}
+
+  start_lat = start_cordinates.responseJSON.results[0].geometry.location.lat
+  start_lon = start_cordinates.responseJSON.results[0].geometry.location.lng
+
+    // get start lat and lon using google API
+    var end_cordinates = $.ajax({
+      url: "https://maps.googleapis.com/maps/api/geocode/json?address="+end_address+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+      get: 'GET'
+    }).done(function() {
+        if (end_cordinates.responseJSON.status !== "OK") {
+        alert("We can not operate with the destination informed\n\n Error: " + end_cordinates.responseJSON.status);
+        loader.style.display = "none";
+        }
+
+      end_lat = end_cordinates.responseJSON.results[0].geometry.location.lat
+      end_lon = end_cordinates.responseJSON.results[0].geometry.location.lng
 // get the data from taxi-fare-api
-console.log('STARTING CALLING OUR API');
-        var response = $.ajax({
-            url: 'http://localhost:3000/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
-            method: 'GET',
-            dataType: 'json',
-        }).done(function(data) {
-console.log('DONE STARTING CALLING OUR API');
+      var response = $.ajax({
+          url: '/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
+          method: 'GET',
+          dataType: 'json',
+      }).done(function(data) {
+
+// remove welcome message from landing page
+var welcomeMessage = document.querySelector('.welcome-message')
+welcomeMessage.classList.add('hidden')
+
 // removes the results from the previous request if there is any
-          $(".uber_ride").remove();
-          $(".lyft_ride").remove();
-          $(".taxi").remove();
+        $(".uber_ride").remove();
+        $(".lyft_ride").remove();
+        $(".taxi").remove();
 // to enable maps
-          initMap()
+        initMap()
 // GET THE RIDE DURATION TO USE ON TAXI
-          rideTime = data.uber[0].duration / 60
-          // to hide loading page
-          loader.style.display = "none";
-          // display all the results
-          // displayAll(data)
-          // Display lowest
-          displayInAscOrder(data)
-          // Display only SUV
-          // Display car for 4 people
-          // Display car for 6 people
-          // Display car for more than 6 people
-          // Display only Pool Options
-          // Filters
-          var filters = document.querySelector('.filters');
-          filters.style.display = "block";
-          var result = document.getElementById('div_result')
-          // capacity: 2, 4, or 6 checkboxes
-          var capacity2 = document.querySelector("input[value='2']");
-          capacity2.addEventListener('change', function(e) {
-            if (this.checked) {
-              console.log(e);
-              // default results of rides arranges in ascending order are hidden to make new cards from the results of the filter
-              result.classList.add('hidden');
-              result.classList.remove('show');
-              var filterResult       = document.createElement("div")
-              filterResult.setAttribute("id", "filter_result")
-              filterResult.classList.add('result');
-              if (filterResult.innerText == "") {
-                // uber rides
-                for (var i = 0; i < data.uber.length; i++) {
-                  if ( data.uber[i].capacity == 2 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("uber_ride")
-                    h3.innerText = data.uber[i].type
-                    cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                    eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
-                    request_button.innerText = 'Request my UBER'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
-                }
-                // Lyft rides
-                for (var i = 0; i < data.lyft.length; i++) {
-                  if ( data.lyft[i].capacity == 2 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("lyft_ride")
-                    h3.innerText = data.lyft[i].type
-                    cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                    eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                    var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                    request_button.innerText = 'Request my LYFT'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
+        rideTime = data.uber[0].duration / 60
+        // to hide loading page
+        loader.style.display = "none";
+        // display all the results
+        // displayAll(data)
+        // Display lowest
+        displayInAscOrder(data)
+        // Display only SUV
+        // Display car for 4 people
+        // Display car for 6 people
+        // Display car for more than 6 people
+        // Display only Pool Options
+        // Filters
+        var filters = document.querySelector('.filters');
+        filters.style.display = "block";
+        var result = document.getElementById('div_result')
+        // capacity: 2, 4, or 6 checkboxes
+        var capacity2 = document.querySelector("input[value='2']");
+        capacity2.addEventListener('change', function(e) {
+          if (this.checked) {
+            console.log(e);
+            // default results of rides arranges in ascending order are hidden to make new cards from the results of the filter
+            result.classList.add('hidden');
+            result.classList.remove('show');
+            var filterResult       = document.createElement("div")
+            filterResult.setAttribute("id", "filter_result")
+            filterResult.classList.add('result');
+            if (filterResult.innerText == "") {
+              // uber rides
+              for (var i = 0; i < data.uber.length; i++) {
+                if ( data.uber[i].capacity == 2 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("uber_ride")
+                  h3.innerText = data.uber[i].type
+                  cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                  eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+                  request_button.innerText = 'Request my UBER'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
                 }
               }
-            } else {
-              // when unchecked, filter results are deleted and the default results are displayed
-              $("#filter_result").remove();
-              result.classList.add('show');
-              result.classList.remove('hidden');
-            }
-          })
-          var capacity4 = document.querySelector("input[value='4']");
-          capacity4.addEventListener('change', function(e) {
-            if (this.checked) {
-              console.log(e);
-              result.classList.add('hidden');
-              result.classList.remove('show');
-              var filterResult       = document.createElement("div")
-              filterResult.setAttribute("id", "filter_result")
-              filterResult.classList.add('result');
-              if (filterResult.innerHTML == "") {
-                // uber rides
-                for (var i = 0; i < data.uber.length; i++) {
-                  if ( data.uber[i].capacity == 4 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("uber_ride")
-                    h3.innerText = data.uber[i].type
-                    cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                    eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
-                    request_button.innerText = 'Request my UBER'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
-                }
-                // Lyft rides
-                for (var i = 0; i < data.lyft.length; i++) {
-                  if ( data.lyft[i].capacity == 4 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("lyft_ride")
-                    h3.innerText = data.lyft[i].type
-                    cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                    eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                    var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                    request_button.innerText = 'Request my LYFT'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
+              // Lyft rides
+              for (var i = 0; i < data.lyft.length; i++) {
+                if ( data.lyft[i].capacity == 2 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("lyft_ride")
+                  h3.innerText = data.lyft[i].type
+                  cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
+                  eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
+                  var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                  request_button.innerText = 'Request my LYFT'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
                 }
               }
-            } else {
-              // when unchecked, filter results are deleted and the default results are displayed
-              $("#filter_result").remove();
-              result.classList.add('show');
-              result.classList.remove('hidden');
             }
-          })
-          var capacity6 = document.querySelector("input[value='6']");
-          capacity6.addEventListener('change', function(e) {
-            if (this.checked) {
-              console.log(e);
-              result.classList.add('hidden');
-              result.classList.remove('show');
-              var filterResult       = document.createElement("div")
-              filterResult.setAttribute("id", "filter_result")
-              filterResult.classList.add('result');
-              if (filterResult.innerHTML == "") {
-                // uber rides
-                for (var i = 0; i < data.uber.length; i++) {
-                  if ( data.uber[i].capacity == 6 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("uber_ride")
-                    h3.innerText = data.uber[i].type
-                    cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
-                    eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
-                    request_button.innerText = 'Request my UBER'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
-                }
-                // Lyft rides
-                for (var i = 0; i < data.lyft.length; i++) {
-                  if ( data.lyft[i].capacity == 6 ) {
-                    var body           = document.querySelector('body')
-                    var company        = document.createElement('div')
-                    var h3             = document.createElement("h3")
-                    var cost           = document.createElement("p")
-                    var eta            = document.createElement("p")
-                    var request_link   = document.createElement("a")
-                    var request_button = document.createElement("button")
-                    company.classList.add("lyft_ride")
-                    h3.innerText = data.lyft[i].type
-                    cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
-                    eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
-                    var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
-                    request_link.setAttribute('target', '_blank')
-                    request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
-                    request_button.innerText = 'Request my LYFT'
-                    request_link.appendChild(request_button)
-                    company.append(h3)
-                    company.append(cost)
-                    company.appendChild(eta)
-                    company.appendChild(request_link)
-                    filterResult.append(company)
-                    body.append(filterResult)
-                  }
+          } else {
+            // when unchecked, filter results are deleted and the default results are displayed
+            $("#filter_result").remove();
+            result.classList.add('show');
+            result.classList.remove('hidden');
+          }
+        })
+        var capacity4 = document.querySelector("input[value='4']");
+        capacity4.addEventListener('change', function(e) {
+          if (this.checked) {
+            console.log(e);
+            result.classList.add('hidden');
+            result.classList.remove('show');
+            var filterResult       = document.createElement("div")
+            filterResult.setAttribute("id", "filter_result")
+            filterResult.classList.add('result');
+            if (filterResult.innerHTML == "") {
+              // uber rides
+              for (var i = 0; i < data.uber.length; i++) {
+                if ( data.uber[i].capacity == 4 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("uber_ride")
+                  h3.innerText = data.uber[i].type
+                  cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                  eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+                  request_button.innerText = 'Request my UBER'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
                 }
               }
-            } else {
-              // when unchecked, filter results are deleted and the default results are displayed
-              $("#filter_result").remove();
-              result.classList.add('show');
-              result.classList.remove('hidden');
+              // Lyft rides
+              for (var i = 0; i < data.lyft.length; i++) {
+                if ( data.lyft[i].capacity == 4 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("lyft_ride")
+                  h3.innerText = data.lyft[i].type
+                  cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
+                  eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
+                  var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                  request_button.innerText = 'Request my LYFT'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
+                }
+              }
             }
-          })
-          // provider: uber, lyft, or taxi checkboxes
-          var uberOnly = document.querySelector("input[value='uber']")
-          uberOnly.addEventListener('change', function() {
-          })
+          } else {
+            // when unchecked, filter results are deleted and the default results are displayed
+            $("#filter_result").remove();
+            result.classList.add('show');
+            result.classList.remove('hidden');
+          }
+        })
+        var capacity6 = document.querySelector("input[value='6']");
+        capacity6.addEventListener('change', function(e) {
+          if (this.checked) {
+            console.log(e);
+            result.classList.add('hidden');
+            result.classList.remove('show');
+            var filterResult       = document.createElement("div")
+            filterResult.setAttribute("id", "filter_result")
+            filterResult.classList.add('result');
+            if (filterResult.innerHTML == "") {
+              // uber rides
+              for (var i = 0; i < data.uber.length; i++) {
+                if ( data.uber[i].capacity == 6 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("uber_ride")
+                  h3.innerText = data.uber[i].type
+                  cost.innerText = "$ " + " " + data.uber[i].fare + data.uber[i].currency
+                  eta.innerText = "Arrival Time " + data.uber[i].eta/60 + " Mins"
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
+                  request_button.innerText = 'Request my UBER'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
+                }
+              }
+              // Lyft rides
+              for (var i = 0; i < data.lyft.length; i++) {
+                if ( data.lyft[i].capacity == 6 ) {
+                  var body           = document.querySelector('body')
+                  var company        = document.createElement('div')
+                  var h3             = document.createElement("h3")
+                  var cost           = document.createElement("p")
+                  var eta            = document.createElement("p")
+                  var request_link   = document.createElement("a")
+                  var request_button = document.createElement("button")
+                  company.classList.add("lyft_ride")
+                  h3.innerText = data.lyft[i].type
+                  cost.innerText = "$ " + " " + data.lyft[i].fare + data.lyft[i].currency
+                  eta.innerText = "Arrival Time " + data.lyft[i].eta/60 + " Mins"
+                  var ride_id = data.lyft[i].type.toLowerCase().replace(/\s/g, '_')
+                  request_link.setAttribute('target', '_blank')
+                  request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
+                  request_button.innerText = 'Request my LYFT'
+                  request_link.appendChild(request_button)
+                  company.append(h3)
+                  company.append(cost)
+                  company.appendChild(eta)
+                  company.appendChild(request_link)
+                  filterResult.append(company)
+                  body.append(filterResult)
+                }
+              }
+            }
+          } else {
+            // when unchecked, filter results are deleted and the default results are displayed
+            $("#filter_result").remove();
+            result.classList.add('show');
+            result.classList.remove('hidden');
+          }
+        })
+        // provider: uber, lyft, or taxi checkboxes
+        var uberOnly = document.querySelector("input[value='uber']")
+        uberOnly.addEventListener('change', function() {
         })
       })
+    }).fail(function () {
+      alert('Missing destination. \n\n Error: ' + end_cordinates.responseJSON.error_message)
+      loader.style.display = "none";
     })
-  }
+  }).fail(function () {
+    alert('Missing start address. \n\n Error: ' + start_cordinates.responseJSON.error_message)
+    loader.style.display = "none";
+  })
 }
+
 
 function displayAll(data) {
   // to show the UBER rides
@@ -593,6 +630,7 @@ function displayAll(data) {
     var request_link    = document.createElement("a")
     var request_button  = document.createElement("button")
     var start_address   = document.getElementById('autocomplete').value
+    var end_address   = document.getElementById('autocomplete2').value
 
     h3.innerText        = data.uber[i].type
     cost.innerText      = "$ " + data.uber[i].currency + " " + data.uber[i].fare
@@ -667,6 +705,7 @@ function displayInAscOrder(data) {
     var cost           = document.createElement("p")
     var eta            = document.createElement("p")
     var start_address  = document.getElementById('autocomplete').value
+    var end_address   = document.getElementById('autocomplete2').value
     var request_button = document.createElement("button")
     var request_link   = document.createElement("a")
 
