@@ -3,7 +3,7 @@
 
 <div class="newpassbox">
 <%= form_for :reset, url: resets_path do |f| %> 
-	<%= f.text_field :email, placeholder: "Your Email", class: 'emailField' %> 
+	<%= f.text_field :email, placeholder: "Your Email", class: 'resetemailField' %> 
 	<%= f.submit 'Send reset link', class: 'submit' %> 
 <% end %> 
 </div>
