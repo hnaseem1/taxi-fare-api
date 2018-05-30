@@ -1,7 +1,10 @@
-<h1>Reset#show</h1>
+<h1>Enter your new password</h1>
+
+<div class="newpassbox">
 <%= form_for :reset, url: pass_reset_success_path do |f| %>
 	<%= f.hidden_field :token, value: params[:token]%> 
-	<%= f.password_field :password, placeholder: "new password" %>
-	<%= f.password_field :password_confirmation, placeholder: "confirm password" %>
-	<%= f.submit 'change password' %>
+	<%= f.password_field :password, placeholder: "new password", class: 'resetpasswordField' %>
+	<%= f.password_field :password_confirmation, placeholder: "confirm password", class: 'resetpasswordField' %>
+	<%= f.submit 'change password', class: 'submit' %>
 <% end %>
+</div>

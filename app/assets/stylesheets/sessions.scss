@@ -6,7 +6,7 @@
 .new_session {
   margin: 0 auto;
   text-align: center;
-
+  /*height: 40%;*/
 
   p {
     margin: 0.5em;
@@ -14,3 +14,21 @@
   }
 
 }
+/*style for the login forms*/
+
+.emailField {
+
+	width: 50%;
+	padding: 1%;
+	font-size: 3em;
+}
+
+.passwordField {
+	font-size: 3em;
+	width: 50%;
+	padding: 1%;
+}
+
+
+
+

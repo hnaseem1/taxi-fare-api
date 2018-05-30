@@ -2,11 +2,11 @@
 	<%= form_for :session, url: sessions_path do |f| %>
 		<%= image_tag "icon_signup_dude.png", class: "icon_dude" %>
 		<p>
-			<%= f.email_field :email, placeholder: "Email" %>
+			<%= f.email_field :email, placeholder: "Email", class: 'emailField' %>
 		</p>
 
 		<p>
-			<%= f.password_field :password, placeholder: "password" %>
+			<%= f.password_field :password, placeholder: "password", class: 'passwordField' %>
 		</p>
 
 		<%= f.submit 'login', class: "submit" %>
