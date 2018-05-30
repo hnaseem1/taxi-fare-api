@@ -21,16 +21,16 @@
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </div>
 
-      <%= check_box_tag :fav_start, params[:fav_start]  %> 
+      <%= check_box_tag :fav_start, params[:fav_start]  %>
       <%= label_tag 'fav start' %>
-      <%= check_box_tag :fav_end, params[:fav_end] %> 
+      <%= check_box_tag :fav_end, params[:fav_end] %>
       <%= label_tag 'fav end' %>
 
     <p><%= submit_tag "Search", class: "submit"%></p>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
-    
+
     <p>
       <%= submit_tag "Search", class: "submit"%>
     </p>
@@ -333,12 +333,12 @@ console.log('DONE END_ADDRESS TO COORD.');
 // get the data from taxi-fare-api
 console.log('STARTING CALLING OUR API');
         var response = $.ajax({
-            url: 'http://localhost:3000/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
+            url: '/price/show?sl='+start_lat+'&slon='+start_lon+'&el='+end_lat+'&elon='+end_lon+'',
             method: 'GET',
             dataType: 'json',
         }).done(function(data) {
 
-// remove welcome message from landing page 
+// remove welcome message from landing page
 var welcomeMessage = document.querySelector('.welcome-message')
 welcomeMessage.classList.add('hidden')
 
