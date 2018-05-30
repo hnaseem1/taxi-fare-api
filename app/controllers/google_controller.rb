@@ -59,6 +59,4 @@ class GoogleController < ApplicationController
     HTTParty.get(URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}"))
 
   end
-
-
 end

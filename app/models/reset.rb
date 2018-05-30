@@ -1,7 +1,7 @@
 class Reset < ApplicationRecord
 	belongs_to :user
 	validates :token, presence: true
-	validate :unique_token
+	validates :token, uniqueness: true
 
 	# generates a reset token
 	def self.generate_reset_token(user)
@@ -18,7 +18,7 @@ class Reset < ApplicationRecord
 	# varify if the user has requested the token
 	def self.verify_user_requested_reset(token)
 
-		user = Reset.find_by(token: token)
+		user = Reset.find_by(token)
 
 		if user
 			return User.find(user.user_id)
@@ -42,7 +42,7 @@ class Reset < ApplicationRecord
 	# exhausts token so it cant be used later
 	def self.exhaust_token(token)
 
-		used_token = Reset.find_by(token: token)
+		used_token = Reset.find_by(token)
 		exhaust_token = SecureRandom.hex(12)
 		used_token.token = exhaust_token
 
