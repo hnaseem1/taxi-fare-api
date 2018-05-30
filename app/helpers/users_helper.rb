@@ -8,6 +8,10 @@ module UsersHelper
 	end
 
 	def show_ride_favs(data)
-		return data[:ride]
+		if data
+			return data[:ride]
+		else
+			return false
+		end
 	end
 end

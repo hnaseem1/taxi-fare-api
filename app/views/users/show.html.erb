@@ -21,17 +21,20 @@
 		 	</ul>
 		<% end %> 
 	<% end %> 
-	<% if show_ride_favs(@user_favourite_rides) %> 
+	<% if show_ride_favs(@user_favourite_rides) != nil && show_ride_favs(@user_favourite_rides) != false %> 
 		<p>Favourite rides locations</p>
-		<% show_ride_favs(@user_favourite_rides).each do |location| %> 
+		<% show_ride_favs(@user_favourite_rides).each do |trip| %> 
 		 	<ul>
 		 		
-		 		<li><%= location %></li>
-				
+		 		<li>start location:<%= trip[:start] %> end location <%= trip[:end] %></li>
+			
 		 	</ul>
 		<% end %> 
+	<% else %>
+		wow
 	<% end %> 
+
 <% else %>
 
-Bad!
+Feel free to favorite some rides!
 <% end %> 
