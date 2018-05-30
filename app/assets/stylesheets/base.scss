@@ -184,7 +184,11 @@ body {
 }
 
 
-@media (min-device-width: 426px) {
+@media (min-device-width: 426px) and (max-device-width: 1024px) {
+
+    body {
+      background-color: $light-blue;
+    }
 
     nav {
       padding: 1em;
