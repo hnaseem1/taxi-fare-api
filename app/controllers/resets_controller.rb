@@ -20,9 +20,7 @@ class ResetsController < ApplicationController
   	end
   end
 
-  def reset_pass
-    ##get the token from the params hash
-    
+  def reset_pass    
     #if it exists
     if token_params
       if Reset.verify_user_requested_reset(token_params)
