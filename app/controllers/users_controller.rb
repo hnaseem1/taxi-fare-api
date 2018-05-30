@@ -8,8 +8,6 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(sign_up_params)
-
-
   	if @user.save
       session[:user_id] = @user.id
       UserMailer.welcome_email(@user).deliver_now
