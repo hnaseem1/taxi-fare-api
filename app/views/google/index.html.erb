@@ -21,16 +21,11 @@
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
     </div>
 
-      <%= check_box_tag :fav_start, params[:fav_start]  %> 
-      <%= label_tag 'fav start' %>
-      <%= check_box_tag :fav_end, params[:fav_end] %> 
-      <%= label_tag 'fav end' %>
-
-    <p><%= submit_tag "Search", class: "submit"%></p>
+    <%= submit_tag "Search", class: "submit"%>
 
     <% if flash[:error] %>
       <p><%= flash[:error] %></p>
-    
+
     <p>
       <%= submit_tag "Search", class: "submit"%>
     </p>
@@ -54,14 +49,6 @@
 			<h5><label><input type="checkbox" name="capacity" value="2">2</label></h5>
       <h5><label><input type="checkbox" name="capacity" value="4">4</label></h5>
       <h5><label><input type="checkbox" name="capacity" value="6">6</label></h5>
-		</div>
-
-    <div class="filter-criteria">
-			<h3>Provider</h3>
-
-			<h5><label><input type="checkbox" name="capacity" value="uber">Uber</label></h5>
-      <h5><label><input type="checkbox" name="capacity" value="lyft">Lyft</label></h5>
-      <h5><label><input type="checkbox" name="capacity" value="taxi">Taxi</label></h5>
 		</div>
 
 		<button>Clear filters</button>
@@ -286,8 +273,7 @@ submit.addEventListener('click', function (event) {
 function apis_requests() {
   var startField = document.getElementById('autocomplete').value
   var destinastionField = document.getElementById('autocomplete2').value
-  var favStart = document.getElementById('fav_start').checked
-  var favEnd = document.getElementById('fav_end').checked
+
   if (startField && destinastionField) {
 
 // =====    SHOW THE LOADING PAGE     =======
@@ -302,8 +288,7 @@ function apis_requests() {
     data: {
       start_location: JSON.stringify(startField),
       end_location: JSON.stringify(destinastionField),
-      fav_start: JSON.stringify(favStart),
-      fav_end: JSON.stringify(favEnd),
+
     }
   })
   console.log('DONE save the ride');
@@ -338,7 +323,7 @@ console.log('STARTING CALLING OUR API');
             dataType: 'json',
         }).done(function(data) {
 
-// remove welcome message from landing page 
+// remove welcome message from landing page
 var welcomeMessage = document.querySelector('.welcome-message')
 welcomeMessage.classList.add('hidden')
 

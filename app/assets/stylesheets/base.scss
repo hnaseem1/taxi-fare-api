@@ -37,9 +37,11 @@ body {
     background-color: $nav-blue;
     text-align: center;
     text-transform: uppercase;
-    padding: 1em;
-    font-size: 2.25em;
-    transition: all 0.4s ease-in-out;
+    font-size: 2em;
+    transition: all 0.1s ease-in-out;
+
+    height: 3em;
+    padding: 0.5em 0 0;
 
     .menulist {
       display: none;
@@ -55,7 +57,7 @@ body {
         font-family: "Lato", sans-serif;
         font-weight: 300;
         transition: all .5s ease-in-out;
-        padding: 10px 0;
+        padding: 0.3em;
       }
 
       a:after {
@@ -70,21 +72,16 @@ body {
       }
     }
 
-
     .hamburger {
-      width: 50px;
-      height: auto;
 
       // hamburger rotation animation
 
       .line {
-        margin-top: 12px;
+        margin-bottom: 12px;
         background-color: $light-blue;
         width: 65px;
         height: 6px;
-        display:block;
-        position:relative;
-        opacity:1.0;
+        display: block;
         border-radius:15%;
         transition: all .3s;
       }
@@ -148,8 +145,7 @@ body {
         color: $space-blue;
         display: block;
         font-size: 1.75em;
-        margin-left: 10px;
-        margin-bottom: 10px;
+        margin: 0 0 0.5em 0.5em;
         text-align: left;
       }
 
@@ -159,10 +155,11 @@ body {
         border: none;
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
-        font-size: 30px;
-        padding-left: 25px;
         height: 100px;
+        font-size: 1.25em;
       }
+
+
 
     }
 
@@ -176,40 +173,56 @@ body {
       margin-top: 50px;
       height: 100px;
       font-size: 2.25em;
-      width: 96%;
+      width: 100%;
     }
 
   }
 
 }
 
-
-@media (min-device-width: 426px) and (max-device-width: 1024px) {
+@media (max-device-width: 1024px) and (min-device-width: 426px)  {
 
     body {
-      background-color: $light-blue;
-    }
 
-    nav {
-      padding: 1em;
-      font-size: 1em;
+      nav {
+        height: 1.25em;
 
-      .menulist {
+        .menulist, .hamburger {
 
-        a {
-          display: inline-block;
+          .line {
+            margin-bottom: 12px;
+            background-color: $light-blue;
+            width: 65px;
+            height: 6px;
+            display: block;
+            border-radius:15%;
+            transition: all .3s;
+          }
+
+          a {
+            display: inline-block;
+          }
         }
       }
+
+      form {
+
+        div {
+
+          label {
+            font-size: 1em;
+            margin-left: 1.5em;
+          }
+
+
+          .input-field {
+            height: 40px;
+          }
+
+        }
+
+
+      }
     }
-
-
-
-    .line {
-      margin-top: 10px;
-      height: 2px;
-      width: 10px;
-    }
-
-
 
 }
