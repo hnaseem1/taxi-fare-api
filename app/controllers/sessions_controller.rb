@@ -5,16 +5,13 @@ class SessionsController < ApplicationController
   end
 
   def create
+  	user = User.find_by(email_params)
 
-  	user_email = params[:session][:email]
-  	user_password = params[:session][:password]
-  	user = User.find_by(email: user_email)
-
-  	if user && user.authenticate(user_password)
+  	if user && user.authenticate(password_params[:password])
   		session[:user_id] = user.id
   		redirect_to user_path
 
-    elsif user_email == nil && user_password == nil || user_email == nil || user_password == nil
+    elsif email_params == nil && password_params == nil || email_params == nil || password_params == nil
       flash[:error] = "enter login credentials"
   		render :new
 
@@ -27,5 +24,15 @@ class SessionsController < ApplicationController
   def destroy
   	session[:user_id] = nil
   	redirect_to root_path
+  end
+
+  private 
+
+  def email_params
+    params.require(:session).permit(:email)
+  end
+
+  def password_params
+    params.require(:session).permit(:password)
   end
 end

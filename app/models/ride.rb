@@ -1,7 +1,7 @@
 class Ride < ApplicationRecord
 
 	belongs_to :user
-	validates :user_id, presence: true
+	validates :user_id, :start_address, :end_address, presence: true
 
 	def self.favourite_places(user)
 		if Ride.where(user_id: user.id)

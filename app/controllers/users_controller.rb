@@ -7,19 +7,9 @@ class UsersController < ApplicationController
   end
 
   def create
-  	@user = User.new
-  	@user.first_name = params[:user][:first_name]
-  	@user.last_name = params[:user][:last_name]
-  	@user.email = params[:user][:email]
-  	@user.password = params[:user][:password]
-  	@user.password_confirmation = params[:user][:password_confirmation]
-
-
+  	@user = User.new(sign_up_params)
   	if @user.save
       session[:user_id] = @user.id
-
-      ##calling the mailer method when the user is saved without errors
-      ##passing the user instance to the usermailer welcome_email method
       UserMailer.welcome_email(@user).deliver_now
   		redirect_to user_path
   	else
@@ -31,5 +21,21 @@ class UsersController < ApplicationController
     @user = current_user
     ##to show the statistics for the user
     @user_favourite_rides = Ride.favourite_places(current_user)
+
+    start_location = params[:start_location].to_s
+    end_location = params[:end_location].to_s
+
+    if start_location && end_location
+
+      ride = Ride.new(user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
+      ride.save
+      
+
+    end
+  end
+
+  private
+  def sign_up_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 end

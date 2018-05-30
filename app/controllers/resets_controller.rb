@@ -1,4 +1,5 @@
 class ResetsController < ApplicationController
+  before_action :reset_can_only_be_made_if_user_is_not_logged_in
   def show
 
   end
@@ -8,9 +9,8 @@ class ResetsController < ApplicationController
   end
 
   def create
-  	email = params[:reset][:email]
-    #search for user
-  	user = User.find_by(email: email)
+    #finds user by email
+  	user = User.find_by(email_params)
     #if user exists
   	if user
         #get the token from the class method to sent to the user
@@ -20,20 +20,15 @@ class ResetsController < ApplicationController
   	end
   end
 
-  def reset_pass
-    ##get the token from the params hash
-    token = params[:reset][:token]
-    password = params[:reset][:password]
-    password_confirmation = params[:reset][:password_confirmation]
-
+  def reset_pass    
     #if it exists
-    if token
-      if Reset.verify_user_requested_reset(token)
-        user = Reset.verify_user_requested_reset(token)
-        user = Reset.change_password(user, password, password_confirmation)
+    if token_params
+      if Reset.verify_user_requested_reset(token_params)
+        user = Reset.verify_user_requested_reset(token_params)
+        user = Reset.change_password(user, password_change_params[:password], password_change_params[:password_confirmation])
 
         if user.save
-          Reset.exhaust_token(token)
+          Reset.exhaust_token(token_params)
 
           UserMailer.password_reset_success_email(user).deliver_now
           redirect_to new_sessions_path
@@ -48,5 +43,26 @@ class ResetsController < ApplicationController
       redirect_to new_resets_path
     end
   end
+
+  private 
+
+  def reset_can_only_be_made_if_user_is_not_logged_in
+    unless session[:user_id] == nil && !current_user
+      redirect_to new_sessions_path
+    end
+  end
+
+  def email_params
+    params.require(:reset).permit(:email)
+  end
+
+  def token_params
+    params.require(:reset).permit(:token)
+  end
+
+  def password_change_params
+    params.require(:reset).permit(:password, :password_confirmation)
+  end
+
 
 end
