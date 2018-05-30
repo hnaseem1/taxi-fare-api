@@ -42,6 +42,7 @@ body.loading .modal {
 .search-field {
   .location-start, .location-end {
     position: relative;
+    margin-top: 20px;
   }
 
   .input-field {
@@ -50,7 +51,7 @@ body.loading .modal {
     border-bottom-left-radius: 10px;
 
     position: relative;
-    left: -68px;
+    left: -65px;
 
   }
 
@@ -97,6 +98,18 @@ body.loading .modal {
   display: none;
 }
 
+
+// landing page message that is only present before a search query begins
+
+.welcome-message {
+  img {
+    height: 100%;
+    width: 100%;
+    // background-image: image-url("map.svg");
+    background-repeat: no-repeat;
+  }
+
+}
 // only appear during an ajax call
   // results section to make each result into a cards that appear as a grid
   .result {
@@ -111,7 +124,6 @@ body.loading .modal {
 
     p {
       font-size: 0.75em;
-      margin: 1.5em;
     }
   }
 
@@ -161,3 +173,48 @@ body.loading .modal {
 //   padding-bottom: 2.3em;
 //   padding-top: 1.5em;
 // }
+
+
+@media (min-device-width: 426px) and (max-device-width: 1024px) {
+
+  body {
+
+    .search-field {
+      .location-start, .location-end {
+        position: relative;
+        margin-top: 20px;
+      }
+
+      .input-field {
+        width: 80%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+
+        position: relative;
+        left: -65px;
+
+      }
+
+      .get-location-data {
+        background: $light-blue;
+        border: none;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        color: $main-blue;
+        height: 100px;
+        width: 15%;
+
+        position: absolute;
+        bottom: 1px;
+        right: 20px;
+
+        img {
+          height: 50px;
+          width: 50%;
+        }
+      }
+
+    }
+
+  }
+}

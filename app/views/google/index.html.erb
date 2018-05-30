@@ -37,6 +37,10 @@
     <% end %>
    <% end %>
 
+<div class="welcome-message">
+  <%= image_tag "map.svg" %>
+</div>
+
 </div>
 <p id="total"></p>
 <div id="map" style="display: none"></div>
@@ -333,6 +337,11 @@ console.log('STARTING CALLING OUR API');
             method: 'GET',
             dataType: 'json',
         }).done(function(data) {
+
+// remove welcome message from landing page 
+var welcomeMessage = document.querySelector('.welcome-message')
+welcomeMessage.classList.add('hidden')
+
 console.log('DONE STARTING CALLING OUR API');
 // removes the results from the previous request if there is any
           $(".uber_ride").remove();

@@ -12,9 +12,9 @@
     <nav>
       <div class="hamburger">
         <span id="closebtn" type="button">
-          <span class="line1"></span>
-          <span class="line2"></span>
-          <span class="line3"></span>
+          <span class="line line1"></span>
+          <span class="line line2"></span>
+          <span class="line line3"></span>
         </span>
       </div>
       <div class="menulist">
@@ -58,7 +58,7 @@
     main.style.marginTop = "50px";
 
     close.addEventListener("click", function(){
-      var menuIcon = close.children;
+      var menuIcon = document.querySelectorAll('.line');
       for (i = 0; i < menuIcon.length; i++){
         menuIcon[i].classList.toggle("active");
       }
