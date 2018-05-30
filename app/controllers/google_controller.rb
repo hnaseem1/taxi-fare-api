@@ -20,26 +20,9 @@ class GoogleController < ApplicationController
       ##saving to the user/ride table
 
       if current_user
-          fav_start = params[:fav_start].to_s
-          fav_end = params[:fav_end].to_s
-
-          if fav_start == 'true' && fav_end == 'true'
-            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
-            ride.save
-          end
-
-          if fav_start == 'true'
-            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, start_favourite: true)
-            ride.save
-          end
-
-          if fav_end == 'true'
-            ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location, end_favourite: true)
-            ride.save
-          end
-        
-         # ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
           
+         searched_ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
+         searched_ride.save
 
           ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
 
@@ -59,6 +42,4 @@ class GoogleController < ApplicationController
     HTTParty.get(URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address=#{cordinate}&key=#{google_key}"))
 
   end
-
-
 end

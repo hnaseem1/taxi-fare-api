@@ -1,40 +1,48 @@
-<p>hi <%= @user.first_name.capitalize %></p>
+<h1>Hi <%= @user.first_name.capitalize %>, </h1>
 
-<% if @user_favourite_rides %> 
-	<% if show_start_favs(@user_favourite_rides) %> 
-		<p>Favourite start locations</p>
-		<% show_start_favs(@user_favourite_rides).each do |location| %> 
+<!-- Display the last 5  -->
+
+	<h1>Favourite Rides</h1>
+
+	<% if show_ride_favs(@user_favourite_rides) != nil && show_ride_favs(@user_favourite_rides) != false %>
+	<% count = 0 %>
+		<% show_ride_favs(@user_favourite_rides).to_enum.with_index.reverse_each do |trip, i| %>
 		 	<ul>
-		 		
-		 		<li><%= location %></li>
-				
-		 	</ul>	 
-		<% end %> 
-	<% end %> 
-	<% if show_end_favs(@user_favourite_rides) %>
-		<p>Favourite end locations</p>
-		<% show_end_favs(@user_favourite_rides).each do |location| %>
-		 	<ul>
-		 		
-		 		<li><%= location %></li>
-				
+				<% if trip[:start] && trip[:end] %>
+		 		<li>Start Location:<%= trip[:start] %> End Location <%= trip[:end] %></li>
+				<% end %>
 		 	</ul>
-		<% end %> 
-	<% end %> 
-	<% if show_ride_favs(@user_favourite_rides) != nil && show_ride_favs(@user_favourite_rides) != false %> 
-		<p>Favourite rides locations</p>
-		<% show_ride_favs(@user_favourite_rides).each do |trip| %> 
-		 	<ul>
-		 		
-		 		<li>start location:<%= trip[:start] %> end location <%= trip[:end] %></li>
-			
-		 	</ul>
-		<% end %> 
+			<% count += 1 %>
+		<% break if count == 5 %>
+		<% end %>
 	<% else %>
-		wow
-	<% end %> 
+
+	<% end %>
 
 <% else %>
 
-Feel free to favorite some rides!
-<% end %> 
+<!-- Will display the last 5   -->
+
+<h1>Search History</h1>
+<% count = 0 %>
+<% current_user.rides.to_enum.with_index.reverse_each do |ride, i| %>
+	<ul>
+		<li>
+		<%= form_tag(user_path, :method => "get" ) do %>
+		From: <%= ride.start_address %>
+		<br>
+		To: <%= ride.end_address %>
+		<br>
+		<%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %>
+		<br>
+		<%= text_field_tag :start_location, params[:start_location], type: "hidden", value: ride.start_address %>
+		<%= text_field_tag :end_location, params[:end_location], type: "hidden", value: ride.end_address %>
+		<br>
+		<%= submit_tag "Favorite"%>
+
+		<% end %>
+		</li>
+	</ul>
+	<% count += 1 %>
+<% break if count == 5 %>
+<% end %>
