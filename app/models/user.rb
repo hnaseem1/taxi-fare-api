@@ -10,12 +10,17 @@ class User < ApplicationRecord
 	validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
 	def self.places_visited(user)
-		locations = {start: [], end: []}
+
+		locations 	= {start: [], end: []}
 		taken_rides = user.rides
+
 		taken_rides.each do |obj|
+
 			locations[:start].push(obj.start_address)
 			locations[:end].push(obj.end_address)
+
 		end
+		
 		return locations
 	end
 
