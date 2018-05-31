@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" href=<%= image_path('favicon02.png') %>>
-    <title>ScoopFare!</title>
+    <title>TaxiFareApi</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -77,25 +76,24 @@
       //to close
     	if (menulist.style.display === 'block') {
         // make menulist disappear
-        menulist.style.display = "block";
+        menulist.style.display = "none";
 
         // nav height decreases
       	nav.style.height = "1.5em";
 
-        for (var i = 0; i < menulist.length; i++){
-      	menu[i].style.opacity="0.0";
-      	menu[i].style.marginTop="100px";
-      	};
-
+       //  for (var i = 0; i < menu.length; i++){
+      	// menu[i].style.opacity="0.0";
+      	// menu[i].style.marginTop="100px";
+      	// };
     	}
     	//to open
     	else {
 
         // make menulist appear
-        menulist.style.display = "none";
+        menulist.style.display = "block";
 
         // nav height increases
-      	nav.style.height = "";
+      	nav.style.height = "250px";
 
 
     	}
