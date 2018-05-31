@@ -29,6 +29,7 @@ function geoFindMe() {
         inputField.disabled = false;
         inputField.value = response.responseJSON.results[0].formatted_address
         inputField.placeholder = 'Start location'
+        document.getElementById('autocomplete').style.border = ''
       });
   }
 
@@ -70,6 +71,7 @@ function geoFindMe2() {
         inputField2.disabled = false;
         inputField2.value = response.responseJSON.results[0].formatted_address
         inputField.placeholder = 'Destination'
+        document.getElementById('autocomplete2').style.border = ''
       });
   }
 
@@ -180,7 +182,6 @@ if (frame.style.display === "none") {
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
 
-
 function setMarkers(map) {
 if (executed === 0) {
   var response = $.ajax({
@@ -207,8 +208,6 @@ if (executed === 0) {
     }
   })
 }
-console.log('Finished setMarkers');
-
 }
 
 
@@ -285,6 +284,11 @@ start_address = document.getElementById('autocomplete').value
           dataType: 'json',
       }).done(function(data) {
 
+if (data.uber[0] === "INVALID PARAMS" && data.lyft[0] === "INVALID PARAMS" ) {
+alert('Sorry, no ride was found for the route informed')
+loader.style.display = "none";
+return
+}
 
 // ============================================ RESULTS ========================================================
 
@@ -353,6 +357,18 @@ start_address = document.getElementById('autocomplete').value
   loader.style.display = "none";
 
 })
+}else {
+  if (startField && !destinastionField) {
+    document.getElementById('autocomplete2').style.border="2px solid red"
+
+  }else if (!startField && destinastionField) {
+    document.getElementById('autocomplete').style.border="2px solid red"
+
+  }else {
+    document.getElementById('autocomplete2').style.border="2px solid red"
+    document.getElementById('autocomplete').style.border="2px solid red"
+
+  }
 }
 }
 
@@ -544,3 +560,13 @@ for (var i = 0; i < data.lyft.length; i++) {
   }
 }
 }
+
+var autocomplete = document.getElementById('autocomplete')
+autocomplete.addEventListener('change', function () {
+  document.getElementById('autocomplete').style.border = ''
+})
+
+var autocomplete = document.getElementById('autocomplete2')
+autocomplete.addEventListener('change', function () {
+  document.getElementById('autocomplete2').style.border = ''
+})
