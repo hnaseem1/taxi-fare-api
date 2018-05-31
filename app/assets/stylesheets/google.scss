@@ -127,23 +127,28 @@ body.loading .modal {
   .result {
     padding: 1em;
     color: #DDD;
-    margin-left: 225px;
 
     h3 {
       font-weight: 250;
-      padding: 1em;
     }
 
     p {
       font-size: 0.75em;
     }
+
+    h3, p {
+      margin: 0;
+      padding: 1em;
+    }
   }
 
   .uber_ride {
+    background-color: rgb(15, 46, 176);
     border: 1px solid darkblue;
   }
 
   .lyft_ride {
+    background-color: rgb(120, 23, 102);
     border: 1px solid pink;
   }
 
@@ -232,6 +237,16 @@ body.loading .modal {
 
   #map {
     height: 100%
+  }
+
+  // display result cards in a grid
+
+  .result {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-row: auto;
+    grid-gap: 1em;
+    width: 90%;
   }
 
 }
