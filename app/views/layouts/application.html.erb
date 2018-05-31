@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ScoopFare!</title>
+    <title>TaxiFareApi</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -16,6 +16,11 @@
           <span class="line line3"></span>
         </div>
       </div>
+
+      <img src="<%= image_path('logo01.png') %>" alt="logo" id="biglogo" class="biglogo">
+      <img src="<%= image_path('logo03.png') %>" alt="logo" id="smalllogo" class="smalllogo">
+
+
       <div class="menulist">
         <%= link_to 'home', root_path %>
         <% if current_user %>
@@ -73,28 +78,27 @@
         menuIcon[i].classList.toggle("active");
       }
 
-
       //to close
-    	if (nav.style.height <= "250px") {
+    	if (menulist.style.display === 'block') {
         // make menulist disappear
-        menulist.style.display = "block";
-
-        // nav height decreases
-      	nav.style.height = "3em";
-
-        for (var i = 0; i < menulist.length; i++){
-      	menu[i].style.opacity="0.0";
-      	menu[i].style.marginTop="100px";
-      	};
-    	}
-    	//to open
-    	else if (nav.style.height <= "3em") {
-
-        // make menulist appear
         menulist.style.display = "none";
 
+        // nav height decreases
+      	nav.style.height = "1.5em";
+
+       //  for (var i = 0; i < menu.length; i++){
+      	// menu[i].style.opacity="0.0";
+      	// menu[i].style.marginTop="100px";
+      	// };
+    	}
+    	//to open
+    	else {
+
+        // make menulist appear
+        menulist.style.display = "block";
+
         // nav height increases
-      	nav.style.height = "";
+      	nav.style.height = "250px";
 
 
     	}
