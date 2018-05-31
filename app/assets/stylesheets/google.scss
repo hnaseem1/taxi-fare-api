@@ -80,7 +80,7 @@ body.loading .modal {
   display: none;
 
   form {
-    padding: 1em;
+    padding: 0;
     width: 100%;
 
     h3, h5, label {
@@ -125,7 +125,7 @@ body.loading .modal {
 // only appear during an ajax call
   // results section to make each result into a cards that appear as a grid
   .result {
-    padding: 1em;
+    margin: 1em;
     color: #DDD;
 
     h3 {
