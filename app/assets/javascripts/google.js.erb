@@ -1,57 +1,90 @@
-// setting up the geolocation from the browser
+executed = 0
+// GETTING THE SELFLOCATION FOR THE START LOCATION
 
-console.log('google js loaded');
 var locationButton = document.querySelectorAll('.get-location-data')
 var inputField = document.getElementById('autocomplete')
-locationButton[0].addEventListener('click', function() {
-inputField.disabled = true;
-inputField.placeholder = 'Getting your location...'
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+locationButton[0].addEventListener('click', geoFindMe)
+
+function geoFindMe() {
+  if (!navigator.geolocation){
+    alert( "Geolocation is not supported by your browser")
+    return;
+  }
+  inputField.disabled = true;
+  inputField.value = ''
+  inputField.placeholder = 'Getting your location...'
+
+  function success(position) {
+
      var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
       };
-// ajax call to google maps to find readible address from location data
-    response = $.ajax({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-      method: 'GET',
-      dataType: 'json'
-    }).done(function(data) {
-      inputField.disabled = false;
-      inputField.value = response.responseJSON.results[0].formatted_address
-    });
-  })
+  // ajax call to google maps to find readible address from location data
+    var response = $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+        method: 'GET',
+        dataType: 'json'
+      }).done(function(data) {
+        inputField.disabled = false;
+        inputField.value = response.responseJSON.results[0].formatted_address
+        inputField.placeholder = 'Start location'
+      });
+  }
+
+  function error() {
+    alert("Unable to retrieve your location");
+    inputField.disabled = false;
+    inputField.placeholder = 'Start location'
+  }
+  navigator.geolocation.getCurrentPosition(success, error);
 }
-})
+
+
+// GETTING THE SELFLOCATION FOR THE DESTINATION LOCATION
 // setting up event listener on the destination field for getting current location
 var inputField2 = document.getElementById('autocomplete2')
-locationButton[1].addEventListener('click', function() {
-inputField2.disabled = true;
-inputField2.placeholder = 'Getting your location...'
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+locationButton[1].addEventListener('click', geoFindMe2)
+
+function geoFindMe2() {
+  if (!navigator.geolocation){
+    alert( "Geolocation is not supported by your browser")
+    return;
+  }
+  inputField2.disabled = true;
+  inputField2.value = ''
+  inputField2.placeholder = 'Getting your location...'
+
+  function success(position) {
+
      var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
-    };
-// ajax call to google maps to find readible address from location data
-    response = $.ajax({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-      method: 'GET',
-      dataType: 'json'
-    }).done(function(data) {
-      inputField2.disabled = false;
-      inputField2.value = response.responseJSON.results[0].formatted_address
-    });
-  })
+      };
+  // ajax call to google maps to find readible address from location data
+    var response = $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+        method: 'GET',
+        dataType: 'json'
+      }).done(function(data) {
+        inputField2.disabled = false;
+        inputField2.value = response.responseJSON.results[0].formatted_address
+        inputField.placeholder = 'Destination'
+      });
+  }
+
+  function error() {
+    alert("Unable to retrieve your location");
+    inputField2.disabled = false;
+    inputField2.placeholder = 'Destination'
+
+  }
+  navigator.geolocation.getCurrentPosition(success, error);
 }
-})
 //===================================================================================================================================
 // =====================    AUTOCOMPLETE FIELDS    =====================
 var autocomplete, autocomplete2;
 function initAutocomplete() {
-console.log('start initAutocomplete');
 // Create the autocomplete object, restricting the search to geographical
 // location types.
 autocomplete2 = new google.maps.places.Autocomplete(
@@ -63,9 +96,9 @@ autocomplete = new google.maps.places.Autocomplete(
 }
 //====================================================================================================================================
 // function to initiate maps with point a to point b
-var executed = 0
+
+
 function initMap() {
-console.log('start MAP');
   map = new google.maps.Map(document.getElementById('map'), {
   zoom: 4,
   center: {lat: 43.6867, lng: -79.3682}  // Australia.
@@ -106,9 +139,7 @@ for (var i = 0; i < myroute.legs.length; i++) {
   total += myroute.legs[i].distance.value;
 }
 total = total / 1000;
-console.log('finish MAP');
 setMarkers(map)
-estimateTaxiPrice(total)
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
@@ -148,40 +179,44 @@ if (frame.style.display === "none") {
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
+
+
 function setMarkers(map) {
-console.log('STARTING SETMARKERS');
-var response = $.ajax({
-    url: 'rideicons/show?start_lat='+start_lat+'&start_lng='+start_lon,
-    method: 'GET',
-    dataType: 'json',
-}).done(function functionName(data) {
-//   console.log('drivers_location = data');
-// drivers_location = data
-if (executed > 0) {
-}else {
-  executed += 1
-  var image = {
-    // src: 'assets/images/car.png',
-    url: '<%= image_path('car.png') %>',
-    anchor: new google.maps.Point(16, 16)
-  };
-  for (var i = 0; i < data.length; i++) {
-    var data_location = data[i];
-    var marker = new google.maps.Marker({
-      position: {lat: data_location[0], lng: data_location[1]},
-      map: map,
-      animation: google.maps.Animation.DROP,
-      icon: image,
-    });
-  }
+if (executed === 0) {
+  var response = $.ajax({
+      url: 'rideicons/show?start_lat='+start_lat+'&start_lng='+start_lon,
+      method: 'GET',
+      dataType: 'json',
+  }).done(function functionName(data) {
+  //   console.log('drivers_location = data');
+  // drivers_location = data
+    executed += 1
+    var image = {
+      // src: 'assets/images/car.png',
+      url: '<%= image_path('car.png') %>',
+      anchor: new google.maps.Point(16, 16)
+    };
+    for (var i = 0; i < data.length; i++) {
+      var data_location = data[i];
+      var marker = new google.maps.Marker({
+        position: {lat: data_location[0], lng: data_location[1]},
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: image,
+      });
+    }
+  })
 }
 })
 
 console.log('Finished setMarkers');
-}
-//==========================================================================================================================
-  // setting up event listener on submit location Button
 
+}
+
+
+//==========================================================================================================================
+//    SUBMIT BUTTON
+  // setting up event listener on submit location Button
 
 var submit = document.querySelector('.submit')
 submit.addEventListener('click', function (event) {
@@ -191,6 +226,7 @@ document.getElementById('autocomplete').style.border='none'
 document.getElementById('autocomplete2').style.border='none'
 
 apis_requests()
+executed = 0
 })
 
 
@@ -253,7 +289,6 @@ start_address = document.getElementById('autocomplete').value
 // remove welcome message from landing page`
 var welcomeMessage = document.querySelector('.welcome-message')
 welcomeMessage.classList.add('hidden')
-console.log('DONE STARTING CALLING OUR API');
       // removes the results from the previous request if there is any
         $(".uber_ride").remove();
         $(".lyft_ride").remove();

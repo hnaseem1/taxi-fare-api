@@ -8,7 +8,7 @@
 
     <div class="location-start">
       <%= label_tag "From" %>
-      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "", type:"text" %>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Start location", type:"text" %>
 
         <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
@@ -16,7 +16,7 @@
 
     <div class="location-end">
       <%= label_tag "To" %>
-      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "", type:"text" %>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Destination", type:"text" %>
 
         <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
