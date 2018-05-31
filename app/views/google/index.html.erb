@@ -8,7 +8,7 @@
 
     <div class="location-start">
       <%= label_tag "From" %>
-      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "", type:"text" %>
+      <%= text_field_tag :start_location, params[:start_location], class: "input-field", id: "autocomplete", placeholder: "Start location", type:"text" %>
 
         <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader1' %>
@@ -16,7 +16,7 @@
 
     <div class="location-end">
       <%= label_tag "To" %>
-      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "", type:"text" %>
+      <%= text_field_tag :end_location, params[:end_location], class: "input-field", id: "autocomplete2", placeholder: "Destination", type:"text" %>
 
         <button type="button" name="button" class='get-location-data' class="location-button"><%= image_tag "location.svg" %></button>
         <%= image_tag "http://i.stack.imgur.com/FhHRx.gif", class: 'location-loader2' %>
@@ -45,8 +45,10 @@
           <label><input type="checkbox" name="capacity" value="4">4</label>
           <label><input type="checkbox" name="capacity" value="6">6</label>
         </h5>
+          <button type="button" id="streetview_button" name="button" onclick="showstreetview()" style="display:block">Have a look at destination</button>
   		</div>
   	</form>
+
   </div>
   <div id="map" style="display: none"></div>
 </div>
@@ -55,7 +57,6 @@
 <div class="result" id="div_result">
 
 </div>
-<button type="button" id="streetview_button" name="button" onclick="showstreetview()" style="display:none">Have a look at destination</button>
 <iframe id="streetview_iframe"
 style="display:none"
   width="100%"

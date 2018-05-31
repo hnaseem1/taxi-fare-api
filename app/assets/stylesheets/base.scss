@@ -90,19 +90,19 @@ body {
       }
 
       .line1:active {
-        transform: rotate(270deg);
+        /*transform: rotate(270deg);*/
         opacity: 0;
         background-color: yellow;
         top: 5px;
       }
 
       .line2:active {
-        transform: rotate(45deg);
+        /*transform: rotate(45deg);*/
         background-color: yellow;
       }
 
       .line3:active {
-        transform: rotate(-45deg);
+        /*transform: rotate(-45deg);*/
         background-color: yellow;
         top:-7px;
       }

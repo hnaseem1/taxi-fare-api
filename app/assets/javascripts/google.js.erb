@@ -1,5 +1,4 @@
-
-
+executed = 0
 // GETTING THE SELFLOCATION FOR THE START LOCATION
 
 var locationButton = document.querySelectorAll('.get-location-data')
@@ -29,14 +28,14 @@ function geoFindMe() {
       }).done(function(data) {
         inputField.disabled = false;
         inputField.value = response.responseJSON.results[0].formatted_address
+        inputField.placeholder = 'Start location'
       });
   }
 
   function error() {
     alert("Unable to retrieve your location");
     inputField.disabled = false;
-    inputField.placeholder = ''
-
+    inputField.placeholder = 'Start location'
   }
   navigator.geolocation.getCurrentPosition(success, error);
 }
@@ -70,13 +69,14 @@ function geoFindMe2() {
       }).done(function(data) {
         inputField2.disabled = false;
         inputField2.value = response.responseJSON.results[0].formatted_address
+        inputField.placeholder = 'Destination'
       });
   }
 
   function error() {
     alert("Unable to retrieve your location");
     inputField2.disabled = false;
-    inputField2.placeholder = ''
+    inputField2.placeholder = 'Destination'
 
   }
   navigator.geolocation.getCurrentPosition(success, error);
@@ -96,7 +96,8 @@ autocomplete = new google.maps.places.Autocomplete(
 }
 //====================================================================================================================================
 // function to initiate maps with point a to point b
-var executed = 0
+
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
   zoom: 4,
@@ -139,54 +140,82 @@ for (var i = 0; i < myroute.legs.length; i++) {
 }
 total = total / 1000;
 setMarkers(map)
-estimateTaxiPrice(total)
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
+
 function showstreetview() {
+
+
 var frame = document.getElementById('streetview_iframe')
-frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
+var map = document.querySelector('#map')
+var mapParent = document.querySelector('.map-and-filter')
+
 if (frame.style.display === "none") {
-  frame.style.display="block"
-}else if (frame.style.display==="block") {
+
+  map.style.display = 'none'
+  frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
+  map.id = 'streetview_iframe'
+  frame.id = 'map'
+  frame.style.display = "block"
+  mapParent.appendChild(frame)
+
+} else if (frame.style.display === "block") {
+  frame.id = 'streetview_iframe'
+  map.id = 'map'
   frame.style.display = "none"
+  map.removeChild(frame)
+  document.querySelector('#map').style.display = 'block'
 }
+
+  //
+  // if (frame.style.display === "none") {
+  //   frame.style.display = "block"
+  //   map.appendChild(frame)
+  // } else if (frame.style.display === "block") {
+  //   frame.style.display = "none"
+  //   document.querySelector('#map').style.display = 'block'
+  // }
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
-function setMarkers(map) {
-var response = $.ajax({
-    url: 'rideicons/show?start_lat='+start_lat+'&start_lng='+start_lon,
-    method: 'GET',
-    dataType: 'json',
-}).done(function functionName(data) {
-//   console.log('drivers_location = data');
-// drivers_location = data
-if (executed > 0) {
-}else {
-  executed += 1
-  var image = {
-    // src: 'assets/images/car.png',
-    url: '<%= image_path('car.png') %>',
-    anchor: new google.maps.Point(16, 16)
-  };
-  for (var i = 0; i < data.length; i++) {
-    var data_location = data[i];
-    var marker = new google.maps.Marker({
-      position: {lat: data_location[0], lng: data_location[1]},
-      map: map,
-      animation: google.maps.Animation.DROP,
-      icon: image,
-    });
-  }
-}
-})
-var streetviewbutton = document.getElementById('streetview_button')
-streetviewbutton.style.display = 'block'
-}
-//==========================================================================================================================
-  // setting up event listener on submit location Button
 
+
+function setMarkers(map) {
+if (executed === 0) {
+  var response = $.ajax({
+      url: 'rideicons/show?start_lat='+start_lat+'&start_lng='+start_lon,
+      method: 'GET',
+      dataType: 'json',
+  }).done(function functionName(data) {
+  //   console.log('drivers_location = data');
+  // drivers_location = data
+    executed += 1
+    var image = {
+      // src: 'assets/images/car.png',
+      url: '<%= image_path('car.png') %>',
+      anchor: new google.maps.Point(16, 16)
+    };
+    for (var i = 0; i < data.length; i++) {
+      var data_location = data[i];
+      var marker = new google.maps.Marker({
+        position: {lat: data_location[0], lng: data_location[1]},
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: image,
+      });
+    }
+  })
+}
+
+console.log('Finished setMarkers');
+
+}
+
+
+//==========================================================================================================================
+//    SUBMIT BUTTON
+  // setting up event listener on submit location Button
 
 var submit = document.querySelector('.submit')
 submit.addEventListener('click', function (event) {
@@ -196,6 +225,7 @@ document.getElementById('autocomplete').style.border='none'
 document.getElementById('autocomplete2').style.border='none'
 
 apis_requests()
+executed = 0
 })
 
 
