@@ -188,12 +188,17 @@ body.loading .modal {
       p {
         padding: 0.2em 0;
       }
-      .price {
+
+      .cost {
         font-size: 0.75em;
       }
 
-      .arrival_done {
+      .eta {
         font-size: 0.5em;
+      }
+
+      #request {
+
       }
 
     }
@@ -323,12 +328,17 @@ body.loading .modal {
       p {
         padding: 0.2em 0;
       }
-      .price {
+
+      .cost {
         font-size: 0.75em;
       }
 
-      .arrival_done {
+      .eta {
         font-size: 0.5em;
+      }
+
+      #request {
+
       }
 
     }
