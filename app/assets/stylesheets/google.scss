@@ -65,20 +65,41 @@ body.loading .modal {
     }
   }
 
-
-
-
-
-
 }
+
+.map-and-filter {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-gap: 1em;
+  margin: 1em;
+}
+
+// filters form section
+
+.filters {
+  display: none;
+
+  form {
+    padding: 1em;
+    width: 100%;
+
+    h3, h5, label {
+      margin: 0;
+    }
+
+    label {
+      display: inline-block;
+      margin: 0.5em;
+    }
+  }
+}
+
 
 #map {
 
-  height: 45%;
-  margin: 2em auto;
-  padding: 1.5em 0;
-  text-align: center;
-  width: 80%;
+  height: 100%;
+  margin: auto;
+  width: 90%;
 }
 
 .location-loader1 {
@@ -124,21 +145,6 @@ body.loading .modal {
 
   .lyft_ride {
     border: 1px solid pink;
-  }
-
-  // filters form section
-
-  .filters {
-    display: none;
-    margin-left: 20px;
-    width: 100px;
-
-    padding: 5px 30px 30px;
-  	background-color: #CCC;
-  	border: 1px solid #DBE3E7;
-  	border-radius: 3px;
-    position: relative;
-    top: 50%;
   }
 
   // hidden elements
@@ -214,4 +220,18 @@ body.loading .modal {
       height: 100vh;
     }
   }
+
+  //  form specifically for filters
+  .filters {
+
+    form {
+      padding-bottom: 100%
+    }
+
+  }
+
+  #map {
+    height: 100%
+  }
+
 }
