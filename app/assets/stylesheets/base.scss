@@ -106,8 +106,6 @@ body {
       }
   //
       #closebtn {
-        height:25px;
-        width:25px;
         position: absolute;
         text-decoration:none;
         top: 35px;
@@ -171,6 +169,7 @@ body {
       border: none;
       border-radius: 4px;
       color: $secondary-blue;
+      font-size: 3em;
     }
 
   }
