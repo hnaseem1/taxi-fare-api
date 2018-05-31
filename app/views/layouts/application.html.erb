@@ -52,12 +52,22 @@
     var menulist  = document.querySelector(".menulist");
     var close     = document.querySelector("#closebtn");
 
+    var hamburger = document.querySelector(".hamburger");
+
     //default to measure if/else from
     // nav height is 60px by default
 
     // nav.style.height = "60px";
 
-    close.addEventListener("click", function(){
+
+
+    // close.addEventListener("click", function(){
+    //   var menuIcon = document.querySelectorAll('.line');
+    //   for (i = 0; i < menuIcon.length; i++){
+    //     menuIcon[i].classList.toggle("active");
+    //   }
+      
+    hamburger.addEventListener("click", function(){
       var menuIcon = document.querySelectorAll('.line');
       for (i = 0; i < menuIcon.length; i++){
         menuIcon[i].classList.toggle("active");
