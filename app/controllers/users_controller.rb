@@ -28,8 +28,11 @@ class UsersController < ApplicationController
     if start_location && end_location
 
       ride = Ride.new(user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
-      ride.save
       
+      if ride.save
+        redirect_to user_path
+      end
+
 
     end
   end
