@@ -19,10 +19,8 @@ class Lyft < ApplicationRecord
     # data structure for returning values in a form of array of hashes
     data_array = []
 
-
-
     # some logic for sorting the api data into more readible and required information
-    if lyft_data["cost_estimates"]
+    if lyft_data["cost_estimates"].any?
 
       lyft_data["cost_estimates"].each do |option|
 
@@ -64,7 +62,6 @@ class Lyft < ApplicationRecord
       data_array[0] = "INVALID PARAMS"
 
     end
-
     # returning the required data in a form of meaningful data structure defined above
     return data_array
 
