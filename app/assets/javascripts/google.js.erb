@@ -284,51 +284,56 @@ start_address = document.getElementById('autocomplete').value
           method: 'GET',
           dataType: 'json',
       }).done(function(data) {
-// remove welcome message from landing page`
-var welcomeMessage = document.querySelector('.welcome-message')
-welcomeMessage.classList.add('hidden')
-// removes the results from the previous request if there is any
+
+        // selecting elements
+
+        var welcomeMessage = document.querySelector('.welcome-message')
+        var filters = document.querySelector('.filters');
+        var result = document.getElementById('div_result');
+        var capacity2 = document.querySelector("input[value='2']");
+        var capacity4 = document.querySelector("input[value='4']");
+        var capacity6 = document.querySelector("input[value='6']");
+        var resetFilter = document.getElementById('reset_filters');
+
+        // remove welcome message from landing page`
+        welcomeMessage.classList.add('hidden')
+
+        // removes the results from the previous request if there is any
         $(".uber_ride").remove();
         $(".lyft_ride").remove();
         $(".taxi").remove();
-// to enable maps
+
+        // to enable maps
         initMap()
-// to hide loading page
+
+        // to hide loading page
         loader.style.display = "none";
-        // display all the results
-        // displayAll(data)
-        // Display lowest
+
+        // display results in Asc Order
         displayInAscOrder(data)
-        var filters = document.querySelector('.filters');
 
         filters.style.display = "block";
 
-        var result = document.getElementById('div_result')
-
         // 2 capacity
 
-        var capacity2 = document.querySelector("input[value='2']");
         capacity2.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 2)
         })
 
         // 4 capacity
 
-        var capacity4 = document.querySelector("input[value='4']");
         capacity4.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 4)
         })
 
         // 6 capacity
 
-        var capacity6 = document.querySelector("input[value='6']");
         capacity6.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 6)
         })
 
         // reset filters
 
-        var resetFilter = document.getElementById('reset_filters');
         resetFilter.addEventListener('click', function() {
           displayInAscOrder(data);
         })
