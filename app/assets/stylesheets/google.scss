@@ -6,10 +6,22 @@
 
 // Variables
 
-$nav-blue:   #071933;
-$main-blue:  #0C2C5A;
+$primary-blue:   #071933;
+$secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
-$light-blue: #91C5FF;
+$accent-blue: #91C5FF;
+
+// RIDE COLOURS
+
+$lyft: #FF02BF;
+$taxi: #EAB234;
+$uber: #09091A;
+
+// ERROR STATE COLOURS
+
+$error: #D17D87;
+$success: #7DD186;
+$warning: #EFEF84;
 
 
 .modal {
@@ -52,10 +64,10 @@ body.loading .modal {
   }
 
   .get-location-data {
-    background: $light-blue;
+    background: $accent-blue;
     border: none;
     border-radius: 10px;
-    color: $main-blue;
+    color: $secondary-blue;
     height: 100px;
     width: 15%;
 
@@ -66,10 +78,10 @@ body.loading .modal {
   }
 
   .submit {
+    margin-top: 50px;
     height: 100px;
     font-size: 2.25em;
     width: 100%;
-    margin-top: 50px;
   }
 
 }
@@ -114,7 +126,7 @@ body.loading .modal {
       font-size: 1.2em;
 
       input {
-        color: $light-blue;
+        color: $accent-blue;
       }
     }
 
@@ -155,44 +167,53 @@ body.loading .modal {
 // only appear during an ajax call
   // results section to make each result into a cards that appear as a grid
   .result {
-    margin: 1em;
-    color: #DDD;
     text-align: center;
 
-    h3 {
-      font-weight: 250;
+    .single_result {
+      background-color: #FFF;
+      margin: 1em;
+      padding: 1em;
+
+      h3, p {
+        margin: 0;
+      }
+
+      h3 {
+        margin: 0 10%;
+        color: #FFF;
+        font-weight: 200;
+        padding: 0.5em 0;
+      }
+
+      p {
+        padding: 0.2em 0;
+      }
+      .price {
+        font-size: 0.75em;
+      }
+
+      .arrival_done {
+        font-size: 0.5em;
+      }
+
     }
 
-    p {
-      font-size: 0.75em;
+    .uber_ride {
+
+      h3 {
+        background-color: $uber;
+      }
     }
 
-    h3, p {
-      margin: 2.5% 10% 0 10%;
-      padding: 0.5em 0;
+    .lyft_ride {
+
+      h3 {
+        background-color: $lyft;
+      }
     }
   }
 
-  .uber_ride {
-    background-color: rgb(15, 46, 176);
-    border: 1px solid darkblue;
 
-    h3 {
-      background-color: $light-blue;
-      color: $main-blue;
-      text-align: center;
-    }
-  }
-
-  .lyft_ride {
-    background-color: rgb(120, 23, 102);
-    border: 1px solid pink;
-
-    h3 {
-      background-color: #000;
-      text-align: center;
-    }
-  }
 
   // hidden elements
 
@@ -223,10 +244,6 @@ body.loading .modal {
 
   body {
 
-    form {
-      padding: 0 40px 40px 40px;
-    }
-
     .search-field {
       .location-start, .location-end, .submit {
         display: inline-block;
@@ -234,15 +251,16 @@ body.loading .modal {
 
       .input-field {
         width: 70%;
+        height: 40px;
 
       }
 
       .get-location-data {
-        background: $light-blue;
+        background: $accent-blue;
         border: none;
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
-        color: $main-blue;
+        color: $secondary-blue;
         height: 40px;
         width: 15%;
 
@@ -272,13 +290,13 @@ body.loading .modal {
   .filters {
 
     form {
-      padding-bottom: 100%
+
     }
 
   }
 
   #map {
-    height: 100%
+    height: 100%;
   }
 
   // display result cards in a grid
@@ -289,34 +307,43 @@ body.loading .modal {
     grid-row: auto;
     grid-gap: 1em;
     width: 90%;
+    margin-left: 2%;
 
+
+    .single_result {
+      margin: 0;
+
+      h3 {
+        margin: 0 10%;
+        color: #FFF;
+        font-weight: 200;
+        padding: 0.5em 0;
+      }
+
+      p {
+        padding: 0.2em 0;
+      }
+      .price {
+        font-size: 0.75em;
+      }
+
+      .arrival_done {
+        font-size: 0.5em;
+      }
+
+    }
 
     .uber_ride {
 
       h3 {
-        background-color: $light-blue;
-        font-size: 1em;
-        color: $main-blue;
-        text-align: center;
-        padding: 0.75em 0;
-        border-radius: 10px;
-        border: none;
-        width: 20em;
+        background-color: $uber;
       }
     }
 
     .lyft_ride {
 
       h3 {
-        background-color: #000;
-        font-size: 1em;
-        color: #FFF;
-        text-align: center;
-        padding: 0.75em 0;
-        border-radius: 10px;
-        border: none;
-        width: 20em;
-
+        background-color: $lyft;
       }
     }
   }
