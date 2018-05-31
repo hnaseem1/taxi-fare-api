@@ -9,7 +9,7 @@
 		<% show_ride_favs(@user_favourite_rides).to_enum.with_index.reverse_each do |trip, i| %>
 		 	<ul class="favRides">
 				<% if trip[:start] && trip[:end] %>
-		 		<li>Start Location:<%= trip[:start] %> End Location <%= trip[:end] %></li>
+		 		<li class="favRide">Start Location:<%= trip[:start] %> End Location <%= trip[:end] %></li>
 				<% end %>
 		 	</ul>
 			<% count += 1 %>
@@ -27,7 +27,7 @@
 <% count = 0 %>
 <% current_user.rides.to_enum.with_index.reverse_each do |ride, i| %>
 	<ul class="pastRides">
-		<li>
+		<li class="pastRide">
 		<%= form_tag(user_path, :method => "get" ) do %>
 		From: <%= ride.start_address %>
 		<br>
