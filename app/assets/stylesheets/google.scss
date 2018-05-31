@@ -80,13 +80,22 @@ body.loading .modal {
   display: none;
 
   form {
-    padding: 0;
+    padding: 0 0 1em;
     width: 100%;
 
-    h3, h5, label {
+    h2, h3, h5, label {
       margin: 0;
     }
-
+    // "Filters"
+    h2 {
+      padding: 0.5em 0;
+    }
+    // "Capacity"
+    h3{
+      padding: 1em 0;
+      color: #999;
+    }
+    // "2, 4, 6"
     label {
       display: inline-block;
       margin: 0.5em;
