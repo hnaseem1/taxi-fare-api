@@ -55,8 +55,9 @@ class RideTest < ActiveSupport::TestCase
 
 
 	test 'return multiple start and end locations if user has multiple favourites' do
-		skip
-		new_ride = @ride
+		@ride.ride_favourite = true
+		@ride.save
+		new_ride = Ride.new(latitude_start: 12, longitude_start: 1231, latitude_end: 123114, longitude_end: 2234, provider: 'lyft', price: 2341, user_id: @user.id, start_address: 'startgint place', end_address: 'ending place', ride_favourite: true)
 		new_ride.save
 		assert_equal(2 , Ride.favourite_places(@user)[:ride].count)
 	end

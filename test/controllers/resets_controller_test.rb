@@ -16,4 +16,8 @@ class ResetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should not get success" do
+    post pass_reset_success_path(reset: {token: "somettoken"})
+    assert_response :redirect
+  end
 end
