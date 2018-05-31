@@ -143,14 +143,39 @@ setMarkers(map)
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
+
 function showstreetview() {
+
+
 var frame = document.getElementById('streetview_iframe')
-frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
+var map = document.querySelector('#map')
+var mapParent = document.querySelector('.map-and-filter')
+
 if (frame.style.display === "none") {
-  frame.style.display="block"
-}else if (frame.style.display==="block") {
+
+  map.style.display = 'none'
+  frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
+  map.id = 'streetview_iframe'
+  frame.id = 'map'
+  frame.style.display = "block"
+  mapParent.appendChild(frame)
+
+} else if (frame.style.display === "block") {
+  frame.id = 'streetview_iframe'
+  map.id = 'map'
   frame.style.display = "none"
+  map.removeChild(frame)
+  document.querySelector('#map').style.display = 'block'
 }
+
+  //
+  // if (frame.style.display === "none") {
+  //   frame.style.display = "block"
+  //   map.appendChild(frame)
+  // } else if (frame.style.display === "block") {
+  //   frame.style.display = "none"
+  //   document.querySelector('#map').style.display = 'block'
+  // }
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
@@ -182,8 +207,10 @@ if (executed === 0) {
     }
   })
 }
-var streetviewbutton = document.getElementById('streetview_button')
-streetviewbutton.style.display = 'block'
+})
+
+console.log('Finished setMarkers');
+
 }
 
 
