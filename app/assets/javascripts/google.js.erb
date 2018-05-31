@@ -285,8 +285,10 @@ start_address = document.getElementById('autocomplete').value
           dataType: 'json',
       }).done(function(data) {
 
-        // selecting elements
 
+// ============================================ RESULTS ========================================================
+
+        // selecting elements
         var welcomeMessage = document.querySelector('.welcome-message')
         var filters = document.querySelector('.filters');
         var result = document.getElementById('div_result');
@@ -299,9 +301,7 @@ start_address = document.getElementById('autocomplete').value
         welcomeMessage.classList.add('hidden')
 
         // removes the results from the previous request if there is any
-        $(".uber_ride").remove();
-        $(".lyft_ride").remove();
-        $(".taxi").remove();
+        clearPreviousResults()
 
         // to enable maps
         initMap()
@@ -314,38 +314,44 @@ start_address = document.getElementById('autocomplete').value
 
         filters.style.display = "block";
 
-        // 2 capacity
 
+    // ================================== Filters ========================================
+
+        // 2 capacity
         capacity2.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 2)
         })
 
         // 4 capacity
-
         capacity4.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 4)
         })
 
         // 6 capacity
-
         capacity6.addEventListener('change', function() {
           displayInAscOrderCapacity(data, 6)
         })
 
         // reset filters
-
         resetFilter.addEventListener('click', function() {
+
+          clearPreviousResults()
           displayInAscOrder(data);
+
         })
 
       })
     }).fail(function () {
+
     alert('Missing destination. \n\n Error: ' + end_cordinates.responseJSON.error_message)
     loader.style.display = "none";
+
   })
   }).fail(function () {
+
   alert('Missing start address. \n\n Error: ' + start_cordinates.responseJSON.error_message)
   loader.style.display = "none";
+
 })
 }
 }
@@ -355,9 +361,8 @@ start_address = document.getElementById('autocomplete').value
 // ========================================================================
 
 function displayInAscOrderCapacity(data, number) {
-  $(".uber_ride").remove();
-  $(".lyft_ride").remove();
-  $(".taxi").remove();
+
+clearPreviousResults()
 
 var results = []
 for (var i = 0; i < data.uber.length; i++) {
@@ -398,10 +403,20 @@ createCards(sorted_results)
 
 // ====================== DRY FUNCTIONS ==================================
 
+function clearPreviousResults() {
+
+  $(".uber_ride").remove();
+  $(".lyft_ride").remove();
+  $(".taxi").remove();
+
+}
+
 function createCards(sorted_result) {
+
   var result = document.getElementById('div_result')
   // New cards are made for each ride result
   for (var i = 0; i < sorted_results.length; i++) {
+
     var div            = document.createElement("div")
     var h3             = document.createElement("h3")
     var cost           = document.createElement("p")
@@ -409,6 +424,8 @@ function createCards(sorted_result) {
     var start_address  = document.getElementById('autocomplete').value
     var request_button = document.createElement("button")
     var request_link   = document.createElement("a")
+
+    request_button.id = 'request'
     eta.classList.add('eta')
     cost.classList.add('cost')
     div.classList.add('single_result')
@@ -416,6 +433,7 @@ function createCards(sorted_result) {
     h3.innerText       = sorted_results[i].type
     cost.innerText     = "$" + sorted_results[i].fare + " " + sorted_results[i].currency
     eta.innerText      = "Arrival Time " + sorted_results[i].eta/60 + " Mins"
+
     div.appendChild(h3)
     div.appendChild(cost)
     div.appendChild(eta)
@@ -431,25 +449,33 @@ function createCards(sorted_result) {
       div.classList.add('lyft_ride')
 
       if (possible_rides.includes(sorted_results[i].type)) {
+
         var ride_id = sorted_results[i].type.toLowerCase().replace(/\s/g, '_')
         request_link.setAttribute('href', 'https://lyft.com/ride?id=' + ride_id + '&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&destination[latitude]=' + end_lat + '&destination[longitude]=' + end_lon)
         request_button.innerText = 'Request Lyft'
+
         request_link.appendChild(request_button)
         div.appendChild(request_link)
-      }else {
+
+      } else {
+
         var ride_id = sorted_results[i].type.toLowerCase().replace(/\s/g, '_')
         request_link.setAttribute('href', 'https://ride.lyft.com/?')
         request_button.innerText = 'Request Lyft'
+
         request_link.appendChild(request_button)
         div.appendChild(request_link)
+
       }
     } else if (sorted_results[i].type.charAt(0) === 'u' || sorted_results[i].type.charAt(0) === 'T' || sorted_results[i].type.charAt(0) === 'U' ) {
+
       div.classList.add('uber_ride')
       request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
       request_button.innerText = 'Request UBER'
-      request_button.id = 'request'
+
       request_link.appendChild(request_button)
       div.appendChild(request_link)
+
     }
   }
 }
