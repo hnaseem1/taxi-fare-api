@@ -1,19 +1,19 @@
-$nav-blue:   #071933;
-$main-blue:  #0C2C5A;
+$primary-blue:   #071933;
+$secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
-$light-blue: #91C5FF;
+$accent-blue: #91C5FF;
 
 html, body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   // background-image: image-url("dark_sky.jpeg");
+  background: #EEE;
 
 
 }
 
 body {
-  background-color: #EEE;
   font-family: Helvetica, Arial, 'sans-serif';
   font-size: 20px;
   height: 100vh;
@@ -35,7 +35,7 @@ body {
   }
 
   nav {
-    background-color: $nav-blue;
+    background-color: $primary-blue;
     text-align: center;
     text-transform: uppercase;
     font-size: 2em;
@@ -66,7 +66,7 @@ body {
       }
 
       a:hover {
-        /*width: 100%;*/
+        width: 100%;
 
         transition: underline .2s;
         text-decoration: underline;
@@ -74,15 +74,12 @@ body {
     }
 
     .hamburger {
-      /*the burgers position*/
-      margin: 0 auto;
-      bottom: 34px;
-      position: relative;
-      /*// hamburger rotation animation*/
+
+      // hamburger rotation animation
 
       .line {
         margin-bottom: 12px;
-        background-color: $light-blue;
+        background-color: $accent-blue;
         width: 65px;
         height: 6px;
         display: block;
@@ -91,19 +88,19 @@ body {
       }
 
       .line1:active {
-        /*transform: rotate(270deg);*/
+        transform: rotate(270deg);
         opacity: 0;
         background-color: yellow;
         top: 5px;
       }
 
       .line2:active {
-        /*transform: rotate(45deg);*/
+        transform: rotate(45deg);
         background-color: yellow;
       }
 
       .line3:active {
-        /*transform: rotate(-45deg);*/
+        transform: rotate(-45deg);
         background-color: yellow;
         top:-7px;
       }
@@ -133,12 +130,11 @@ body {
       font-size:30px;
     }
 
-
   }
 
 
   form {
-    background: $main-blue;
+    background: $secondary-blue;
     margin: 0;
     padding: 40px;
 
@@ -147,7 +143,7 @@ body {
     div {
 
       label {
-        color: #999;
+        color: $space-blue;
         display: block;
         font-size: 1.75em;
         margin: 0 0 0.5em 0.5em;
@@ -171,17 +167,17 @@ body {
 
 
     .submit {
-      background: $light-blue;
+      background: $accent-blue;
       border: none;
       border-radius: 4px;
-      color: $main-blue;
+      color: $secondary-blue;
     }
 
   }
 
 }
 
-@media (min-device-width: 426px)  {
+@media (max-device-width: 1024px) and (min-device-width: 426px)  {
 
     body {
 
@@ -190,15 +186,6 @@ body {
 
         .menulist, .hamburger {
 
-          .line {
-            margin-bottom: 12px;
-            background-color: $light-blue;
-            width: 65px;
-            height: 6px;
-            display: block;
-            border-radius:15%;
-            transition: all .3s;
-          }
 
           a {
             display: inline-block;
@@ -212,13 +199,12 @@ body {
 
           label {
             font-size: 1em;
-            margin-left: 1em;
+            margin-left: 1.5em;
           }
 
 
           .input-field {
             height: 40px;
-            padding-left: 1em;
           }
 
         }
