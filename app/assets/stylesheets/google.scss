@@ -65,6 +65,13 @@ body.loading .modal {
     }
   }
 
+  .submit {
+    height: 100px;
+    font-size: 2.25em;
+    width: 100%;
+    margin-top: 50px;
+  }
+
 }
 
 .map-and-filter {
@@ -80,16 +87,40 @@ body.loading .modal {
   display: none;
 
   form {
-    padding: 1em;
+    padding: 0 0 1em;
     width: 100%;
 
-    h3, h5, label {
+    h2, h3, h5, label {
       margin: 0;
     }
-
+    // "Filters"
+    h2 {
+      padding: 0.5em 0
+    }
+    // "Capacity"
+    h3 {
+      padding: 0.9em 0 0 0;
+      color: #999;
+    }
+    // "2, 4, 6"
+    h5 {
+      padding-bottom: 1em;
+    }
     label {
       display: inline-block;
       margin: 0.5em;
+      color: #FFF;
+      font-weight: 100;
+      font-size: 1.2em;
+
+      input {
+        color: $light-blue;
+      }
+    }
+
+    .submit {
+      font-size: 0.9em;
+      padding: 0.5em 0.75em;
     }
   }
 }
@@ -98,8 +129,7 @@ body.loading .modal {
 #map {
 
   height: 100%;
-  margin: auto;
-  width: 90%;
+  width: 97%;
 }
 
 .location-loader1 {
@@ -125,8 +155,9 @@ body.loading .modal {
 // only appear during an ajax call
   // results section to make each result into a cards that appear as a grid
   .result {
-    padding: 1em;
+    margin: 1em;
     color: #DDD;
+    text-align: center;
 
     h3 {
       font-weight: 250;
@@ -137,19 +168,30 @@ body.loading .modal {
     }
 
     h3, p {
-      margin: 0;
-      padding: 1em;
+      margin: 2.5% 10% 0 10%;
+      padding: 0.5em 0;
     }
   }
 
   .uber_ride {
     background-color: rgb(15, 46, 176);
     border: 1px solid darkblue;
+
+    h3 {
+      background-color: $light-blue;
+      color: $main-blue;
+      text-align: center;
+    }
   }
 
   .lyft_ride {
     background-color: rgb(120, 23, 102);
     border: 1px solid pink;
+
+    h3 {
+      background-color: #000;
+      text-align: center;
+    }
   }
 
   // hidden elements
@@ -247,6 +289,36 @@ body.loading .modal {
     grid-row: auto;
     grid-gap: 1em;
     width: 90%;
+
+
+    .uber_ride {
+
+      h3 {
+        background-color: $light-blue;
+        font-size: 1em;
+        color: $main-blue;
+        text-align: center;
+        padding: 0.75em 0;
+        border-radius: 10px;
+        border: none;
+        width: 20em;
+      }
+    }
+
+    .lyft_ride {
+
+      h3 {
+        background-color: #000;
+        font-size: 1em;
+        color: #FFF;
+        text-align: center;
+        padding: 0.75em 0;
+        border-radius: 10px;
+        border: none;
+        width: 20em;
+
+      }
+    }
   }
 
 }

@@ -13,6 +13,7 @@ html, body {
 }
 
 body {
+  background-color: #EEE;
   font-family: Helvetica, Arial, 'sans-serif';
   font-size: 20px;
   height: 100vh;
@@ -146,7 +147,7 @@ body {
     div {
 
       label {
-        color: $space-blue;
+        color: #999;
         display: block;
         font-size: 1.75em;
         margin: 0 0 0.5em 0.5em;
@@ -174,10 +175,6 @@ body {
       border: none;
       border-radius: 4px;
       color: $main-blue;
-      margin-top: 50px;
-      height: 100px;
-      font-size: 2.25em;
-      width: 100%;
     }
 
   }
