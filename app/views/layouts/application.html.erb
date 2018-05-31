@@ -58,8 +58,9 @@
     var nav       = document.querySelector("nav");
     var menulist  = document.querySelector(".menulist");
     var close     = document.querySelector("#closebtn");
-
     var hamburger = document.querySelector(".hamburger");
+    var height    = "1.8em"
+    nav.style.height = height;
 
     //default to measure if/else from
     // nav height is 60px by default
@@ -86,7 +87,7 @@
         menulist.style.display = "none";
 
         // nav height decreases
-      	nav.style.height = "1.5em";
+      	nav.style.height = height;
 
         if (window.innerWidth > 450) {
           document.getElementById('biglogo').style.display="block"
