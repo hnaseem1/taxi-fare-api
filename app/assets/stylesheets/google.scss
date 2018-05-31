@@ -181,6 +181,7 @@ body.loading .modal {
       h3 {
         margin: 0 10%;
         color: #FFF;
+        font-size: 0.75em;
         font-weight: 200;
         padding: 0.5em 0;
       }
@@ -188,12 +189,13 @@ body.loading .modal {
       p {
         padding: 0.2em 0;
       }
+
       .price {
-        font-size: 0.75em;
+        font-size: 0.6em;
       }
 
-      .arrival_done {
-        font-size: 0.5em;
+      .arrival_time {
+        font-size: 0.4em;
       }
 
     }
@@ -310,6 +312,7 @@ body.loading .modal {
     grid-row: auto;
     grid-gap: 1em;
     width: 90%;
+    margin-left: 2%;
 
 
     .single_result {
