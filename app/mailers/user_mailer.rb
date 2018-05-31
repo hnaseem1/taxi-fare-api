@@ -4,8 +4,8 @@ class UserMailer < ApplicationMailer
 	# method to be used when user creates an account
 	def welcome_email(user)
 		@user = user
-		@company = "taxi-fare-api"
-		@url = "https://taxi-fare-api.herokuapp.com"
+		@company = "ScoopFare"
+		@url = "http://scoopfare.com"
 		mail(to: @user.email, subject: "welcome to taxi-fare-api!")
 	end
 
