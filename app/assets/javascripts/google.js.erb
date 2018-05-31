@@ -404,6 +404,8 @@ function createCards(sorted_result) {
     var start_address  = document.getElementById('autocomplete').value
     var request_button = document.createElement("button")
     var request_link   = document.createElement("a")
+    eta.classList.add('eta')
+    cost.classList.add('cost')
     div.classList.add('single_result')
     request_link.setAttribute('target', '_blank')
     h3.innerText       = sorted_results[i].type
@@ -430,19 +432,17 @@ function createCards(sorted_result) {
         request_link.appendChild(request_button)
         div.appendChild(request_link)
       }else {
-        var ride_id         = sorted_results[i].type.toLowerCase().replace(/\s/g, '_')
+        var ride_id = sorted_results[i].type.toLowerCase().replace(/\s/g, '_')
         request_link.setAttribute('href', 'https://ride.lyft.com/?')
         request_button.innerText = 'Request Lyft'
         request_link.appendChild(request_button)
         div.appendChild(request_link)
       }
-
-
-
     } else if (sorted_results[i].type.charAt(0) === 'u' || sorted_results[i].type.charAt(0) === 'T' || sorted_results[i].type.charAt(0) === 'U' ) {
       div.classList.add('uber_ride')
       request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)
       request_button.innerText = 'Request UBER'
+      request_button.id = 'request'
       request_link.appendChild(request_button)
       div.appendChild(request_link)
     }
