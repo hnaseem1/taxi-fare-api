@@ -598,22 +598,23 @@ for (var i = 0; i < sorted_results.length; i++) {
   }
 }
 }
-function estimateTaxiPrice(distance) {
-var result = document.getElementById('div_result')
-//variables for estimating taxi price
-var baseFee = 4.25;
-var perKm = 1.75;
-var perMin = 0.55
-var cost = ((distance * perKm) + (perMin * rideTime)) + baseFee;
-//set up elements
-var div = document.createElement("div");
-div.classList.add('taxi')
-var h3 = document.createElement("h3");
-var currency = document.createElement("p");
-h3.innerText = "Taxi Service Estimation";
-currency.innerText = "$CAD " + cost.toFixed(2);
-div.style.border = "1px solid pink";
-div.appendChild(h3);
-div.appendChild(currency);
-result.appendChild(div);
-}
+
+// function estimateTaxiPrice(distance) {
+// var result = document.getElementById('div_result')
+// //variables for estimating taxi price
+// var baseFee = 4.25;
+// var perKm = 1.75;
+// var perMin = 0.55
+// var cost = ((distance * perKm) + (perMin * rideTime)) + baseFee;
+// //set up elements
+// var div = document.createElement("div");
+// div.classList.add('taxi')
+// var h3 = document.createElement("h3");
+// var currency = document.createElement("p");
+// h3.innerText = "Taxi Service Estimation";
+// currency.innerText = "$CAD " + cost.toFixed(2);
+// div.style.border = "1px solid pink";
+// div.appendChild(h3);
+// div.appendChild(currency);
+// result.appendChild(div);
+// }

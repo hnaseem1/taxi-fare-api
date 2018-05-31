@@ -50,6 +50,8 @@ class Uber < ApplicationRecord
 
           hash["distance"]  = option["distance"]
           fare              = option["estimate"].split("$")[1].split('-') if option["estimate"].split("$")[1]
+          hash["duration"]  = option["duration"]
+          hash["eta"]       = Uber.find_eta(eta_data, option["localized_display_name"])
 
           if fare
 
@@ -58,17 +60,17 @@ class Uber < ApplicationRecord
 
           else
 
-            hash["fare"]      = 'Metered'
-            hash["currency"]  = ''
+            fare = Uber.get_taxi(hash["distance"], hash["duration"])
+            hash["fare"]      = fare.round
+            hash["currency"]  = 'Metered, estimate'
 
           end
-
-          hash["duration"]  = option["duration"]
-          hash["eta"]       = Uber.find_eta(eta_data, option["localized_display_name"])
 
           data_array.push(hash)
 
           end
+
+
 
       else
 
@@ -117,6 +119,16 @@ class Uber < ApplicationRecord
 
     # return data
     return eta_data
+
+  end
+
+  def self.get_taxi(distance, ride_time)
+
+    base_fee = 4.25;
+    per_km = 1.75;
+    per_sec = 0.55/60.0
+    cost = ((distance * per_km) + (per_sec * ride_time)) + base_fee;
+    return cost
 
   end
 
