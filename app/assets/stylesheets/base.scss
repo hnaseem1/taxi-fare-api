@@ -65,7 +65,7 @@ body {
       }
 
       a:hover {
-        width: 100%;
+        /*width: 100%;*/
 
         transition: underline .2s;
         text-decoration: underline;
@@ -73,8 +73,11 @@ body {
     }
 
     .hamburger {
-
-      // hamburger rotation animation
+      /*the burgers position*/
+      margin: 0 auto;
+      bottom: 34px;
+      position: relative;
+      /*// hamburger rotation animation*/
 
       .line {
         margin-bottom: 12px;
@@ -128,6 +131,7 @@ body {
       padding: 16px;
       font-size:30px;
     }
+
 
   }
 
