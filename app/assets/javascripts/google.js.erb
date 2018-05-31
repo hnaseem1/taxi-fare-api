@@ -115,6 +115,7 @@ estimateTaxiPrice(total)
 function showstreetview() {
 var frame = document.getElementById('streetview_iframe')
 frame.setAttribute("src", "https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAZ3ifPNHQmtRy0cRSrQ6xmzfWo0IF93hY&location="+end_lat+","+end_lon);
+frame.id = 'map'
 if (frame.style.display === "none") {
   frame.style.display="block"
 }else if (frame.style.display==="block") {
