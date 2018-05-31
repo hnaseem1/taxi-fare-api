@@ -335,6 +335,9 @@ welcomeMessage.classList.add('hidden')
 })
 }
 }
+
+//  ==========================================================================================
+
 function displayAll(data) {
 // to show the UBER rides
 var result = document.getElementById('div_result')
@@ -397,6 +400,7 @@ function displayInAscOrder2Capacity(data) {
   $(".uber_ride").remove();
   $(".lyft_ride").remove();
   $(".taxi").remove();
+
 var results = []
 for (var i = 0; i < data.uber.length; i++) {
   if (data.uber[i].capacity === 2) {
@@ -404,7 +408,7 @@ for (var i = 0; i < data.uber.length; i++) {
   }
 }
 for (var i = 0; i < data.lyft.length; i++) {
-  if (data.uber.capacity === 2) {
+  if (data.lyft[i].capacity === 2) {
     results.push(data.lyft[i])
   }
 }
@@ -461,7 +465,7 @@ for (var i = 0; i < data.uber.length; i++) {
   }
 }
 for (var i = 0; i < data.lyft.length; i++) {
-  if (data.uber.capacity === 4) {
+  if (data.lyft[i].capacity === 4) {
     results.push(data.lyft[i])
   }
 }
@@ -519,7 +523,7 @@ for (var i = 0; i < data.uber.length; i++) {
   }
 }
 for (var i = 0; i < data.lyft.length; i++) {
-  if (data.uber.capacity === 6) {
+  if (data.lyft[i].capacity === 6) {
     results.push(data.lyft[i])
   }
 }
