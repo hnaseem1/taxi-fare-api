@@ -25,3 +25,31 @@
    height:60px;   /* Height of the footer */
    background:#000040;
 }
+
+.biglogo{
+ padding-left: 100px;
+ margin: 0 auto;
+}
+
+.smalllogo{
+  margin: 0 auto;
+  display: none;
+}
+
+@media (max-device-width: 1024px) and (min-device-width: 450px) {
+  .biglogo{
+  display: block;
+  }
+  .smalllogo{
+  display: none;
+  }
+}
+
+@media (max-device-width: 450px) {
+  .biglogo{
+  display: none;
+  }
+  .smalllogo{
+  display: block;
+  }
+}
