@@ -72,7 +72,7 @@ body.loading .modal {
     width: 15%;
 
     img {
-      height: 50px;
+      height: 100%;
       width: 50%;
     }
   }
@@ -169,31 +169,48 @@ body.loading .modal {
   .result {
     text-align: center;
 
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+
     .single_result {
       background-color: #FFF;
       margin: 1em;
       padding: 1em;
 
-      h3, p {
+      h3, p, #request {
         margin: 0;
       }
 
       h3 {
-        margin: 0 10%;
         color: #FFF;
         font-weight: 200;
         padding: 0.5em 0;
+        display: inline-block;
+        width: 50%;
       }
 
       p {
-        padding: 0.2em 0;
-      }
-      .price {
-        font-size: 0.75em;
+        padding: 0.5em 0;
       }
 
-      .arrival_done {
-        font-size: 0.5em;
+      .cost {
+        font-size: 0.65em;
+        border-bottom: 1px solid #EEE;
+      }
+
+      .eta {
+        font-size: 0.4em;
+      }
+
+      #request {
+        background-color: $accent-blue;
+        color: $primary-blue;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.5em;
+        padding: 0.5em;
+        width: 80%;
       }
 
     }
@@ -314,37 +331,33 @@ body.loading .modal {
       margin: 0;
 
       h3 {
-        margin: 0 10%;
-        color: #FFF;
-        font-weight: 200;
-        padding: 0.5em 0;
-      }
-
-      p {
-        padding: 0.2em 0;
-      }
-      .price {
         font-size: 0.75em;
       }
 
-      .arrival_done {
+      p {
+        padding: 1em 0;
+      }
+
+      .cost {
+        font-size: 0.8em;
+      }
+
+      .eta {
         font-size: 0.5em;
+      }
+
+      #request {
+        font-size: 0.75em;
       }
 
     }
 
     .uber_ride {
 
-      h3 {
-        background-color: $uber;
-      }
     }
 
     .lyft_ride {
 
-      h3 {
-        background-color: $lyft;
-      }
     }
   }
 
