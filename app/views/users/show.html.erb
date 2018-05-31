@@ -1,48 +1,65 @@
-<h1>Hi <%= @user.first_name.capitalize %>, </h1>
+
 
 <!-- Display the last 5  -->
 
-	<h1>Favourite Rides</h1>
+<div class="container">
+
+<h1>Hi <%= @user.first_name.capitalize %>, </h1>
 
 	<% if show_ride_favs(@user_favourite_rides) != nil && show_ride_favs(@user_favourite_rides) != false %>
+	<h3>Favourite Rides</h3>
+	<hr>
+	<div class="history">
+
+
 	<% count = 0 %>
 		<% show_ride_favs(@user_favourite_rides).to_enum.with_index.reverse_each do |trip, i| %>
-		 	<ul class="favRides">
+		 	<form class="pastRide">
 				<% if trip[:start] && trip[:end] %>
-		 		<li class="favRide">Start Location:<%= trip[:start] %> End Location <%= trip[:end] %></li>
+		 		<b>From:</b><%= trip[:start] %>
+				<br>
+				<b>To:</b><%= trip[:end] %>
 				<% end %>
-		 	</ul>
+		 	</form>
 			<% count += 1 %>
-		<% break if count == 5 %>
+		<% break if count == 6 %>
 		<% end %>
 	<% else %>
 
 	<% end %>
 
 <% else %>
-
+</div>
 <!-- Will display the last 5   -->
 
-<h1>Search History</h1>
+<h3>Search History</h3>
+<hr>
+<div class="history">
 <% count = 0 %>
 <% current_user.rides.to_enum.with_index.reverse_each do |ride, i| %>
-	<ul class="pastRides">
-		<li class="pastRide">
-		<%= form_tag(user_path, :method => "get" ) do %>
-		From: <%= ride.start_address %>
-		<br>
-		To: <%= ride.end_address %>
-		<br>
+
+
+
+		<%= form_tag(user_path, :method => "get", class: 'pastRide' ) do %>
+
 		<%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %>
 		<br>
+		<br>
+		<b>From:</b> <%= ride.start_address %>
+		<br>
+		<b>To:</b> <%= ride.end_address %>
+		<br>
+
 		<%= text_field_tag :start_location, params[:start_location], type: "hidden", value: ride.start_address %>
 		<%= text_field_tag :end_location, params[:end_location], type: "hidden", value: ride.end_address %>
 		<br>
-		<%= submit_tag "Favorite"%>
+		<%= submit_tag "Favorite", id: 'request'%>
 
 		<% end %>
-		</li>
-	</ul>
+
+
 	<% count += 1 %>
-<% break if count == 5 %>
+<% break if count == 6 %>
 <% end %>
+</div>
+</div>
