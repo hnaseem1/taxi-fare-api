@@ -168,14 +168,7 @@ if (frame.style.display === "none") {
   document.querySelector('#map').style.display = 'block'
 }
 
-  //
-  // if (frame.style.display === "none") {
-  //   frame.style.display = "block"
-  //   map.appendChild(frame)
-  // } else if (frame.style.display === "block") {
-  //   frame.style.display = "none"
-  //   document.querySelector('#map').style.display = 'block'
-  // }
+
 }
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
@@ -312,6 +305,7 @@ start_address = document.getElementById('autocomplete').value
         // display results in Asc Order
         displayInAscOrder(data)
 
+        // display filters
         filters.style.display = "block";
 
 
@@ -416,7 +410,7 @@ function createCards(sorted_result) {
   var result = document.getElementById('div_result')
   // New cards are made for each ride result
   for (var i = 0; i < sorted_results.length; i++) {
-
+    // create elements
     var div            = document.createElement("div")
     var h3             = document.createElement("h3")
     var cost           = document.createElement("p")
@@ -425,6 +419,7 @@ function createCards(sorted_result) {
     var request_button = document.createElement("button")
     var request_link   = document.createElement("a")
 
+    // add properties
     request_button.id = 'request'
     eta.classList.add('eta')
     cost.classList.add('cost')
@@ -434,6 +429,7 @@ function createCards(sorted_result) {
     cost.innerText     = "$" + sorted_results[i].fare + " " + sorted_results[i].currency
     eta.innerText      = "Arrival Time " + sorted_results[i].eta/60 + " Mins"
 
+    // insert elements
     div.appendChild(h3)
     div.appendChild(cost)
     div.appendChild(eta)
