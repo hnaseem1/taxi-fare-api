@@ -53,9 +53,18 @@ body.loading .modal {
 // form for starting location and end destination
 .search-field {
 
+  label {
+    margin-top: 1em;
+    color: #999;
+    font-weight: 200;
+  }
+
   .input-field {
-    width: 84%;
+    color: #DDD;
+    width: 75%;
     border-radius: 10px;
+    font-size: 2.25em;
+    padding: 0 0.5em;
 
   }
 
@@ -81,7 +90,7 @@ body.loading .modal {
     margin-top: 50px;
     height: 100px;
     font-size: 2.25em;
-    width: 100%;
+    width: 95%;
   }
 
 }
@@ -183,6 +192,7 @@ body.loading .modal {
 
       h3 {
         color: #FFF;
+        font-size: 0.75em;
         font-weight: 200;
         padding: 0.5em 0;
         display: inline-block;
@@ -263,33 +273,43 @@ body.loading .modal {
     .search-field {
       .location-start, .location-end, .submit {
         display: inline-block;
+        margin: 0 1em;
+      }
+
+      .location-start, .location-end {
+        width: 30%;
+      }
+
+      label {
+        font-size: 1em;
       }
 
       .input-field {
         width: 70%;
         height: 40px;
-
+        border-radius: 4px;
+        font-size: 1em;
+        padding: 0 0.5em;
       }
 
       .get-location-data {
         background: $accent-blue;
         border: none;
-        border-top-right-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-radius: 4px;
         color: $secondary-blue;
         height: 40px;
         width: 15%;
 
         img {
           height: 100%;
-          width: 50%;
+          width: 25px;
         }
       }
 
       .submit {
         height: 2em;
         font-size: 1em;
-        width: 10em;
+        width: 20%;
       }
 
     }
