@@ -74,22 +74,22 @@
         menuIcon[i].classList.toggle("active");
       }
 
-
       //to close
-    	if (nav.style.height <= "250px") {
+    	if (menulist.style.display === 'block') {
         // make menulist disappear
         menulist.style.display = "block";
 
         // nav height decreases
-      	nav.style.height = "3em";
+      	nav.style.height = "1.5em";
 
         for (var i = 0; i < menulist.length; i++){
       	menu[i].style.opacity="0.0";
       	menu[i].style.marginTop="100px";
       	};
+
     	}
     	//to open
-    	else if (nav.style.height <= "3em") {
+    	else {
 
         // make menulist appear
         menulist.style.display = "none";
