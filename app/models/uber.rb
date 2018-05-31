@@ -37,7 +37,8 @@ class Uber < ApplicationRecord
 
             hash["type"]      = option["localized_display_name"]
 
-            if hash["type"] == 'uberXL' && hash["type"] == 'uberSUV'
+            if hash["type"].downcase == 'uberxl' || hash["type"].downcase == 'ubersuv'
+
               hash["capacity"] = 6
 
             else
