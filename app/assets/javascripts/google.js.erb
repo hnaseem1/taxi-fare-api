@@ -45,7 +45,7 @@ function geoFindMe() {
 // GETTING THE SELFLOCATION FOR THE DESTINATION LOCATION
 // setting up event listener on the destination field for getting current location
 var inputField2 = document.getElementById('autocomplete2')
-locationButton[1].addEventListener('click', , geoFindMe2)
+locationButton[1].addEventListener('click', geoFindMe2)
 
 function geoFindMe2() {
   if (!navigator.geolocation){
@@ -85,7 +85,6 @@ function geoFindMe2() {
 // =====================    AUTOCOMPLETE FIELDS    =====================
 var autocomplete, autocomplete2;
 function initAutocomplete() {
-console.log('start initAutocomplete');
 // Create the autocomplete object, restricting the search to geographical
 // location types.
 autocomplete2 = new google.maps.places.Autocomplete(
@@ -99,7 +98,6 @@ autocomplete = new google.maps.places.Autocomplete(
 // function to initiate maps with point a to point b
 var executed = 0
 function initMap() {
-console.log('start MAP');
   map = new google.maps.Map(document.getElementById('map'), {
   zoom: 4,
   center: {lat: 43.6867, lng: -79.3682}  // Australia.
@@ -140,7 +138,6 @@ for (var i = 0; i < myroute.legs.length; i++) {
   total += myroute.legs[i].distance.value;
 }
 total = total / 1000;
-console.log('finish MAP');
 setMarkers(map)
 estimateTaxiPrice(total)
 }
@@ -158,7 +155,6 @@ if (frame.style.display === "none") {
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE CAR ICON ON THE MAP
 function setMarkers(map) {
-console.log('STARTING SETMARKERS');
 var response = $.ajax({
     url: 'rideicons/show?start_lat='+start_lat+'&start_lng='+start_lon,
     method: 'GET',
@@ -187,7 +183,6 @@ if (executed > 0) {
 })
 var streetviewbutton = document.getElementById('streetview_button')
 streetviewbutton.style.display = 'block'
-console.log('Finished setMarkers');
 }
 //==========================================================================================================================
   // setting up event listener on submit location Button
@@ -263,7 +258,6 @@ start_address = document.getElementById('autocomplete').value
 // remove welcome message from landing page`
 var welcomeMessage = document.querySelector('.welcome-message')
 welcomeMessage.classList.add('hidden')
-console.log('DONE STARTING CALLING OUR API');
       // removes the results from the previous request if there is any
         $(".uber_ride").remove();
         $(".lyft_ride").remove();
