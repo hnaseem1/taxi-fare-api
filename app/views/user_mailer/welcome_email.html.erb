@@ -4,7 +4,7 @@
 	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-	<h1>Welcome to <%= @company %> <%= @user.first_name.upcase %> </h1>
+	<h1>Welcome to <%= @company %> <%= @user.first_name.capitalize %> </h1>
 	<p>You have successfully signed up for an account. It brings us great joy at <%= @company %> knowing that you are well on your way to saving money on your daily ridesharing adventures! </p>
 	<a href="<%= @url %>">Follow this link to log in</a>
 	<br>
