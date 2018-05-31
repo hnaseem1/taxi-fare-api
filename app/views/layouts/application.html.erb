@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TaxiFareApi</title>
+    <title>ScoopFare!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -40,7 +40,7 @@
 
   <footer>
 
-  	<%= link_to 'documentation', documentations_index_path %>
+  	<%= link_to 'API documentation', documentations_index_path %>
   	Project Created by: Gustavo, Karen, Hasan &amp; Shashike
 
   </footer>
@@ -66,7 +66,7 @@
     //   for (i = 0; i < menuIcon.length; i++){
     //     menuIcon[i].classList.toggle("active");
     //   }
-      
+
     hamburger.addEventListener("click", function(){
       var menuIcon = document.querySelectorAll('.line');
       for (i = 0; i < menuIcon.length; i++){
@@ -77,12 +77,12 @@
       //to close
     	if (nav.style.height <= "250px") {
         // make menulist disappear
-        menulist.style.display = "none";
+        menulist.style.display = "block";
 
         // nav height decreases
       	nav.style.height = "3em";
 
-        for (var i = 0; i < menu.length; i++){
+        for (var i = 0; i < menulist.length; i++){
       	menu[i].style.opacity="0.0";
       	menu[i].style.marginTop="100px";
       	};
@@ -91,10 +91,10 @@
     	else if (nav.style.height <= "3em") {
 
         // make menulist appear
-        menulist.style.display = "block";
+        menulist.style.display = "none";
 
         // nav height increases
-      	nav.style.height = "250px";
+      	nav.style.height = "";
 
 
     	}
