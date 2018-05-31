@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TaxiFareApi</title>
+    <link rel="icon" href=<%= image_path('favicon02.png') %>>
+    <title>ScoopFare!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
   </head>
   <header>
     <nav>
@@ -86,6 +88,12 @@
         // nav height decreases
       	nav.style.height = "1.5em";
 
+        if (window.innerWidth > 450) {
+          document.getElementById('biglogo').style.display="block"
+
+        }else {
+          document.getElementById('smalllogo').style.display="block"
+        }
        //  for (var i = 0; i < menu.length; i++){
       	// menu[i].style.opacity="0.0";
       	// menu[i].style.marginTop="100px";
@@ -96,7 +104,8 @@
 
         // make menulist appear
         menulist.style.display = "block";
-
+        document.getElementById('biglogo').style.display="none"
+        document.getElementById('smalllogo').style.display="none"
         // nav height increases
       	nav.style.height = "250px";
 
