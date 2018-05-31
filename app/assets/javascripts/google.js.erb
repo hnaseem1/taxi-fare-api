@@ -1,52 +1,86 @@
-// setting up the geolocation from the browser
 
-console.log('google js loaded');
+
+// GETTING THE SELFLOCATION FOR THE START LOCATION
+
 var locationButton = document.querySelectorAll('.get-location-data')
 var inputField = document.getElementById('autocomplete')
-locationButton[0].addEventListener('click', function() {
-inputField.disabled = true;
-inputField.placeholder = 'Getting your location...'
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+locationButton[0].addEventListener('click', geoFindMe)
+
+function geoFindMe() {
+  if (!navigator.geolocation){
+    alert( "Geolocation is not supported by your browser")
+    return;
+  }
+  inputField.disabled = true;
+  inputField.value = ''
+  inputField.placeholder = 'Getting your location...'
+
+  function success(position) {
+
      var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
       };
-// ajax call to google maps to find readible address from location data
-    response = $.ajax({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-      method: 'GET',
-      dataType: 'json'
-    }).done(function(data) {
-      inputField.disabled = false;
-      inputField.value = response.responseJSON.results[0].formatted_address
-    });
-  })
+  // ajax call to google maps to find readible address from location data
+    var response = $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+        method: 'GET',
+        dataType: 'json'
+      }).done(function(data) {
+        inputField.disabled = false;
+        inputField.value = response.responseJSON.results[0].formatted_address
+      });
+  }
+
+  function error() {
+    alert("Unable to retrieve your location");
+    inputField.disabled = false;
+    inputField.placeholder = ''
+
+  }
+  navigator.geolocation.getCurrentPosition(success, error);
 }
-})
+
+
+// GETTING THE SELFLOCATION FOR THE DESTINATION LOCATION
 // setting up event listener on the destination field for getting current location
 var inputField2 = document.getElementById('autocomplete2')
-locationButton[1].addEventListener('click', function() {
-inputField2.disabled = true;
-inputField2.placeholder = 'Getting your location...'
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
+locationButton[1].addEventListener('click', , geoFindMe2)
+
+function geoFindMe2() {
+  if (!navigator.geolocation){
+    alert( "Geolocation is not supported by your browser")
+    return;
+  }
+  inputField2.disabled = true;
+  inputField2.value = ''
+  inputField2.placeholder = 'Getting your location...'
+
+  function success(position) {
+
      var pos = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
-    };
-// ajax call to google maps to find readible address from location data
-    response = $.ajax({
-      url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-      method: 'GET',
-      dataType: 'json'
-    }).done(function(data) {
-      inputField2.disabled = false;
-      inputField2.value = response.responseJSON.results[0].formatted_address
-    });
-  })
+      };
+  // ajax call to google maps to find readible address from location data
+    var response = $.ajax({
+        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+        method: 'GET',
+        dataType: 'json'
+      }).done(function(data) {
+        inputField2.disabled = false;
+        inputField2.value = response.responseJSON.results[0].formatted_address
+      });
+  }
+
+  function error() {
+    alert("Unable to retrieve your location");
+    inputField2.disabled = false;
+    inputField2.placeholder = ''
+
+  }
+  navigator.geolocation.getCurrentPosition(success, error);
 }
-})
 //===================================================================================================================================
 // =====================    AUTOCOMPLETE FIELDS    =====================
 var autocomplete, autocomplete2;
