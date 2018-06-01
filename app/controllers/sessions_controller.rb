@@ -12,11 +12,9 @@ class SessionsController < ApplicationController
   		redirect_to user_path
 
     elsif email_params == nil && password_params == nil || email_params == nil || password_params == nil
-      flash[:error] = "enter login credentials"
   		render :new
 
-    else 
-      flash[:error] = "incorrect user name or password"
+    else
       render :new
   	end
   end
@@ -26,7 +24,7 @@ class SessionsController < ApplicationController
   	redirect_to root_path
   end
 
-  private 
+  private
 
   def email_params
     params.require(:session).permit(:email)

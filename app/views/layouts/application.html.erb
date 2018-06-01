@@ -2,6 +2,7 @@
 <html>
   <head>
     <link rel="icon" href=<%= image_path('favicon02.png') %>>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <title>ScoopFare!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -19,12 +20,11 @@
         </div>
       </div>
 
-      <img src="<%= image_path('logo01.png') %>" alt="logo" id="biglogo" class="biglogo">
-      <img src="<%= image_path('logo03.png') %>" alt="logo" id="smalllogo" class="smalllogo">
+      <%= link_to image_tag("logo01.png", class: 'biglogo', id: 'biglogo'), root_path %>
+      <%= link_to image_tag("logo02.png", class: 'smalllogo', id: 'smalllogo'), root_path %>
 
 
       <div class="menulist">
-        <%= link_to 'home', root_path %>
         <% if current_user %>
           <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %>
           <%= link_to 'log out', sessions_path("current"), method: :delete %>
@@ -53,13 +53,23 @@
   </footer>
   <script>
 
+    // big vs small logo depending on window width (mobile vs. desktop)
+    if (window.innerWidth > 450) {
+      document.getElementById('biglogo').style.display="block";
+      document.getElementById('smalllogo').style.display="none";
+
+    } else {
+      document.getElementById('smalllogo').style.display="block";
+      document.getElementById('biglogo').style.display="none";
+    }
+
     // When the user clicks on the button, toggle between hiding and showing the dropdown content
 
     var nav       = document.querySelector("nav");
     var menulist  = document.querySelector(".menulist");
     var close     = document.querySelector("#closebtn");
     var hamburger = document.querySelector(".hamburger");
-    var height    = "1.8em"
+    var height    = "1em"
     nav.style.height = height;
 
     //default to measure if/else from
@@ -86,16 +96,19 @@
         // make menulist disappear
         menulist.style.display = "none";
 
-        // nav height decreases
-      	nav.style.height = height;
+        if ($(window).width() > 426) {
+          document.getElementById('biglogo').style.display="block";
+          document.getElementById('smalllogo').style.display="none";
+          // nav height decreases
+        	nav.style.height = height;
 
-        if (window.innerWidth > 450) {
-          document.getElementById('biglogo').style.display="block"
+        } else {
+          document.getElementById('smalllogo').style.display="block";
+          document.getElementById('biglogo').style.display="none";
 
-        }else {
-          document.getElementById('smalllogo').style.display="block"
         }
-       //  for (var i = 0; i < menu.length; i++){
+
+       // for (var i = 0; i < menu.length; i++){
       	// menu[i].style.opacity="0.0";
       	// menu[i].style.marginTop="100px";
       	// };
@@ -107,12 +120,13 @@
         menulist.style.display = "block";
         document.getElementById('biglogo').style.display="none"
         document.getElementById('smalllogo').style.display="none"
-        // nav height increases
-      	nav.style.height = "250px";
 
+        // nav.style.height = "6em";
 
     	}
     });
+
+
   </script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"></script>
