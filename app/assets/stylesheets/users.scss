@@ -63,6 +63,11 @@ $warning: #EFEF84;
     text-decoration: none;
     font-style: italic;
   }
+
+  .error {
+    color: $error;
+  }
+  
   .submit {
     font-size: 2em;
     padding: 0.5em;
