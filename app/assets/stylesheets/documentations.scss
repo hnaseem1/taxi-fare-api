@@ -1,32 +1,54 @@
 // Place all the styles related to the documentations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.container{
-  padding: 0 40px;
+
+// Variables
+
+$primary-blue:   #071933;
+$secondary-blue:  #0C2C5A;
+$space-blue: rgba(255,255,255,0.15);
+$accent-blue: #91C5FF;
+
+
+.documentation {
+  margin-bottom: 4em;
+
+  .container {
+    padding: 0 40px;
+  }
 
   .article{
 
     border-bottom: 1px solid grey;
   }
 
-  h2{
-    padding: 15px;
+  h2 {
+    padding: 0.8em 0;
+    margin: 0;
     background-color: transparent;
     color: black;
-  font-weight: bold;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 0.5em 0;
   }
 }
 
-.nav_documentations{
-  background: rgba(1, 1, 1, 0.5);
+.nav_documentations {
+  background: $secondary-blue;
   font-size: 1.3em;
+  height: 1.5em;
 
 
   a {
     text-decoration: none;
     padding: 25px;
     color: white;
+  }
 
+  a:hover {
+    color: $accent-blue;
   }
 }
 
