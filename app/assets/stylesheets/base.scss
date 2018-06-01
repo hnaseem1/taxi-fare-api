@@ -62,23 +62,16 @@ body {
 
       a {
         color: #EEE;
-        display: block;
-
-        text-decoration: none;
-        list-style: none;
+        display: inline-block;
         font-family: "Lato", sans-serif;
         font-weight: 300;
+        list-style: none;
+        margin: 0 0.5em;
+        text-decoration: none;
         transition: all .5s ease-in-out;
-        padding: 0.3em;
-      }
-
-      a:after {
-        transition: width .2s;
       }
 
       a:hover {
-        width: 100%;
-
         transition: .2s;
         text-decoration: underline;
       }
@@ -89,12 +82,12 @@ body {
       // hamburger rotation animation
 
       .line {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         background-color: $accent-blue;
-        width: 65px;
-        height: 6px;
+        width: 50px;
+        height: 5px;
         display: block;
-        border-radius:15%;
+        border-radius: 15%;
         transition: all .3s;
       }
 
@@ -119,7 +112,6 @@ body {
       #closebtn {
         position: absolute;
         text-decoration:none;
-        top: 35px;
         left: 50px;
         font-size: 36px !important;
         margin-right: 50px;
@@ -196,10 +188,10 @@ body {
 
         font-size: 2em;
 
-        .menulist, .hamburger {
+        .menulist {
+          display: inline-block;
 
           a {
-            display: inline-block;
             padding: 0 0.75em;
             margin: 0;
           }

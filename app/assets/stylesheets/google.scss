@@ -58,7 +58,6 @@ body.loading .modal {
 .search-field {
 
   label {
-    margin-top: 1em;
     color: #999;
     font-weight: 200;
   }
@@ -287,7 +286,7 @@ body.loading .modal {
       }
 
       label {
-        font-size: 1em;
+        margin-top: 0;
       }
 
       .input-field {
