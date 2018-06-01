@@ -2,7 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 // Variables
+
 
 $primary-blue:   #071933;
 $secondary-blue:  #0C2C5A;
@@ -21,6 +23,16 @@ $error: #D17D87;
 $success: #7DD186;
 $warning: #EFEF84;
 
+
+
+h1 {
+  color: $secondary-blue;
+}
+
+h3 {
+
+  color: $primary-blue;
+}
 
 
 // Signup form
@@ -94,6 +106,7 @@ $warning: #EFEF84;
       margin: 0.5em;
     }
 
+
     .input-field {
       font-size: 1em;
 
@@ -111,3 +124,34 @@ $warning: #EFEF84;
   }
 
 }
+
+.pastRide {
+
+  background-color: white;
+  text-align: left;
+}
+
+#request {
+  background-color: $accent-blue;
+  color: $primary-blue;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  padding: 0.5em 2em;
+
+
+}
+
+.container {
+  margin: 20px;
+}
+
+.history {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 40px;
+  margin: 1em;
+  margin-left: 0;
+}
+/*style for the users show page rides*/
+
