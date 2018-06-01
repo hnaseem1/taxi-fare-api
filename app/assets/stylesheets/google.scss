@@ -10,6 +10,7 @@ $primary-blue:   #071933;
 $secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
 $accent-blue: #91C5FF;
+$hover-blue: #759ECA;
 
 // RIDE COLOURS
 
@@ -87,6 +88,14 @@ body.loading .modal {
       height: 100%;
       width: 50%;
     }
+  }
+
+  .input-field:hover {
+    background-color: #475e7f;
+  }
+
+  .get-location-data:hover {
+    background-color: $hover-blue;
   }
 
   .submit {
