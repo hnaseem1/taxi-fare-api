@@ -14,15 +14,14 @@ html, body {
 }
 
 footer {
-  position:relative;
-  text-align: center;
-  padding-top: 2em;
-  color: $accent-blue;
-  bottom:0;
-  top:423px;
-  width:100%;
-  height:60px;   /* Height of the footer */
   background:$primary-blue;
+  bottom: 0;
+  color: $accent-blue;
+  font-size: 0.70em;
+  padding: 1em 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
 
   a {
     text-decoration: none;
