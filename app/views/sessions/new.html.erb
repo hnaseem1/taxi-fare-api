@@ -12,9 +12,10 @@
 		<%= f.submit 'login', class: "submit" %>
 	<% end %>
 
-	<% if flash[:error] %> 
-		<%= flash[:error] %> 
-	<% end %> 
-
-	<%= link_to "Forgot Password?", new_resets_path %> 
+	<% if flash[:error] %>
+	<p id="flasherror" style="display:none">
+		<%= flash[:error] %>
+	<% end %>
+</p>
+	<%= link_to "Forgot Password?", new_resets_path %>
 </div>
