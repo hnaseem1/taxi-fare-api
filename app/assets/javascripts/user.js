@@ -51,6 +51,8 @@ function newuser() {
     }
 
   }
+  if (text !== '') {
+    alert(text);
 
-  alert(text);
+  }
 }
