@@ -10,6 +10,7 @@ $primary-blue:   #071933;
 $secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
 $accent-blue: #91C5FF;
+$hover-blue: #759ECA;
 
 // RIDE COLOURS
 
@@ -58,7 +59,6 @@ body.loading .modal {
 .search-field {
 
   label {
-    margin-top: 1em;
     color: #999;
     font-weight: 200;
   }
@@ -88,6 +88,14 @@ body.loading .modal {
       height: 100%;
       width: 50%;
     }
+  }
+
+  .input-field:hover {
+    background-color: #475e7f;
+  }
+
+  .get-location-data:hover {
+    background-color: $hover-blue;
   }
 
   .submit {
@@ -171,8 +179,8 @@ body.loading .modal {
 // landing page message that is only present before a search query begins
 
 .welcome-message {
+    height: 90vh;
   img {
-    height: 100%;
     width: 100%;
     background-repeat: no-repeat;
   }
@@ -287,7 +295,7 @@ body.loading .modal {
       }
 
       label {
-        font-size: 1em;
+        margin-top: 0;
       }
 
       .input-field {
@@ -355,7 +363,7 @@ body.loading .modal {
 
 
     .single_result {
-      margin: 0.5em;
+      margin: 0em;
 
       h3 {
         font-size: 0.75em;
@@ -370,21 +378,13 @@ body.loading .modal {
       }
 
       .eta {
-        font-size: 0.5em;
+        font-size: 0.6em;
       }
 
       #request {
         font-size: 0.75em;
         width: 100%;
       }
-
-    }
-
-    .uber_ride {
-
-    }
-
-    .lyft_ride {
 
     }
   }

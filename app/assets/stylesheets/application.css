@@ -17,8 +17,9 @@
 
 
 .biglogo{
- padding-left: 100px;
+ padding-left: 2em;
  margin: 0 auto;
+ height: 100%;
 }
 
 .smalllogo{
@@ -26,20 +27,34 @@
   display: none;
 }
 
-@media (max-device-width: 1024px) and (min-device-width: 450px) {
-  .biglogo{
-  display: block;
-  }
-  .smalllogo{
-  display: none;
-  }
+.pac-item {
+  padding: 1em;
+  font-size: 1em;
+
 }
 
-@media (max-device-width: 450px) {
+.pac-item-query {
+  font-size: 1.75em;
+}
+
+
+
+@media (min-device-width: 450px) {
   .biglogo{
-  display: none;
-  }
-  .smalllogo{
   display: block;
   }
+  .smalllogo{
+  display: none;
+  }
+
+  .pac-item {
+    padding: 0.5em;
+    font-size: 0.8em;
+
+  }
+
+  .pac-item-query {
+    font-size: 1em;
+  }
+
 }
