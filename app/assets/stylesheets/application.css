@@ -17,8 +17,9 @@
 
 
 .biglogo{
- padding-left: 100px;
+ padding-left: 2em;
  margin: 0 auto;
+ height: 100%;
 }
 
 .smalllogo{

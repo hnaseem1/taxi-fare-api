@@ -51,10 +51,9 @@ body {
     text-align: center;
     text-transform: uppercase;
     font-size: 2em;
-    transition: all 0.1s ease-in-out;
 
     height: 3em;
-    padding: 0.5em 0 0;
+    padding: 0.5em 0;
 
     .menulist {
       display: none;
@@ -194,13 +193,15 @@ body {
     body {
 
       nav {
-        height: 1.25em;
+
+        font-size: 2em;
 
         .menulist, .hamburger {
 
-
           a {
             display: inline-block;
+            padding: 0 0.75em;
+            margin: 0;
           }
         }
       }
