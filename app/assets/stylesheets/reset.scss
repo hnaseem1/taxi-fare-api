@@ -42,6 +42,11 @@ $warning: #EFEF84;
     font-size: 1.5em;
     display: flex;
   }
+	// "Please enter your email to receive..."
+	p {
+		color: #8397B4;
+		font-size: 1.3em;
+	}
 
   /*style for the login forms*/
 
@@ -55,23 +60,11 @@ $warning: #EFEF84;
     color: #999;
   }
 
-  .forget_password {
-    display: flex;
-    margin: 1.5em 1em;
-    color: $accent-blue;
-    text-decoration: none;
-    font-style: italic;
-  }
-
-  .error {
-    color: $error;
-  }
-
   .submit {
     font-size: 2em;
     padding: 0.5em;
     width: 40%;
-    margin: 1em 0 2em 0;
+    margin: 2em 0 2.5em 0;
   }
 }
 
@@ -79,13 +72,14 @@ $warning: #EFEF84;
 @media (min-device-width: 426px) {
 
   .newpassbox {
-    padding: 0 25%;
+    padding: 0 20%;
     margin: 2em;
 
     h2 {
-      margin: 0 0 1em 0;
+      margin: 0 0 0.5em 0;
       font-size: 1.5em;
       font-weight: 300;
+	    color: #F5F5F5;
     }
 
     label {
@@ -93,17 +87,19 @@ $warning: #EFEF84;
       margin: 0.5em;
     }
 
+		p {
+			font-size: 0.75em;
+			margin-bottom: 1.5em;
+		}
+
     .input-field {
       font-size: 1em;
 
     }
 
-    .forget_password {
-      font-size: 0.5em;
-    }
-
     .submit {
       font-size: 1em;
+	    margin: 2em 0 0 0;
     }
 
 
