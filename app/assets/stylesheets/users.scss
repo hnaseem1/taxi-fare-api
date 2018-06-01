@@ -2,10 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+// Variables
+
+
 $primary-blue:   #071933;
 $secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
 $accent-blue: #91C5FF;
+
+// RIDE COLOURS
+
+$lyft: #FF02BF;
+$taxi: #EAB234;
+$uber: #09091A;
+
+// ERROR STATE COLOURS
+
+$error: #D17D87;
+$success: #7DD186;
+$warning: #EFEF84;
+
+
 
 h1 {
   color: $secondary-blue;
@@ -16,82 +34,90 @@ h3 {
   color: $primary-blue;
 }
 
+
 // Signup form
 .form {
   margin: 0 auto;
   text-align: center;
 
+  h2, label {
+    color: #999;
+    font-weight: 200;
+    margin: 0.5em;
+  }
 
-  .new_user {
+  h2 {
+    font-size: 2.5em;
+    background: $secondary-blue;
+  }
 
-    height: 100%;
-    margin: 0 auto;
+  label {
+    font-size: 1.5em;
+    display: flex;
+  }
 
-    p {
-      margin: 0.5em;
-      font-size: 0.75em;
+  /*style for the signup forms*/
 
-      input {
-        background-color: #CCC;
-        border: none;
-        border-radius: 5px;
-        font-size: 20px;
-        margin-top: 0.5em;
-        text-align: center;
-        height: 3em;
-        width: 75%;
-      }
+  .input-field {
+    border: none;
+    border-radius: 4px;
+    font-size: 2.5em;
+  	width: 90%;
+  	padding: 0.5em;
+    background-color: $space-blue;
+    color: #999;
+  }
 
-      #user_first_name {
-        margin: 0;
-      }
+  .forget_password {
+    display: flex;
+    margin: 1.5em 1em;
+    color: $accent-blue;
+    text-decoration: none;
+    font-style: italic;
+  }
+  .submit {
+    font-size: 2em;
+    padding: 0.5em;
+    width: 40%;
+    margin: 1em 0 2em 0;
+  }
+}
 
-      #user_match {
-        height: 1.5em;
-      }
-    }
 
-    p:nth-child(9) {
+@media (min-device-width: 426px) {
+
+  .form {
+    padding: 0 25%;
+    margin: 2em;
+
+    h2 {
+      margin: 0 0 1em 0;
       font-size: 1.5em;
+      font-weight: 300;
     }
 
-  }
-
-
-  // Style the video: 100% width and height to cover the entire window
-  #myVideo {
-      position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%;
-      min-height: 100%;
-  }
-
-  // Add some content at the bottom of the video/page
-  .content {
-      position: fixed;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      color: #f1f1f1;
-      width: 100%;
-      padding: 20px;
-  }
-
-  // Style the button used to pause/play the video
-  #myBtn {
-      width: 200px;
-      font-size: 18px;
-      padding: 10px;
-      border: none;
-      background: #000;
-      color: #fff;
-      cursor: pointer;
-  }
-
-  #myBtn:hover {
-      background: #ddd;
-      color: black;
+    label {
+      font-size: 1em;
+      margin: 0.5em;
     }
+
+
+    .input-field {
+      font-size: 1em;
+
+    }
+
+    .forget_password {
+      font-size: 0.5em;
+    }
+
+    .submit {
+      font-size: 1em;
+    }
+
+
+  }
+
 }
 
 .pastRide {
@@ -123,3 +149,4 @@ h3 {
   margin-left: 0;
 }
 /*style for the users show page rides*/
+

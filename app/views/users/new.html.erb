@@ -1,32 +1,29 @@
 <div class="form">
 	<%= form_for @user,  url: { action: "create" } do |f| %>
-		<%= image_tag "icon_signup_dude.png", class: "icon_dude" %>
-		<p>
-			<%= f.text_field :first_name, placeholder: "First Name" %>
-		</p>
 
-		<p>
+		<h2>Signup</h2>
+
+		<%= label_tag 'First Name' %>
+		<%= f.text_field :first_name, class: 'input-field' %>
+
+		<%= label_tag 'Last Name' %>
+		<%= f.text_field :last_name, class: 'input-field' %>
+
+		<%= label_tag 'Email Address' %>
+		<%= f.email_field :email, class: 'input-field' %>
+
+		<%= label_tag 'Password' %>
+		<%= f.password_field :password, class: 'input-field' %>
+
+		<%= label_tag 'Password Confirmation' %>
+		<%= f.password_field :password_confirmation, class: 'input-field' %>
+
+		<p class="error">
 			<% if @user.errors.any? %>
 				<% @user.errors.full_messages.each do |msg| %>
 					<%= msg %>
 				<% end %>
 			<% end %>
-		</p>
-
-		<p>
-			<%= f.text_field :last_name, placeholder: "Last Name" %>
-		</p>
-
-		<p>
-			<%= f.email_field :email, placeholder: "Email" %>
-		</p>
-
-		<p>
-			<%= f.password_field :password, placeholder: "password" %>
-		</p>
-
-		<p>
-			<%= f.password_field :password_confirmation, placeholder: "password confirmation" %>
 		</p>
 
 		<%= f.submit 'Sign up', class: "submit" %>
