@@ -36,6 +36,7 @@ $warning: #EFEF84;
   h2 {
     font-size: 2.5em;
     background: $secondary-blue;
+    color: #F5F5F5;
   }
 
   label {
@@ -62,6 +63,11 @@ $warning: #EFEF84;
     text-decoration: none;
     font-style: italic;
   }
+
+  .error {
+    color: $error;
+  }
+
   .submit {
     font-size: 2em;
     padding: 0.5em;
@@ -78,7 +84,7 @@ $warning: #EFEF84;
     margin: 2em;
 
     h2 {
-      margin: 0 0 1em 0;
+      margin: 0 0 0.5em 0;
       font-size: 1.5em;
       font-weight: 300;
     }
@@ -90,6 +96,8 @@ $warning: #EFEF84;
 
     .input-field {
       font-size: 1em;
+      padding: 0.5em 0 0.5em 0.5em;
+	  	width: 100%;
 
     }
 
