@@ -20,7 +20,7 @@ class Lyft < ApplicationRecord
     data_array = []
 
     # some logic for sorting the api data into more readible and required information
-    if lyft_data["cost_estimates"].any?
+    if lyft_data["cost_estimates"]
 
       lyft_data["cost_estimates"].each do |option|
 
