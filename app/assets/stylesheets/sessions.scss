@@ -66,31 +66,10 @@ $warning: #EFEF84;
     font-size: 2em;
     padding: 0.5em;
     width: 40%;
-    margin-bottom: 2em;
+    margin: 1em 0 2em 0;
   }
 }
-/*style for the login forms*/
 
-.input-field {
-  border: none;
-  border-radius: 4px;
-  font-size: 2.5em;
-	width: 90%;
-	padding: 0.5em;
-  background-color: $space-blue;
-  color: #999;
-}
-
-.forget_password {
-  display: flex;
-  margin: 1.5em 1em;
-  color: $accent-blue;
-  text-decoration: none;
-  font-style: italic;
-}
-.submit {
-  font-size: 2em;
-}
 
 @media (min-device-width: 426px) {
 
@@ -100,12 +79,13 @@ $warning: #EFEF84;
 
     h2 {
       margin: 0 0 1em 0;
-      font-size: 1em;
+      font-size: 1.5em;
+      font-weight: 300;
     }
 
     label {
-      font-size: 0.7em;
-      margin: 1em;
+      font-size: 1em;
+      margin: 0.5em;
     }
 
     .input-field {
