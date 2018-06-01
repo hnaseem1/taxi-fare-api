@@ -1,21 +1,36 @@
 <div class="new_session">
-	<%= form_for :session, url: sessions_path do |f| %>
-		<%= image_tag "icon_signup_dude.png", class: "icon_dude" %>
-		<p>
-			<%= f.email_field :email, placeholder: "Email", class: 'emailField' %>
-		</p>
 
-		<p>
-			<%= f.password_field :password, placeholder: "password", class: 'passwordField' %>
+	<%= form_for :session, url: sessions_path do |f| %>
+
+		<h2>Login</h2>
+
+		<%= f.label :email %>
+		<%= f.email_field :email, class: 'input-field' %>
+
+		<%= f.label :password %>
+		<%= f.password_field :password, class: 'input-field' %>
+
+		<%= link_to "Forgot Password?", new_resets_path, class: 'forget_password' %>
+
+		<p class="error">
+			<% if flash[:error] %>
+				<%= flash[:error] %>
+			<% end %>
 		</p>
 
 		<%= f.submit 'login', class: "submit" %>
 	<% end %>
 
+<<<<<<< HEAD
 	<% if flash[:error] %>
 	<p id="flasherror" style="display:none">
 		<%= flash[:error] %>
 	<% end %>
 </p>
 	<%= link_to "Forgot Password?", new_resets_path %>
+=======
+
+
+
+>>>>>>> dba4181dd20af1526bd79585097ad49796c2d535
 </div>

@@ -2,6 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$primary-blue:   #071933;
+$secondary-blue:  #0C2C5A;
+$space-blue: rgba(255,255,255,0.15);
+$accent-blue: #91C5FF;
+
+h1 {
+  color: $secondary-blue;
+}
+
+h3 {
+
+  color: $primary-blue;
+}
+
 // Signup form
 .form {
   margin: 0 auto;
@@ -80,7 +94,32 @@
     }
 }
 
+.pastRide {
 
+  background-color: white;
+  text-align: left;
+}
+
+#request {
+  background-color: $accent-blue;
+  color: $primary-blue;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  padding: 0.5em 2em;
+
+
+}
+
+.container {
+  margin: 20px;
+}
+
+.history {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 40px;
+  margin: 1em;
+  margin-left: 0;
+}
 /*style for the users show page rides*/
-
-
