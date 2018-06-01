@@ -1,29 +1,32 @@
 <div class="form">
-	<%= form_for @user,  url: { action: "create" } do |f| %>
+	<%= form_for @user,  url: { action: "create" }, :html => { :id => "newuserform"} do |f| %>
 
 		<h2>Signup</h2>
 
 		<%= label_tag 'First Name' %>
-		<%= f.text_field :first_name, class: 'input-field' %>
+		<%= f.text_field :first_name, class: 'input-field', id: 'fisrtname' %>
 
 		<%= label_tag 'Last Name' %>
-		<%= f.text_field :last_name, class: 'input-field' %>
+		<%= f.text_field :last_name, class: 'input-field', id: 'lastname' %>
 
 		<%= label_tag 'Email Address' %>
-		<%= f.email_field :email, class: 'input-field' %>
+		<%= f.email_field :email, class: 'input-field', id: 'email' %>
 
 		<%= label_tag 'Password' %>
-		<%= f.password_field :password, class: 'input-field' %>
+		<%= f.password_field :password, class: 'input-field', id: 'password' %>
 
 		<%= label_tag 'Password Confirmation' %>
-		<%= f.password_field :password_confirmation, class: 'input-field' %>
+		<%= f.password_field :password_confirmation, class: 'input-field', id: 'passwordconfirmation' %>
 
 
-		<%= f.submit 'Sign up', class: "submit" %>
+		<%= f.submit 'Sign up', class: "submit", id: 'newusersubmit' %>
 
 	<% end %>
 </div>
-
-<div class="errors">
-
+<div class="errors" id="errors" style="display:none">
+	<% if @user.errors.any? %>
+					<% @user.errors.full_messages.each do |msg, index| %>
+						<p class="errormsg"><%= msg %><%= index %></p>
+					<% end %>
+				<% end %>
 </div>
