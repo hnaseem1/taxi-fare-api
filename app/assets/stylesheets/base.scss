@@ -38,10 +38,6 @@ body {
 
 
   h2 {
-    background: rgba(1,1,1,0.45);
-    color: #DDD;
-    padding: 1.2em;
-    font-weight: 250;
     text-transform: uppercase;
   }
 
@@ -162,7 +158,8 @@ body {
         display: block;
         font-size: 1.75em;
         margin: 0 0 0.5em 0.5em;
-        text-align: left;
+
+        display: flex;
       }
 
 
