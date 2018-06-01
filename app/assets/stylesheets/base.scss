@@ -2,6 +2,7 @@ $primary-blue:   #071933;
 $secondary-blue:  #0C2C5A;
 $space-blue: rgba(255,255,255,0.15);
 $accent-blue: #91C5FF;
+$hover-blue: #759ECA;
 
 html, body {
   box-sizing: border-box;
@@ -13,15 +14,14 @@ html, body {
 }
 
 footer {
-  position:relative;
-  text-align: center;
-  padding-top: 2em;
-  color: $accent-blue;
-  bottom:0;
-  top:423px;
-  width:100%;
-  height:60px;   /* Height of the footer */
   background:$primary-blue;
+  bottom: 0;
+  color: $accent-blue;
+  font-size: 0.70em;
+  padding: 1em 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
 
   a {
     text-decoration: none;
@@ -51,10 +51,9 @@ body {
     text-align: center;
     text-transform: uppercase;
     font-size: 2em;
-    transition: all 0.1s ease-in-out;
 
     height: 3em;
-    padding: 0.5em 0 0;
+    padding: 0.5em 0;
 
     .menulist {
       display: none;
@@ -63,24 +62,17 @@ body {
 
       a {
         color: #EEE;
-        display: block;
-
-        text-decoration: none;
-        list-style: none;
+        display: inline-block;
         font-family: "Lato", sans-serif;
         font-weight: 300;
+        list-style: none;
+        margin: 0 0.5em;
+        text-decoration: none;
         transition: all .5s ease-in-out;
-        padding: 0.3em;
-      }
-
-      a:after {
-        transition: width .2s;
       }
 
       a:hover {
-        width: 100%;
-
-        transition: underline .2s;
+        transition: .2s;
         text-decoration: underline;
       }
     }
@@ -90,12 +82,12 @@ body {
       // hamburger rotation animation
 
       .line {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         background-color: $accent-blue;
-        width: 65px;
-        height: 6px;
+        width: 50px;
+        height: 5px;
         display: block;
-        border-radius:15%;
+        border-radius: 15%;
         transition: all .3s;
       }
 
@@ -120,7 +112,6 @@ body {
       #closebtn {
         position: absolute;
         text-decoration:none;
-        top: 35px;
         left: 50px;
         font-size: 36px !important;
         margin-right: 50px;
@@ -185,6 +176,10 @@ body {
       font-size: 3em;
     }
 
+    .submit:hover {
+      background-color: $hover-blue;
+    }
+
   }
 
 }
@@ -194,13 +189,15 @@ body {
     body {
 
       nav {
-        height: 1.25em;
 
-        .menulist, .hamburger {
+        font-size: 2em;
 
+        .menulist {
+          display: inline-block;
 
           a {
-            display: inline-block;
+            padding: 0 0.75em;
+            margin: 0;
           }
         }
       }
