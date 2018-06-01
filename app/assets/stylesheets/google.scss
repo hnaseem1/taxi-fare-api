@@ -355,7 +355,7 @@ body.loading .modal {
 
 
     .single_result {
-      margin: 0.5em;
+      margin: 0em;
 
       h3 {
         font-size: 0.75em;
@@ -370,21 +370,13 @@ body.loading .modal {
       }
 
       .eta {
-        font-size: 0.5em;
+        font-size: 0.6em;
       }
 
       #request {
         font-size: 0.75em;
         width: 100%;
       }
-
-    }
-
-    .uber_ride {
-
-    }
-
-    .lyft_ride {
 
     }
   }
