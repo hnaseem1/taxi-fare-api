@@ -39,7 +39,7 @@ $warning: #EFEF84;
   }
 
   label {
-    font-size: 1.5em;
+    font-size: 1.75em;
     display: flex;
   }
 	// "Please enter your email to receive..."
@@ -53,7 +53,7 @@ $warning: #EFEF84;
   .input-field {
     border: none;
     border-radius: 4px;
-    font-size: 2.5em;
+    font-size: 2em;
   	width: 90%;
   	padding: 0.5em;
     background-color: $space-blue;
@@ -93,8 +93,9 @@ $warning: #EFEF84;
 		}
 
     .input-field {
-      font-size: 1em;
-
+	    font-size: 1em;
+      padding: 0.5em 0 0.5em 0.5em;			
+	  	width: 100%;
     }
 
     .submit {
