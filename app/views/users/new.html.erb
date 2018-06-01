@@ -1,61 +1,32 @@
 <div class="form">
-	<%= form_for @user,  url: { action: "create" } do |f| %>
+	<%= form_for @user,  url: { action: "create" }, :html => { :id => "newuserform"} do |f| %>
 
 		<h2>Signup</h2>
 
 		<%= label_tag 'First Name' %>
-		<%= f.text_field :first_name, class: 'input-field' %>
+		<%= f.text_field :first_name, class: 'input-field', id: 'fisrtname' %>
 
 		<%= label_tag 'Last Name' %>
-		<%= f.text_field :last_name, class: 'input-field' %>
+		<%= f.text_field :last_name, class: 'input-field', id: 'lastname' %>
 
 		<%= label_tag 'Email Address' %>
-		<%= f.email_field :email, class: 'input-field' %>
+		<%= f.email_field :email, class: 'input-field', id: 'email' %>
 
 		<%= label_tag 'Password' %>
-		<%= f.password_field :password, class: 'input-field' %>
+		<%= f.password_field :password, class: 'input-field', id: 'password' %>
 
 		<%= label_tag 'Password Confirmation' %>
-		<%= f.password_field :password_confirmation, class: 'input-field' %>
+		<%= f.password_field :password_confirmation, class: 'input-field', id: 'passwordconfirmation' %>
 
-		<p class="error">
-			<% if @user.errors.any? %>
-				<% @user.errors.full_messages.each do |msg| %>
-					<%= msg %>
-				<% end %>
-			<% end %>
-		</p>
 
-		<%= f.submit 'Sign up', class: "submit" %>
+		<%= f.submit 'Sign up', class: "submit", id: 'newusersubmit' %>
 
 	<% end %>
 </div>
-
-
-<!-- The video -->
-
-<!-- <iframe id='myVideo' src="https://www.youtube.com/embed/OYeirbs5U9k?autoplay;rel=0&amp;controls=0&amp;showinfo=" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-<!-- Optional: some overlay text to describe the video -->
-
-  <!-- Use a button to pause/play the video with JavaScript -->
-  <!-- <button id="myBtn" onclick="myFunction()">Pause</button>
-</div> -->
-
-<!-- <script type="text/javascript">
-// Get the video
-var video = document.getElementById("myVideo");
-
-// Get the button
-var btn = document.getElementById("myBtn");
-
-// Pause and play the video, and change the button text
-function myFunction() {
-		if (video.paused) {
-				video.play();
-				btn.innerHTML = "Pause";
-		} else {
-				video.pause();
-				btn.innerHTML = "Play";
-		}
-}
-</script> -->
+<div class="errors" id="errors" style="display:none">
+	<% if @user.errors.any? %>
+					<% @user.errors.full_messages.each do |msg, index| %>
+						<p class="errormsg"><%= msg %><%= index %></p>
+					<% end %>
+				<% end %>
+</div>
