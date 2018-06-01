@@ -277,7 +277,13 @@ start_address = document.getElementById('autocomplete').value
           dataType: 'json',
       }).done(function(data) {
 
-if (data.uber[0] === "INVALID PARAMS" && data.lyft[0] === "INVALID PARAMS" ) {
+
+dt = data
+
+
+
+
+if (data.uber[0] === "INVALID PARAMS" && data.lyft[0] === "INVALID PARAMS" || data.uber[0] === "INVALID PARAMS" && data.lyft.length === 0) {
 alert('Sorry, no ride was found for the route informed')
 loader.style.display = "none";
 return
