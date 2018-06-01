@@ -21,7 +21,7 @@
 		<p class="error">
 			<% if @user.errors.any? %>
 				<% @user.errors.full_messages.each do |msg| %>
-					<%= msg %>
+					<%= msg %><br>
 				<% end %>
 			<% end %>
 		</p>
