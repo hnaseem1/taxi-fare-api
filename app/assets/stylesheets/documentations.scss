@@ -27,11 +27,21 @@ $accent-blue: #91C5FF;
     margin: 0;
     background-color: transparent;
     color: black;
-    font-weight: bold;
+    font-size: 0.85em;
   }
 
   p {
     margin: 0.5em 0;
+    height: auto;
+    font-size: 0.6em;
+  }
+
+  ul {
+    margin: 2em 0;
+  }
+
+  li {
+    font-size: 0.5em;
   }
 }
 
@@ -43,8 +53,9 @@ $accent-blue: #91C5FF;
 
   a {
     text-decoration: none;
-    padding: 25px;
+    padding: 0 0.75em;
     color: white;
+    height: auto;
   }
 
   a:hover {
@@ -53,5 +64,82 @@ $accent-blue: #91C5FF;
 }
 
 .responsecode{
-  word-wrap: break-word;
+  background-color: #CCC;
+  padding: 1em;
+
+  h5 {
+    margin: 0;
+    font-size: 0.3em;
+    font-weight: 200;
+  }
+
+  .inside  {
+    padding: 0 1em;
+  }
+}
+
+@media (min-device-width: 426px) {
+
+
+  .documentation {
+    margin-bottom: 4em;
+
+    .container {
+      padding: 0 40px;
+    }
+
+    .article{
+
+      border-bottom: 1px solid grey;
+    }
+
+    h2 {
+      height: auto;
+      font-size: 1.5em;
+    }
+
+    p {
+      margin: 0.5em 0;
+      font-size: 0.9em;
+    }
+
+    ul {
+      margin: 1em 0;
+    }
+
+    li {
+      font-size: 1em;
+    }
+  }
+
+  .nav_documentations {
+    background: $secondary-blue;
+    font-size: 1.3em;
+    height: 1.5em;
+
+
+    a {
+      text-decoration: none;
+      padding: 0 1.5em;
+      color: white;
+    }
+
+    a:hover {
+      color: $accent-blue;
+    }
+  }
+
+  .responsecode{
+    word-wrap: break-word;
+    padding: 1em 3em;
+
+    h5 {
+      font-size: 0.9em;
+    }
+
+    .inside  {
+    }
+  }
+
+
 }

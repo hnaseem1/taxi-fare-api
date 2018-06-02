@@ -9,24 +9,23 @@
 
 	<div class="container">
 
-	<div class="article">
+		<div class="article">
+			<h2 id="overview">Overview</h2>
 
-	<h2 id="overview">Overview</h2>
+			<p>Welcome to Scoop Fare API documentation. This API is available to help developers to interact with LYFT and UBER API's in a easy way. Scoop Fare API return the all the UBER's and LYFT's rides available with the important details in just one request. </p>
+		</div>
 
-	<p>Welcome to Scoop Fare API documentation. This API is available to help developers to interact with LYFT and UBER API's in a easy way. Scoop Fare API return the all the UBER's and LYFT's rides available with the important details in just one request. </p>
-	</div>
+		<h2 id="riderequests">Ride Requests</h2>
 
-	<h2 id="riderequests">Ride Requests</h2>
+		<div class="article">
+			<p>For each request our API will make 4 requests, 2 for UBER (ETA &amp; price estimate endpoints) and 2 for LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
+		</div>
+		<div class="article">
 
-	<div class="article">
-		<p>For each request our API will make 4 requests, 2 for UBER (ETA &amp; price estimate endpoints) and 2 for LYFT (ETA &amp; price estimate endpoints) and arranges the data returned from those respective API's in a way that is easy to organize and consume.</p>
-	</div>
-	<div class="article">
+			<h2 id="datareturn">Data return</h2>
 
-	<h2 id="datareturn">Data return</h2>
-	<ul>
-		<li>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</li>
-		<br>
+			<p>Uber and Lyft API response compiled with type, distance, fare, currency, duration and ETA</p>
+
 			<ul>
 				<li>Type: type of product offered. POOL by Uber is renamed to UberPOOL for clarity.</li>
 				<li>Distance: distance between the start and end coordinates</li>
@@ -35,24 +34,24 @@
 				<li>Duration: duration of the ride between the two points specified</li>
 				<li>ETA: response time of the driver for the respective product</li>
 			</ul>
-			<br>
-		<li>The keys in the response in our api is the same for both companies (ex; fare and type are the same for each of the products they offer)</li>
 
-	</ul>
+			<p>
+				The keys in the response in our api is the same for both companies (ex; fare and type are the same for each of the products they offer)
+			</p>
 
-	</div>
+		</div>
 
-	<div class="article">
+		<div class="article">
 
-	<h2 id="endpoint">Endpoint</h2>
+			<h2 id="endpoint">Endpoint</h2>
 
-	<p>The requests for our API should follow the bellow:</p>
+			<p>The requests for our API should follow the bellow:</p>
 
+			<p>Send a GET request to: <br>
+				"/price/show?sl=<span>&lt; start latitude &gt;</span>&amp;slon=<span>&lt; start longitude &gt;</span>&amp;el=<span>&lt; end latitude &gt;</span>&amp;elon=<span>&lt; end longitude &gt;</span>"
+			</p>
 
-		<p>Send a GET request to: <br>
-			"/price/show?sl=<span>&lt; start latitude &gt;</span>&amp;slon=<span>&lt; start longitude &gt;</span>&amp;el=<span>&lt; end latitude &gt;</span>&amp;elon=<span>&lt; end longitude &gt;</span>"</p>
-		<br>
-		<p>Params used:</p>
+			<p>Params used:</p>
 			<ul>
 				<li>sl= start latitude, expects a float</li>
 				<li>slon = start longitude, expects a float</li>
@@ -60,98 +59,88 @@
 				<li>elon = end longitude, expects a float</li>
 			</ul>
 
-	</div>
+		</div>
 
-	<div class="article">
-	<h2 id="example">Example Response</h2>
+		<div class="article">
+			<h2 id="example">Example Response</h2>
 
-	<ul>
-		<li>Format of the response: api_data = {:uber => [], :lyft => []}, Data Type: JSON </li>
-		<li>Sample response: 200 OK
-		</li>
-	</ul>
-		<br>
+			<ul>
+				<li>Format of the response: api_data = {:uber => [], :lyft => []}, Data Type: JSON </li>
+				<li>Sample response: 200 OK</li>
+			</ul>
 
-			 <p class="responsecode">
-				 <br>
-				 {
-	<br>
-					 "uber":
-	<br>
-					 [
-	<br>
-					 {"type":"uberXL","distance":12.75,"fare":61,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"UberSELECT","distance":12.75,"fare":67,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"uberPOOL","distance":12.75,"fare":22,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"UberBLACK","distance":12.75,"fare":84,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"UberSUV","distance":12.75,"fare":97,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"uberX","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":300},
-	<br>
-					 {"type":"uberASSIST","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":660},
-	<br>
-					 {"type":"uberWAV","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":360},
-	<br>
-					 {"type":"TAXI","distance":12.75,"fare":"Metered","currency":"","duration":2460,"eta":120}
-	<br>
-					 ],
-	<br>
-					 "lyft":
-	<br>
-					 [
-	<br>
-					 {"type":"Lyft Line","distance":13.45,"fare":25,"currency":"CAD","duration":2750,"eta":"300"},
-	<br>
-					 {"type":"Lyft","distance":13.45,"fare":36,"currency":"CAD","duration":2750,"eta":"200"},
-	<br>
-					 {"type":"Lyft Plus","distance":13.45,"fare":67,"currency":"CAD","duration":2750,"eta":"360"},
-	<br>
-					 {"type":"Lyft Premier","distance":13.45,"fare":73,"currency":"CAD","duration":2750,"eta":"360"},
-	<br>
-					 {"type":"Lyft Lux","distance":13.45,"fare":107,"currency":"CAD","duration":2750,"eta":"660"},
-	<br>
-					 {"type":"Lyft Lux SUV","distance":13.45,"fare":123,"currency":"CAD","duration":2750,"eta":"360"}
-	<br>
-					 ]
-	<br>
-				 }
-			 </p>
+		  <div class="responsecode">
+				<code>
+					<p>
+						<h5>{ </h5>
+						<h5>"uber":</h5>
+						<h5> [ </h5>
+						<h5 class="inside">
+							{"type":"uberXL","distance":12.75,"fare":61,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+					  	{"type":"UberSELECT","distance":12.75,"fare":67,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+							{"type":"uberPOOL","distance":12.75,"fare":22,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+							{"type":"UberBLACK","distance":12.75,"fare":84,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+							{"type":"UberSUV","distance":12.75,"fare":97,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+							{"type":"uberX","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":300},
+							<br>
+							{"type":"uberASSIST","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":660},
+							<br>
+							{"type":"uberWAV","distance":12.75,"fare":33,"currency":"CAD","duration":2460,"eta":360},
+							<br>
+							{"type":"TAXI","distance":12.75,"fare":"Metered","currency":"","duration":2460,"eta":120}
+						</h5>
+						<h5>	],  </h5>
+						<h5>"lyft": </h5>
+						<h5> [ </h5>
+						<h5 class="inside">
+							{"type":"Lyft Line","distance":13.45,"fare":25,"currency":"CAD","duration":2750,"eta":"300"},
+							<br>
+							{"type":"Lyft","distance":13.45,"fare":36,"currency":"CAD","duration":2750,"eta":"200"},
+							<br>
+							{"type":"Lyft Plus","distance":13.45,"fare":67,"currency":"CAD","duration":2750,"eta":"360"},
+							<br>
+							{"type":"Lyft Premier","distance":13.45,"fare":73,"currency":"CAD","duration":2750,"eta":"360"},
+							<br>
+							{"type":"Lyft Lux","distance":13.45,"fare":107,"currency":"CAD","duration":2750,"eta":"660"},
+							<br>
+							{"type":"Lyft Lux SUV","distance":13.45,"fare":123,"currency":"CAD","duration":2750,"eta":"360"}
+						</h3>
+						<h5>	] </h5>
+						<h5>	} </h5>
+					</p>
+				</code>
+			</div>
 
 
-	<h4>Errors</h4>
-	<ul>
-		<li>'INVALID PARAMS' would be in the response for Uber and Lyft json keys if your request raised an exception within our API</li>
-		<li>Sample Response: 200 OK
-			<br>
-			<code>
-				<br>
-				{
-					<br>
-	    "uber":
-			<br>
-			[
-			<br>
-	        "INVALID PARAMS"
-			<br>
-	    ],
-			<br>
-	    "lyft":
-			<br>
-			[
-	    <br>
-			    "INVALID PARAMS"
-			<br>
-			]
-			<br>
-	}
-
-			</code>
-		</li>
-	</ul>
-	</div>
+			<h4>Errors</h4>
+			<ul>
+				<li>'INVALID PARAMS' would be in the response for Uber and Lyft json keys if your request raised an exception within our API</li>
+				<li>Sample Response: 200 OK</li>
+			</ul>
+			<div class="responsecode">
+				<code>
+					<p>
+						<h5>{ </h5>
+						<h5>"uber":</h5>
+						<h5> [ </h5>
+						<h5 class="inside">
+			        "INVALID PARAMS"
+						</h5>
+						<h5>	],  </h5>
+						<h5>"lyft": </h5>
+						<h5> [ </h5><h5 class="inside">
+			        "INVALID PARAMS"
+						</h5>
+						<h5> ] </h5>
+						<h5> } </h5>
+					</p>
+				</code>
+			</div>
+		</div>
 	</div>
 </div>
