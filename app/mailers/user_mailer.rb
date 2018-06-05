@@ -7,6 +7,7 @@ class UserMailer < ApplicationMailer
 		@company = "ScoopFare!"
 		@url = "http://www.scoopfare.com"
 		mail(to: @user.email, subject: "Welcome to ScoopFare!")
+
 	end
 
 	# email for informing the user if they took a ride
