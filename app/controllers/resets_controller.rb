@@ -10,13 +10,13 @@ class ResetsController < ApplicationController
 
   def create
     #finds user by email
-  	user = User.find_by(email_params)
+  	@user = User.find_by(email_params)
     #if user exists
-  	if user
+  	if @user
         #get the token from the class method to sent to the user
-        token = Reset.generate_reset_token(user)
-  			UserMailer.password_reset_email(user, token).deliver_now
-        redirect_to pass_reset_path
+        token = Reset.generate_reset_token(@user)
+  			UserMailer.password_reset_email(@user, token).deliver_now
+        render :reset_pass
   	end
   end
 
