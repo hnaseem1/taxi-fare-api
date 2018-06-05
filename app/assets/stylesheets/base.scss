@@ -27,6 +27,7 @@ footer {
     text-decoration: none;
     color: white;
   }
+
 }
 
 body {
@@ -72,8 +73,7 @@ body {
       }
 
       a:hover {
-        transition: .2s;
-        text-decoration: underline;
+        color: $accent-blue;
       }
     }
 

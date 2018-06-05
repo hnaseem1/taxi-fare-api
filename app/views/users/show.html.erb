@@ -16,9 +16,8 @@
 		<% show_ride_favs(@user_favourite_rides).to_enum.with_index.reverse_each do |trip, i| %>
 		 	<form class="pastRide">
 				<% if trip[:start] && trip[:end] %>
-		 		<b>From:</b><%= trip[:start] %>
-				<br>
-				<b>To:</b><%= trip[:end] %>
+			 		<p>From:    <%= trip[:start] %></p>
+					<p>To:      <%= trip[:end] %></p>
 				<% end %>
 		 	</form>
 			<% count += 1 %>
@@ -42,17 +41,19 @@
 
 		<%= form_tag(user_path, :method => "get", class: 'pastRide' ) do %>
 
-		<%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %>
-		<br>
-		<br>
-		<b>From:</b> <%= ride.start_address %>
-		<br>
-		<b>To:</b> <%= ride.end_address %>
+		<h5><%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %></h5>
+
+
+		<p>From: <%= ride.start_address %></p>
+
+		<p>To: <%= ride.end_address %></p>
+
 		<br>
 
 		<%= text_field_tag :start_location, params[:start_location], type: "hidden", value: ride.start_address %>
 		<%= text_field_tag :end_location, params[:end_location], type: "hidden", value: ride.end_address %>
 		<br>
+
 		<%= submit_tag "Favorite", id: 'request'%>
 
 		<% end %>
