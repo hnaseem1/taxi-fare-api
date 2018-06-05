@@ -105,11 +105,14 @@ function initMap() {
   zoom: 4,
   center: {lat: 43.6867, lng: -79.3682}  // Australia.
 });
+
 var directionsService = new google.maps.DirectionsService;
+
 var directionsDisplay = new google.maps.DirectionsRenderer({
   draggable: true,
   map: map,
 });
+
 directionsDisplay.addListener('directions_changed', function() {
   computeTotalDistance(directionsDisplay.getDirections());
   document.getElementById('autocomplete').value = myroute.legs[0].start_address
@@ -427,6 +430,7 @@ function clearPreviousResults() {
   $(".uber_ride").remove();
   $(".lyft_ride").remove();
   $(".taxi").remove();
+  $(".single_result").remove();
 
 }
 
@@ -452,13 +456,22 @@ function createCards(sorted_result) {
     request_link.setAttribute('target', '_blank')
     h3.innerText       = sorted_results[i].type
     cost.innerText     = "$" + sorted_results[i].fare + " " + sorted_results[i].currency
-    eta.innerText      = "Arrival Time " + sorted_results[i].eta/60 + " Mins"
+
+    if (sorted_results[i].eta/60) {
+      eta.innerText      = "Arrival Time " + sorted_results[i].eta/60 + " Mins"
+    } else {
+      eta.innerText      = "ETA Unavailable"
+    }
 
     // insert elements
     div.appendChild(h3)
     div.appendChild(cost)
     div.appendChild(eta)
-    result.appendChild(div)
+
+    if (sorted_result[i].type && sorted_result[i].fare) {
+      result.appendChild(div)
+    }
+
 
     // Request ride button text changes if it is from Lyft or Uber.
     // Class of 'lyft ride' is added for lyft rides and class of 'uber ride' for uber rides
