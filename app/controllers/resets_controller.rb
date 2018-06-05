@@ -14,13 +14,17 @@ class ResetsController < ApplicationController
     #if user exists
   	if @user
         #get the token from the class method to sent to the user
+
         token = Reset.generate_reset_token(@user)
   			UserMailer.password_reset_email(@user, token).deliver_now
         render :reset_pass
+    else
+      redirect_to root_url
+
   	end
   end
 
-  def reset_pass    
+  def reset_pass
     #if it exists
     if token_params
       if Reset.verify_user_requested_reset(token_params)
@@ -44,7 +48,7 @@ class ResetsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def reset_can_only_be_made_if_user_is_not_logged_in
     unless session[:user_id] == nil && !current_user
