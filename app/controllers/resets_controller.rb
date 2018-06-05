@@ -19,8 +19,7 @@ class ResetsController < ApplicationController
   			UserMailer.password_reset_email(@user, token).deliver_now
         render :reset_pass
     else
-      redirect_to root_url
-
+        render :reset_pass
   	end
   end
 
