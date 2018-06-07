@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
 
  
+  get 'about/index'
   get 'rideicons/show'
 
   get 'documentations/index'
@@ -29,5 +30,6 @@ Rails.application.routes.draw do
 
 
   get '/price/show', to: 'price#show'
+  get '/about', to: 'about#index'
 
 end

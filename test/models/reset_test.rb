@@ -3,6 +3,7 @@ require 'test_helper'
 class ResetTest < ActiveSupport::TestCase
 	def setup
 		user = User.new
+		user.id = 1
 		user.first_name = 'test'
 		user.last_name = 'tester'
 		user.email = 'testemail'
@@ -46,18 +47,6 @@ class ResetTest < ActiveSupport::TestCase
 		user = setup
 		token = Reset.generate_reset_token(user)
 		assert token
-
-	end
-
-	test 'verify_user_requested_reset method' do
-
-		skip
-		user = setup
-		token = Reset.generate_reset_token(user)
-		reset = Reset.new(user_id: user.id, token: token)
-		reset.save
-		response = Reset.verify_user_requested_reset(token)
-		assert_equal(user, response)
 
 	end
 

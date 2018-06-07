@@ -28,16 +28,17 @@ class Uber < ApplicationRecord
 
           hash = {}
 
-          if option["localized_display_name"] == 'POOL'
+          type = Uber.checktype(option["localized_display_name"])
 
-            hash["type"]      = 'uberPOOL'
+          if type == 'uberPOOL'
+
             hash["capacity"]  = 2
 
           else
 
-            hash["type"]      = option["localized_display_name"]
+            hash["type"]      = type
 
-            if hash["type"].downcase == 'uberxl' || hash["type"].downcase == 'ubersuv'
+            if hash["type"].downcase == 'uberxl' || hash["type"].downcase == 'uberblacksuv'
 
               hash["capacity"] = 6
 
@@ -123,6 +124,7 @@ class Uber < ApplicationRecord
 
   end
 
+  # get estimate fare
   def self.get_taxi(distance, ride_time)
 
     base_fee = 4.25;
@@ -130,6 +132,32 @@ class Uber < ApplicationRecord
     per_sec = 0.55/60.0
     cost = ((distance * per_km) + (per_sec * ride_time)) + base_fee;
     return cost
+
+  end
+
+  # to check the type of ride
+  def self.checktype(type)
+
+    if type == "POOL"
+      return "UberPOOL"
+
+    elsif type == "Select"
+      return "UberSelect"
+
+    elsif type == "Black"
+      return "UberBlack"
+
+    elsif type == "Black SUV"
+      return "UberBlackSUV"
+
+    elsif type == "Assist"
+      return "UberASSIST"
+
+    elsif type == "WAV"
+      return "UberWAV"
+    end
+
+    type
 
   end
 

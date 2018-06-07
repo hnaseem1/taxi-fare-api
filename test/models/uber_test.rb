@@ -50,4 +50,20 @@ class UberTest < ActiveSupport::TestCase
 
   end
 
+  test "checktype method" do
+
+    type = "POOL"
+    response = Uber.checktype(type)
+    assert_equal(response, "UberPOOL")
+
+  end
+
+  test "checktype method edge case" do
+
+    type = "Lanka"
+    response = Uber.checktype(type)
+    assert_equal(response, "Lanka")
+
+  end
+
 end
