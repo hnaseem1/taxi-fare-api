@@ -123,8 +123,8 @@ class Uber < ApplicationRecord
     return eta_data
 
   end
-  
-# get estimate fare
+
+  # get estimate fare
   def self.get_taxi(distance, ride_time)
 
     base_fee = 4.25;
@@ -135,11 +135,11 @@ class Uber < ApplicationRecord
 
   end
 
-# to check the type of ride
+  # to check the type of ride
   def self.checktype(type)
 
     if type == "POOL"
-      return "uberPOOL"
+      return "UberPOOL"
 
     elsif type == "Select"
       return "UberSelect"
