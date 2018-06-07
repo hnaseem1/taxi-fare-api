@@ -38,7 +38,7 @@ class Uber < ApplicationRecord
 
             hash["type"]      = type
 
-            if hash["type"].downcase == 'uberxl' || hash["type"].downcase == 'ubersuv'
+            if hash["type"].downcase == 'uberxl' || hash["type"].downcase == 'uberblacksuv'
 
               hash["capacity"] = 6
 
