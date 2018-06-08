@@ -23,7 +23,7 @@ class GoogleController < ApplicationController
           
          searched_ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
          searched_ride.save
-         if Ride.companions(start_location, end_location) != false
+         if Ride.companions(start_location, end_location) != false && Ride.companions(start_location, end_location).count > 1
             UserMailer.ride_pool(Ride.companions(start_location, end_location), current_user).deliver_now
          end 
          
