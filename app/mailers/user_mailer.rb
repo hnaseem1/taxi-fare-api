@@ -32,4 +32,12 @@ class UserMailer < ApplicationMailer
 		@user = user
 		mail(to:@user.email, subject: "#{@user.first_name}, you just successfully reset your password!")
 	end
+
+	def ride_pool(emails_array, current_user)
+		emails_array.delete(current_user.email)
+		@user = current_user
+		count = emails_array.count
+		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
+		mail(to:current_user.email, subject: "You have a ride match with #{count} people")
+	end
 end
