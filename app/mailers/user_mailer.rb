@@ -36,8 +36,23 @@ class UserMailer < ApplicationMailer
 	def ride_pool(emails_array, current_user)
 		emails_array.delete(current_user.email)
 		@user = current_user
-		count = emails_array.count
+		@count = emails_array.count
 		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
-		mail(to:current_user.email, subject: "You have a ride match with #{count} people")
+		if @count > 1
+			mail(to:current_user.email, subject: "You have a ride match with #{@count} people")
+		else 
+			mail(to:current_user.email, subject: "You have a ride match with a person")
+		end
+	end
+
+	def ride_pool_previous(emails_array, current_user, start_location, end_location)
+		@start = start_location
+		@end = end_location
+		@emails = emails_array.delete(current_user.email)
+		byebug
+		@emails.each do |email|
+			@user = User.find_by(email: email)
+			mail(to: email, subject: "You have a ride match!")
+		end
 	end
 end
