@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
+    <title>mail</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="userProfile_desktop-Copy" transform="translate(-642.000000, -382.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group-7" transform="translate(538.000000, 371.000000)">
+                <g id="Group-14">
+                    <path d="M104.989583,11 L113.5,19.1075307 L122.010417,11 L104.989583,11 Z M104,11.9330357 L104,23.1506629 L109.718367,17.3757486 L104,11.9330357 Z M123,11.9330357 L117.281633,17.3757486 L123,23.1506629 L123,11.9330357 Z M110.700893,18.315864 L104.947173,24.1190521 L122.052827,24.1190521 L116.299107,18.315864 L113.966518,20.5353581 C113.704827,20.7830619 113.295173,20.7830619 113.033482,20.5353581 L110.700893,18.315864 Z" id="mail"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
