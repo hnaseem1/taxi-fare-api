@@ -20,7 +20,7 @@ class UserMailer < ApplicationMailer
 
 	# password reset email
 	def password_reset_email(user, reset_hash)
-		@time = (Time.now.utc - 4.hours).strftime("%a %b %e %T %Y")
+		@time = (Time.now).strftime("%a %b %e %T %Y")
 		@user = user
 		@reset = reset_hash
 		mail(to: @user.email, subject: "#{@user.first_name}, here is your password reset token")
@@ -28,8 +28,31 @@ class UserMailer < ApplicationMailer
 
 	# email informing the password has been reset
 	def password_reset_success_email(user)
-		@time = (Time.now.utc - 4.hours).strftime("%a %b %e %T %Y")
+		@time = (Time.now).strftime("%a %b %e %T %Y")
 		@user = user
 		mail(to:@user.email, subject: "#{@user.first_name}, you just successfully reset your password!")
+	end
+
+	def ride_pool(emails_array, current_user)
+		emails_array.delete(current_user.email)
+		@user = current_user
+		@count = emails_array.count
+		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
+		if @count > 1
+			mail(to:current_user.email, subject: "You have a ride match with #{@count} people")
+		else 
+			mail(to:current_user.email, subject: "You have a ride match with a person")
+		end
+	end
+
+	def ride_pool_previous(emails_array, current_user, start_location, end_location)
+		@start = start_location
+		@end = end_location
+		@emails = emails_array.delete(current_user.email)
+		byebug
+		@emails.each do |email|
+			@user = User.find_by(email: email)
+			mail(to: email, subject: "You have a ride match!")
+		end
 	end
 end

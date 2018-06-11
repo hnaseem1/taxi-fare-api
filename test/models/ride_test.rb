@@ -17,7 +17,27 @@ class RideTest < ActiveSupport::TestCase
 		@ride.end_address = 'end address'
 		@ride.start_favourite = nil
 		@ride.end_favourite = nil
-		@ride.save	
+		@ride.created_at = Time.now
+		@ride.save
+
+
+
+		@user1 = User.new(first_name: 'bobert', last_name: 'sagert', email: 'bob@sagertt.com', password: 'testtest', password_confirmation: 'testtest')
+		@user1.save
+		@ride1 = Ride.new
+		@ride1.latitude_start = 12
+		@ride1.longitude_start = 1212
+		@ride1.latitude_end = 12
+		@ride1.longitude_end = 12
+		@ride1.provider = 'uber'
+		@ride1.price = 12
+		@ride1.user_id = @user1.id
+		@ride1.start_address = 'start address'
+		@ride1.end_address = 'end address'
+		@ride1.start_favourite = nil
+		@ride1.end_favourite = nil
+		@ride1.created_at = Time.now
+		@ride1.save	
 	end
 
 	test 'ride in setup must be valid' do
@@ -62,4 +82,11 @@ class RideTest < ActiveSupport::TestCase
 		assert_equal(2 , Ride.favourite_places(@user)[:ride].count)
 	end
 
+	test 'return users that are going to the same location' do
+		rides = Ride.companions('start address', 'end address')
+		random_person = User.create(first_name: 'random', last_name: 'randomness', email: 'random@randomness.com', password: 'pass', password_confirmation: 'pass')
+		random_ride = Ride.create(latitude_start: 12, longitude_start: 1231, latitude_end: 123114, longitude_end: 2234, provider: 'lyft', price: 2341, user_id: random_person.id, start_address: 'startgint place', end_address: 'ending place', ride_favourite: true)
+	
+		assert_equal(['bob@sagat.com', 'bob@sagertt.com'], Ride.companions('start address', 'end address'))
+	end
 end

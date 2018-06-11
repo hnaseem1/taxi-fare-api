@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+	<h1>Hey <%= @user.first_name.capitalize %>!</h1>
+	<% if @count > 1 %>
+		<p>The following people are also going from <%= @user.rides.last.start_address %> to <%= @user.rides.last.end_address %></p>
+
+		<br>
+		<h2>They Are</h2>
+		<ul>
+			<li><%= @people %></li>
+		</ul>
+	<% else %>
+		<p>The following person is also going from <%= @user.rides.last.start_address %> to <%= @user.rides.last.end_address %></p>
+		<br>
+		<ul>
+			<li><%= @people %></li>
+		</ul>
+	<% end %> 
+
+	<p>Thank you and have a great day</p>
+
+</body>
+</html>

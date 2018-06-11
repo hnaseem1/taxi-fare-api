@@ -23,11 +23,19 @@ class GoogleController < ApplicationController
           
          searched_ride = Ride.new(latitude_start: sl, longitude_start: slon, latitude_end: el, longitude_end: elon, user_id: current_user.id, start_address: start_location, end_address: end_location)
          searched_ride.save
+         if Ride.companions(start_location, end_location) != false && Ride.companions(start_location, end_location).count > 1
+            # send the email to the current user
+            UserMailer.ride_pool((Ride.companions(start_location, end_location)).uniq, current_user).deliver_now
+            # send email to the previous bookings as well
+            ##needs debugging vvvv
+            #UserMailer.ride_pool_previous(Ride.companions(start_location, end_location), current_user, start_location, end_location).deliver_now
+         end 
+         
+         
 
           ##email the user with the ride information. pass the ride instance to the mailer method( Currently commented out)
 
           # UserMailer.with(ride: ride, user: current_user).ride_info_email(current_user, ride).deliver_now
-
       end
     end
 
