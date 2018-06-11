@@ -7,6 +7,9 @@
 
 #newuserform {
   margin-bottom: 75px;
+  max-width: 400px;
+  min-width: 200px;
+  margin: 0 auto;
 }
 
 #fisrtname {
@@ -61,6 +64,7 @@ h3 {
 // Signup form
 .form {
   margin: 0 auto;
+  margin-bottom: 75px;
   text-align: center;
 
   h2, label {
@@ -118,6 +122,8 @@ h3 {
   .form {
     padding: 0 25%;
     margin: 2em;
+    margin-bottom: 75px;
+    
 
     h2 {
       margin: 0 0 1em 0;

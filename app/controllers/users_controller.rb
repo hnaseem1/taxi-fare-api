@@ -22,19 +22,25 @@ class UsersController < ApplicationController
     ##to show the statistics for the user
     @user_favourite_rides = Ride.favourite_places(current_user)
 
+
+  end
+
+  def update
+    
     start_location = params[:start_location].to_s
     end_location = params[:end_location].to_s
+    ride_id = params[:id].to_i
 
     if start_location && end_location
 
-      ride = Ride.new(user_id: current_user.id, start_address: start_location, end_address: end_location, ride_favourite: true)
+      ride = Ride.find_by(id: ride_id)
+      ride.ride_favourite = true
 
       if ride.save
         redirect_to user_path
       end
-
-
     end
+
   end
 
   private
