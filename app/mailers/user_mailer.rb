@@ -37,7 +37,7 @@ class UserMailer < ApplicationMailer
 		emails_array.delete(current_user.email)
 		@user = current_user
 		@count = emails_array.count
-		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
+		@people = emails_array
 		if @count > 1
 			mail(to:current_user.email, subject: "You have a ride match with #{@count} people")
 		else 

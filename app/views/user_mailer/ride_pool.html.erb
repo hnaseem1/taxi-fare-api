@@ -11,13 +11,17 @@
 		<br>
 		<h2>They Are</h2>
 		<ul>
-			<li><%= @people %></li>
+			<% @people.each do |person| %> 
+			<li><%= person %></li>
+			<% end %> 
 		</ul>
 	<% else %>
 		<p>The following person is also going from <%= @user.rides.last.start_address %> to <%= @user.rides.last.end_address %></p>
 		<br>
 		<ul>
-			<li><%= @people %></li>
+			<% @people.each do |person| %> 
+			<li><%= person %></li>
+			<% end %> 
 		</ul>
 	<% end %> 
 
