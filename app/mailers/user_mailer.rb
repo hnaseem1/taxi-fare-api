@@ -40,7 +40,7 @@ class UserMailer < ApplicationMailer
 		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
 		if @count > 1
 			mail(to:current_user.email, subject: "You have a ride match with #{@count} people")
-		else 
+		elsif @count == 1
 			mail(to:current_user.email, subject: "You have a ride match with a person")
 		end
 	end
