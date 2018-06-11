@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+	<h1>Hey <%= @user.first_name.capitalize %>!</h1>
+	<p>The following people are also going from <%= @start %> to <%= @end %></p>
+	<br>
+	<h2>They Are</h2>
+	<ul>
+		<% @emails.each do |email| %>
+		<li><%= email %></li>
+		<% end %> 
+	</ul>
+	<p>Thank you and have a great day</p>
+
+</body>
+</html>
