@@ -39,7 +39,7 @@
 
 
 
-		<%= form_tag(user_path, :method => "get", class: 'pastRide' ) do %>
+		<%= form_tag(user_path, :method => "put", class: 'pastRide' ) do %>
 
 		<h5><%= ((ride.created_at) - 4.hours).strftime("%a %b %e %T %Y") %></h5>
 
@@ -52,6 +52,7 @@
 
 		<%= text_field_tag :start_location, params[:start_location], type: "hidden", value: ride.start_address %>
 		<%= text_field_tag :end_location, params[:end_location], type: "hidden", value: ride.end_address %>
+		<%= text_field_tag :id, params[:id], type: "hidden", value: ride.id %>
 		<br>
 
 		<%= submit_tag "Favorite", id: 'request'%>
