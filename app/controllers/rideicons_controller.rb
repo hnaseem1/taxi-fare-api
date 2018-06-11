@@ -16,11 +16,15 @@ class RideiconsController < ApplicationController
       # parsing data
       drivers_location = JSON.parse(response.body)
       data = []
+
+      if drivers_location['error'] != "no_service_in_area"
       drivers_location["nearby_drivers"].each do |hash|
           hash["drivers"].each do |location|
             data.push([location["locations"][0]["lat"], location["locations"][0]["lng"]])
         end
       end
+    end
+
       render json: data
     end
   end

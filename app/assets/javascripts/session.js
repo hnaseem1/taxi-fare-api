@@ -5,11 +5,9 @@ document.getElementById('newsessionbutton').addEventListener('click', function (
 })
 
 function submitForm() { // submits form
-  console.log('start submit');
         document.getElementById("formfor").submit();
 }
 function form(){
-  console.log('run form');
   var inputemail = document.getElementById('inputemail')
   var inputpassword = document.getElementById('inputpassword')
 

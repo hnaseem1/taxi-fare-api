@@ -28,12 +28,13 @@
         <% if current_user %>
           <%= link_to "#{current_user.first_name.capitalize + " " + current_user.last_name.capitalize}", user_path %>
           <%= link_to 'log out', sessions_path("current"), method: :delete %>
+
         <% else %>
           <%= link_to 'log in', new_sessions_path %>
           <%= link_to 'create account', new_user_path %>
-
         <% end %>
         <%= link_to 'About Us', about_index_path %>
+
       </div>
 
     </nav>
@@ -43,94 +44,11 @@
 
   <%= yield %>
 
-
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   <footer>
-
   	<%= link_to 'API documentation', documentations_index_path %>
   	Project Created by: Gustavo, Karen, Hasan &amp; Shashike
-
   </footer>
-  <script>
-
-    // big vs small logo depending on window width (mobile vs. desktop)
-    if (window.innerWidth > 450) {
-      document.getElementById('biglogo').style.display="block";
-      document.getElementById('smalllogo').style.display="none";
-
-    } else {
-      document.getElementById('smalllogo').style.display="block";
-      document.getElementById('biglogo').style.display="none";
-    }
-
-    // When the user clicks on the button, toggle between hiding and showing the dropdown content
-
-    var nav       = document.querySelector("nav");
-    var menulist  = document.querySelector(".menulist");
-    var close     = document.querySelector("#closebtn");
-    var hamburger = document.querySelector(".hamburger");
-    var height    = "1em"
-    nav.style.height = height;
-
-    //default to measure if/else from
-    // nav height is 60px by default
-
-    // nav.style.height = "60px";
-
-
-
-    // close.addEventListener("click", function(){
-    //   var menuIcon = document.querySelectorAll('.line');
-    //   for (i = 0; i < menuIcon.length; i++){
-    //     menuIcon[i].classList.toggle("active");
-    //   }
-
-    hamburger.addEventListener("click", function(){
-      var menuIcon = document.querySelectorAll('.line');
-      for (i = 0; i < menuIcon.length; i++){
-        menuIcon[i].classList.toggle("active");
-      }
-
-      //to close
-    	if (menulist.style.display === 'block') {
-        // make menulist disappear
-        menulist.style.display = "none";
-
-        if ($(window).width() > 426) {
-          document.getElementById('biglogo').style.display="block";
-          document.getElementById('smalllogo').style.display="none";
-          // nav height decreases
-        	nav.style.height = height;
-
-        } else {
-          document.getElementById('smalllogo').style.display="block";
-          document.getElementById('biglogo').style.display="none";
-
-        }
-
-       // for (var i = 0; i < menu.length; i++){
-      	// menu[i].style.opacity="0.0";
-      	// menu[i].style.marginTop="100px";
-      	// };
-    	}
-    	//to open
-    	else {
-
-        // make menulist appear
-        menulist.style.display = "block";
-        document.getElementById('biglogo').style.display="none"
-        document.getElementById('smalllogo').style.display="none"
-
-        // nav.style.height = "6em";
-
-    	}
-    });
-
-
-  </script>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk&libraries=places&callback=initAutocomplete"></script>
+  <%= javascript_include_tag 'application' %>
 
 </body>
 
