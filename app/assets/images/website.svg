@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="16px" height="11px" viewBox="0 0 16 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
-    <title>w</title>
+    <title>Group 19</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="userProfile_desktop-Copy" transform="translate(-596.000000, -385.000000)" fill="#FFFFFF">
-            <polygon id="w" points="602.318359 385.355469 605.140625 385.355469 606.761719 393.021484 608.421875 385.355469 611.322266 385.355469 608.236328 396 605.375 396 603.705078 388.246094 602.015625 396 599.125 396 596.136719 385.355469 599.125 385.355469 600.785156 392.992188"></polygon>
+        <g id="userProfile_desktop-Copy-2" transform="translate(-586.000000, -371.000000)">
+            <g id="Group-7" transform="translate(538.000000, 371.000000)">
+                <g id="Group-14">
+                    <g id="Group-19" transform="translate(48.000000, 0.000000)">
+                        <circle id="Oval-9-Copy" fill="#91C5FF" cx="18" cy="18" r="18"></circle>
+                        <polygon id="w" fill="#FFFFFF" points="16.3183594 14.3554688 19.140625 14.3554688 20.7617188 22.0214844 22.421875 14.3554688 25.3222656 14.3554688 22.2363281 25 19.375 25 17.7050781 17.2460938 16.015625 25 13.125 25 10.1367188 14.3554688 13.125 14.3554688 14.7851562 21.9921875"></polygon>
+                    </g>
+                </g>
+            </g>
         </g>
     </g>
 </svg>

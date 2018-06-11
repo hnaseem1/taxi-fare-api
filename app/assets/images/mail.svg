@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="19px" height="14px" viewBox="0 0 19 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 50 (54983) - http://www.bohemiancoding.com/sketch -->
-    <title>mail</title>
+    <title>Group 21</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="userProfile_desktop-Copy" transform="translate(-642.000000, -382.000000)" fill="#FFFFFF" fill-rule="nonzero">
+        <g id="userProfile_desktop-Copy-2" transform="translate(-634.000000, -371.000000)">
             <g id="Group-7" transform="translate(538.000000, 371.000000)">
                 <g id="Group-14">
-                    <path d="M104.989583,11 L113.5,19.1075307 L122.010417,11 L104.989583,11 Z M104,11.9330357 L104,23.1506629 L109.718367,17.3757486 L104,11.9330357 Z M123,11.9330357 L117.281633,17.3757486 L123,23.1506629 L123,11.9330357 Z M110.700893,18.315864 L104.947173,24.1190521 L122.052827,24.1190521 L116.299107,18.315864 L113.966518,20.5353581 C113.704827,20.7830619 113.295173,20.7830619 113.033482,20.5353581 L110.700893,18.315864 Z" id="mail"></path>
+                    <g id="Group-20" transform="translate(96.000000, 0.000000)">
+                        <g id="Group-21">
+                            <circle id="Oval-9-Copy-2" fill="#91C5FF" cx="18" cy="18" r="18"></circle>
+                            <path d="M8.98958333,11 L17.5,19.1075307 L26.0104167,11 L8.98958333,11 Z M8,11.9330357 L8,23.1506629 L13.7183667,17.3757486 L8,11.9330357 Z M27,11.9330357 L21.2816333,17.3757486 L27,23.1506629 L27,11.9330357 Z M14.7008929,18.315864 L8.94717262,24.1190521 L26.0528274,24.1190521 L20.2991071,18.315864 L17.9665179,20.5353581 C17.7048266,20.7830619 17.2951734,20.7830619 17.0334821,20.5353581 L14.7008929,18.315864 Z" id="mail" fill="#FFFFFF" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
                 </g>
             </g>
         </g>
