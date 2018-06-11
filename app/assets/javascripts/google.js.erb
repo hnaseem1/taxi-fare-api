@@ -415,8 +415,12 @@ var results = []
 for (var i = 0; i < data.uber.length; i++) {
   results.push(data.uber[i])
 }
-for (var i = 0; i < data.lyft.length; i++) {
-  results.push(data.lyft[i])
+
+if (data.lyft[0] !== "INVALID PARAMS") {
+
+  for (var i = 0; i < data.lyft.length; i++) {
+    results.push(data.lyft[i])
+  }
 }
 sorted_results = results.sort(function(a, b) {
   return a.fare - b.fare
@@ -504,7 +508,7 @@ function createCards(sorted_result) {
         div.appendChild(request_link)
 
       }
-    } else if (sorted_results[i].type.charAt(0) === 'u' || sorted_results[i].type.charAt(0) === 'T' || sorted_results[i].type.charAt(0) === 'U' ) {
+    } else {
 
       div.classList.add('uber_ride')
       request_link.setAttribute('href', 'https://m.uber.com/?action=setPickup&pickup[latitude]=' + start_lat + '&pickup[longitude]=' + start_lon + '&pickup[formatted_address]=' + start_address + '&dropoff[latitude]=' + end_lat + '&dropoff[longitude]=' + end_lon + '&dropoff[formatted_address]=' + end_address)

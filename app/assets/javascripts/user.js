@@ -17,6 +17,7 @@ function newuser() {
 
     if (errormsg[i].innerText === 'Password can\'t be blank') {
       document.getElementById('password').style.border='2px solid red'
+      document.getElementById('passwordconfirmation').style.border='2px solid red'
       text += errormsg[i].innerText + '\n'
     }
 
