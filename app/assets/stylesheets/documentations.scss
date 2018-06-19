@@ -64,6 +64,7 @@ $accent-blue: #91C5FF;
 }
 
 .responsecode{
+  word-wrap: break-word;
   background-color: #CCC;
   padding: 1em;
 
@@ -120,7 +121,7 @@ $accent-blue: #91C5FF;
 
     a {
       text-decoration: none;
-      padding: 0 1.5em;
+      padding: 0 0.5em;
       color: white;
     }
 

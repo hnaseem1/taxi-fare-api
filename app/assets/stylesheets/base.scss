@@ -59,6 +59,7 @@ body {
     .menulist {
       display: none;
       margin: 0;
+      margin-left: 85px;
       transition: .2s ease-in-out;
 
       a {
@@ -193,7 +194,6 @@ body {
         font-size: 2em;
 
         .menulist {
-          display: inline-block;
 
           a {
             padding: 0 0.75em;
