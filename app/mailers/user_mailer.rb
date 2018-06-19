@@ -37,7 +37,9 @@ class UserMailer < ApplicationMailer
 		emails_array.delete(current_user.email)
 		@user = current_user
 		@count = emails_array.count
-		@people = emails_array.map { |s| "'#{s}'" }.join(' ')
+		@people = emails_array
+		puts "0" * 50
+		puts @people
 		if @count > 1
 			mail(to:current_user.email, subject: "You have a ride match with #{@count} people")
 		elsif @count == 1
@@ -49,7 +51,7 @@ class UserMailer < ApplicationMailer
 		@start = start_location
 		@end = end_location
 		@emails = emails_array.delete(current_user.email)
-		byebug
+		
 		@emails.each do |email|
 			@user = User.find_by(email: email)
 			mail(to: email, subject: "You have a ride match!")
