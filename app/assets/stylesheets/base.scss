@@ -13,6 +13,28 @@ html, body {
 
 }
 
+.menulist {
+  display: none;
+  margin: 0;
+  margin-left: 90px;
+  transition: .2s ease-in-out;
+
+  a {
+    color: #EEE;
+    display: inline-block;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    list-style: none;
+    margin: 0 0.5em;
+    text-decoration: none;
+    transition: all .5s ease-in-out;
+  }
+
+  a:hover {
+    color: $accent-blue;
+  }
+}
+
 footer {
   background:$primary-blue;
   bottom: 0;
@@ -56,26 +78,6 @@ body {
     height: 3em;
     padding: 0.5em 0;
 
-    .menulist {
-      display: none;
-      margin: 0;
-      transition: .2s ease-in-out;
-
-      a {
-        color: #EEE;
-        display: inline-block;
-        font-family: "Lato", sans-serif;
-        font-weight: 300;
-        list-style: none;
-        margin: 0 0.5em;
-        text-decoration: none;
-        transition: all .5s ease-in-out;
-      }
-
-      a:hover {
-        color: $accent-blue;
-      }
-    }
 
     .hamburger {
 
@@ -193,7 +195,6 @@ body {
         font-size: 2em;
 
         .menulist {
-          display: inline-block;
 
           a {
             padding: 0 0.75em;
