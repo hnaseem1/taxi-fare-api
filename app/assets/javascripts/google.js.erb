@@ -46,8 +46,9 @@ if (this.id === "start-location-gps") {
     });
   }
 
-  function error() {
-    alert("Unable to retrieve your location");
+  function error(err) {
+    // alert("Unable to retrieve your location");
+    alert(`ERROR(${err.code}): ${err.message}`);
     if (this.id === "start-location-gps") {
       inputField.disabled = false;
       inputField.value = response.responseJSON.results[0].formatted_address
