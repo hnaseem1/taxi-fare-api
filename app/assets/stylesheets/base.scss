@@ -13,6 +13,28 @@ html, body {
 
 }
 
+.menulist {
+  display: none;
+  margin: 0;
+  margin-left: 90px;
+  transition: .2s ease-in-out;
+
+  a {
+    color: #EEE;
+    display: inline-block;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    list-style: none;
+    margin: 0 0.5em;
+    text-decoration: none;
+    transition: all .5s ease-in-out;
+  }
+
+  a:hover {
+    color: $accent-blue;
+  }
+}
+
 footer {
   background:$primary-blue;
   bottom: 0;
@@ -56,6 +78,7 @@ body {
     height: 3em;
     padding: 0.5em 0;
 
+
     .menulist {
       display: none;
       margin: 0;
@@ -77,6 +100,7 @@ body {
         color: $accent-blue;
       }
     }
+
 
     .hamburger {
 
@@ -166,8 +190,6 @@ body {
 
 
     }
-
-
 
     .submit {
       background: $accent-blue;

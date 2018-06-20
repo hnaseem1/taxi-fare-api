@@ -56,7 +56,7 @@
       }
 
       //to close
-    	if (menulist.style.display === 'block') {
+    	if (menulist.style.display === 'inline' || menulist.style.display === 'block' ) {
         // make menulist disappear
         menulist.style.display = "none";
 
@@ -79,9 +79,15 @@
     	}
     	//to open
     	else {
+          if (window.innerWidth > 426) {
 
+            menulist.style.display = "inline";
+          }else {
+            menulist.style.display = "block";
+
+          }
         // make menulist appear
-        menulist.style.display = "block";
+
         document.getElementById('biglogo').style.display="none"
         document.getElementById('smalllogo').style.display="none"
 
