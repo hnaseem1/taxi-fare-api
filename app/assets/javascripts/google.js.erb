@@ -68,16 +68,16 @@ if (this.id === "start-location-gps") {
 // =====================    AUTOCOMPLETE FIELDS    =====================
 var autocomplete, autocomplete2;
 function initAutocomplete() {
-// Create the autocomplete object, restricting the search to geographical
-// location types.
-autocomplete2 = new google.maps.places.Autocomplete(
-    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
-    {types: ['geocode']});
-autocomplete = new google.maps.places.Autocomplete(
-    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-    {types: ['geocode']});
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete2 = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
+      {types: ['geocode']});
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      {types: ['geocode']});
 
-  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon) {
+  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon && sessionStorage.redirect === "false") {
 
     start_lat = sessionStorage.getItem('start_lat')
     start_lon = sessionStorage.getItem('start_lon')
@@ -107,11 +107,11 @@ autocomplete = new google.maps.places.Autocomplete(
 
   initMap()
 
-// ================================== Filters ========================================
-var capacity2 = document.querySelector("input[value='2']");
-var capacity4 = document.querySelector("input[value='4']");
-var capacity6 = document.querySelector("input[value='6']");
-var resetFilter = document.getElementById('reset_filters');
+  // ================================== Filters ========================================
+  var capacity2 = document.querySelector("input[value='2']");
+  var capacity4 = document.querySelector("input[value='4']");
+  var capacity6 = document.querySelector("input[value='6']");
+  var resetFilter = document.getElementById('reset_filters');
 
   // 2 capacity
   capacity2.addEventListener('change', function() {
@@ -139,7 +139,20 @@ var resetFilter = document.getElementById('reset_filters');
 
   })
 
-  }
+  }else if (sessionStorage.redirect === "true" && sessionStorage.start_address && sessionStorage.end_address) {
+
+  start_address = sessionStorage.getItem('start_address')
+  end_address = sessionStorage.getItem('end_address')
+
+
+  inputField.value = start_address
+  inputField2.value = end_address
+
+  apis_requests()
+  executed = 0
+  sessionStorage.redirect = false
+
+}
 
 
 

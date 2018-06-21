@@ -16,6 +16,7 @@ Rails.application.config.assets.precompile += %w( user.js )
 Rails.application.config.assets.precompile += %w( session.js )
 Rails.application.config.assets.precompile += %w( google.js )
 Rails.application.config.assets.precompile += %w( logoAndMenu.js )
+Rails.application.config.assets.precompile += %w( FavRides.js )
 
 
 Rails.application.config.assets.precompile += %w( base.scss )
