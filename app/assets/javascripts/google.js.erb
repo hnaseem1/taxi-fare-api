@@ -76,6 +76,73 @@ autocomplete2 = new google.maps.places.Autocomplete(
 autocomplete = new google.maps.places.Autocomplete(
     /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
     {types: ['geocode']});
+
+  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon) {
+
+    start_lat = sessionStorage.getItem('start_lat')
+    start_lon = sessionStorage.getItem('start_lon')
+    end_lat = sessionStorage.getItem('end_lat')
+    end_lon = sessionStorage.getItem('end_lon')
+    start_address = sessionStorage.getItem('start_address')
+    end_address = sessionStorage.getItem('end_address')
+
+
+  inputField.value = start_address
+  inputField2.value = end_address
+
+
+  var data = sessionStorage.getItem('data')
+  var data = JSON.parse(data)
+
+
+  document.querySelector('.welcome-message').classList.add('hidden')
+
+  // to enable maps
+
+  // display results in Asc Order
+  displayInAscOrder(data)
+
+  // display filters
+  document.querySelector('.filters').style.display = "block";
+
+  initMap()
+
+// ================================== Filters ========================================
+var capacity2 = document.querySelector("input[value='2']");
+var capacity4 = document.querySelector("input[value='4']");
+var capacity6 = document.querySelector("input[value='6']");
+var resetFilter = document.getElementById('reset_filters');
+
+  // 2 capacity
+  capacity2.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 2)
+  })
+
+  // 4 capacity
+  capacity4.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 4)
+  })
+
+  // 6 capacity
+  capacity6.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 6)
+  })
+
+  // reset filters
+  resetFilter.addEventListener('click', function() {
+
+    capacity2.checked = false
+    capacity4.checked = false
+    capacity6.checked = false
+    clearPreviousResults()
+    displayInAscOrder(data);
+
+  })
+
+  }
+
+
+
 }
 //====================================================================================================================================
 // function to initiate maps with point a to point b
@@ -95,15 +162,21 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 });
 
 directionsDisplay.addListener('directions_changed', function() {
-  computeTotalDistance(directionsDisplay.getDirections());
-  document.getElementById('autocomplete').value = myroute.legs[0].start_address
-  document.getElementById('autocomplete2').value = myroute.legs[0].end_address
+
+  var result = directionsDisplay.getDirections();
+  document.getElementById('autocomplete').value = result.routes[0].legs[0].start_address
+  document.getElementById('autocomplete2').value = result.routes[0].legs[0].end_address
 });
+
 ori = document.getElementById('autocomplete').value,
 dest = document.getElementById('autocomplete2').value,
 displayRoute(ori, dest, directionsService,
     directionsDisplay);
+
+    setMarkers(map)
 }
+
+
 function displayRoute(origin, destination, service, display) {
 service.route({
   origin: origin,
@@ -118,15 +191,7 @@ service.route({
   }
 });
 }
-function computeTotalDistance(result) {
-total = 0;
-myroute = result.routes[0];
-for (var i = 0; i < myroute.legs.length; i++) {
-  total += myroute.legs[i].distance.value;
-}
-total = total / 1000;
-setMarkers(map)
-}
+
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
 
@@ -261,16 +326,21 @@ start_address = document.getElementById('autocomplete').value
           dataType: 'json',
       }).done(function(data) {
 
-
-dt = data
-
-
-
-
 if (data.uber[0] === "INVALID PARAMS" && data.lyft[0] === "INVALID PARAMS" || data.uber[0] === "INVALID PARAMS" && data.lyft.length === 0) {
 alert('Sorry, no ride was found for the route informed')
 loader.style.display = "none";
 return
+} else {
+    if (typeof(Storage) !== "undefined") {
+    window.sessionStorage.setItem('data',JSON.stringify(data))
+    window.sessionStorage.setItem('end_address', end_address)
+    window.sessionStorage.setItem('start_address', start_address)
+    window.sessionStorage.setItem('start_lat', start_lat)
+    window.sessionStorage.setItem('start_lon', start_lon)
+    window.sessionStorage.setItem('end_lat', end_lat)
+    window.sessionStorage.setItem('end_lon', end_lon)
+
+  }
 }
 
 // ============================================ RESULTS ========================================================
