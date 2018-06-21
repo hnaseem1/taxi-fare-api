@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121081789-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-121081789-1');
+</script>
+
     <link rel="icon" href=<%= image_path('favicon02.png') %>>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <title>ScoopFare!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application'%>
+    <%= stylesheet_link_tag 'base'%>
+    <%= javascript_include_tag 'application' %>
 
   </head>
   <header>
@@ -48,7 +60,8 @@
   	<%= link_to 'API documentation', documentations_index_path %>
   	Project Created by: Gustavo, Karen, Hasan &amp; Shashike
   </footer>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'logoAndMenu' %>
+
 
 </body>
 

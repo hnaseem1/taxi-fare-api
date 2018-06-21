@@ -3,98 +3,159 @@ executed = 0
 
 var locationButton = document.querySelectorAll('.get-location-data')
 var inputField = document.getElementById('autocomplete')
+var inputField2 = document.getElementById('autocomplete2')
 locationButton[0].addEventListener('click', geoFindMe)
+locationButton[1].addEventListener('click', geoFindMe)
 
 function geoFindMe() {
-  if (!navigator.geolocation){
-    alert( "Geolocation is not supported by your browser")
-    return;
-  }
+
+if (this.id === "start-location-gps") {
+  var whichbutton = this.id
   inputField.disabled = true;
   inputField.value = ''
   inputField.placeholder = 'Getting your location...'
+} else if (this.id === "destination-gps") {
+  var whichbutton = this.id
+  inputField2.disabled = true;
+  inputField2.value = ''
+  inputField2.placeholder = 'Getting your location...'
+}
 
   function success(position) {
-
-     var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-      };
-  // ajax call to google maps to find readible address from location data
-    var response = $.ajax({
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-        method: 'GET',
-        dataType: 'json'
-      }).done(function(data) {
+   var pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+    };
+// ajax call to google maps to find readible address from location data
+  var response = $.ajax({
+      url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
+      method: 'GET',
+      dataType: 'json'
+    }).done(function(data) {
+      if (whichbutton === "start-location-gps") {
         inputField.disabled = false;
         inputField.value = response.responseJSON.results[0].formatted_address
         inputField.placeholder = 'Start location'
         document.getElementById('autocomplete').style.border = ''
-      });
-  }
-
-  function error() {
-    alert("Unable to retrieve your location");
-    inputField.disabled = false;
-    inputField.placeholder = 'Start location'
-  }
-  navigator.geolocation.getCurrentPosition(success, error);
-}
-
-
-// GETTING THE SELFLOCATION FOR THE DESTINATION LOCATION
-// setting up event listener on the destination field for getting current location
-var inputField2 = document.getElementById('autocomplete2')
-locationButton[1].addEventListener('click', geoFindMe2)
-
-function geoFindMe2() {
-  if (!navigator.geolocation){
-    alert( "Geolocation is not supported by your browser")
-    return;
-  }
-  inputField2.disabled = true;
-  inputField2.value = ''
-  inputField2.placeholder = 'Getting your location...'
-
-  function success(position) {
-
-     var pos = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude
-      };
-  // ajax call to google maps to find readible address from location data
-    var response = $.ajax({
-        url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+pos.lat+', '+pos.lng+'&key=AIzaSyDxHtxeT7TcaPqz8y2tPRWbqIwB9ROdZfk',
-        method: 'GET',
-        dataType: 'json'
-      }).done(function(data) {
+      } else if (whichbutton === "destination-gps") {
         inputField2.disabled = false;
         inputField2.value = response.responseJSON.results[0].formatted_address
-        inputField.placeholder = 'Destination'
+        inputField2.placeholder = 'Destination'
         document.getElementById('autocomplete2').style.border = ''
-      });
+      }
+    });
   }
 
-  function error() {
-    alert("Unable to retrieve your location");
-    inputField2.disabled = false;
-    inputField2.placeholder = 'Destination'
-
+  function error(err) {
+    // alert("Unable to retrieve your location");
+    alert(`ERROR(${err.code}): ${err.message}`);
+    if (this.id === "start-location-gps") {
+      inputField.disabled = false;
+      inputField.value = response.responseJSON.results[0].formatted_address
+      inputField.placeholder = 'Start location'
+      document.getElementById('autocomplete').style.border = ''
+    } else if (this.id === "destination-gps") {
+      inputField.disabled = false;
+      inputField.value = response.responseJSON.results[0].formatted_address
+      inputField.placeholder = 'Destination'
+      document.getElementById('autocomplete2').style.border = ''
+    }
   }
   navigator.geolocation.getCurrentPosition(success, error);
 }
+
 //===================================================================================================================================
 // =====================    AUTOCOMPLETE FIELDS    =====================
 var autocomplete, autocomplete2;
 function initAutocomplete() {
-// Create the autocomplete object, restricting the search to geographical
-// location types.
-autocomplete2 = new google.maps.places.Autocomplete(
-    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
-    {types: ['geocode']});
-autocomplete = new google.maps.places.Autocomplete(
-    /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
-    {types: ['geocode']});
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete2 = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete2')),
+      {types: ['geocode']});
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      {types: ['geocode']});
+
+  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon && sessionStorage.redirect === "false") {
+
+    start_lat = sessionStorage.getItem('start_lat')
+    start_lon = sessionStorage.getItem('start_lon')
+    end_lat = sessionStorage.getItem('end_lat')
+    end_lon = sessionStorage.getItem('end_lon')
+    start_address = sessionStorage.getItem('start_address')
+    end_address = sessionStorage.getItem('end_address')
+
+
+  inputField.value = start_address
+  inputField2.value = end_address
+
+
+  var data = sessionStorage.getItem('data')
+  var data = JSON.parse(data)
+
+
+  document.querySelector('.welcome-message').classList.add('hidden')
+
+  // to enable maps
+
+  // display results in Asc Order
+  displayInAscOrder(data)
+
+  // display filters
+  document.querySelector('.filters').style.display = "block";
+
+  initMap()
+
+  // ================================== Filters ========================================
+  var capacity2 = document.querySelector("input[value='2']");
+  var capacity4 = document.querySelector("input[value='4']");
+  var capacity6 = document.querySelector("input[value='6']");
+  var resetFilter = document.getElementById('reset_filters');
+
+  // 2 capacity
+  capacity2.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 2)
+  })
+
+  // 4 capacity
+  capacity4.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 4)
+  })
+
+  // 6 capacity
+  capacity6.addEventListener('change', function() {
+    displayInAscOrderCapacity(data, 6)
+  })
+
+  // reset filters
+  resetFilter.addEventListener('click', function() {
+
+    capacity2.checked = false
+    capacity4.checked = false
+    capacity6.checked = false
+    clearPreviousResults()
+    displayInAscOrder(data);
+
+  })
+
+  }else if (sessionStorage.redirect === "true" && sessionStorage.start_address && sessionStorage.end_address) {
+
+  start_address = sessionStorage.getItem('start_address')
+  end_address = sessionStorage.getItem('end_address')
+
+
+  inputField.value = start_address
+  inputField2.value = end_address
+
+  apis_requests()
+  executed = 0
+  sessionStorage.redirect = false
+
+}
+
+
+
 }
 //====================================================================================================================================
 // function to initiate maps with point a to point b
@@ -114,15 +175,21 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 });
 
 directionsDisplay.addListener('directions_changed', function() {
-  computeTotalDistance(directionsDisplay.getDirections());
-  document.getElementById('autocomplete').value = myroute.legs[0].start_address
-  document.getElementById('autocomplete2').value = myroute.legs[0].end_address
+
+  var result = directionsDisplay.getDirections();
+  document.getElementById('autocomplete').value = result.routes[0].legs[0].start_address
+  document.getElementById('autocomplete2').value = result.routes[0].legs[0].end_address
 });
+
 ori = document.getElementById('autocomplete').value,
 dest = document.getElementById('autocomplete2').value,
 displayRoute(ori, dest, directionsService,
     directionsDisplay);
+
+    setMarkers(map)
 }
+
+
 function displayRoute(origin, destination, service, display) {
 service.route({
   origin: origin,
@@ -137,15 +204,7 @@ service.route({
   }
 });
 }
-function computeTotalDistance(result) {
-total = 0;
-myroute = result.routes[0];
-for (var i = 0; i < myroute.legs.length; i++) {
-  total += myroute.legs[i].distance.value;
-}
-total = total / 1000;
-setMarkers(map)
-}
+
 //=======================================================================================================================
 //         FUNCTION TO DISPLAY THE STREETVIEW
 
@@ -280,16 +339,21 @@ start_address = document.getElementById('autocomplete').value
           dataType: 'json',
       }).done(function(data) {
 
-
-dt = data
-
-
-
-
 if (data.uber[0] === "INVALID PARAMS" && data.lyft[0] === "INVALID PARAMS" || data.uber[0] === "INVALID PARAMS" && data.lyft.length === 0) {
 alert('Sorry, no ride was found for the route informed')
 loader.style.display = "none";
 return
+} else {
+    if (typeof(Storage) !== "undefined") {
+    window.sessionStorage.setItem('data',JSON.stringify(data))
+    window.sessionStorage.setItem('end_address', end_address)
+    window.sessionStorage.setItem('start_address', start_address)
+    window.sessionStorage.setItem('start_lat', start_lat)
+    window.sessionStorage.setItem('start_lon', start_lon)
+    window.sessionStorage.setItem('end_lat', end_lat)
+    window.sessionStorage.setItem('end_lon', end_lon)
+
+  }
 }
 
 // ============================================ RESULTS ========================================================

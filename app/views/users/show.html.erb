@@ -1,4 +1,5 @@
 
+<%= stylesheet_link_tag 'users'%>
 
 <!-- Display the last 5  -->
 
@@ -18,6 +19,7 @@
 				<% if trip[:start] && trip[:end] %>
 			 		<p>From:    <%= trip[:start] %></p>
 					<p>To:      <%= trip[:end] %></p>
+					<button type="button" name="button" id="request" from = "<%= (trip[:start]).gsub!('"', '') %>" to= "<%= (trip[:end]).gsub!('"', '') %>" > Scoop the Fares </button>
 				<% end %>
 		 	</form>
 			<% count += 1 %>
@@ -65,3 +67,5 @@
 <% end %>
 </div>
 </div>
+
+<%= javascript_include_tag 'FavRides'%>
