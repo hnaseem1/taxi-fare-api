@@ -77,7 +77,8 @@ function initAutocomplete() {
       /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
       {types: ['geocode']});
 
-  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon && sessionStorage.redirect === "false") {
+  if (sessionStorage.data && sessionStorage.start_address && sessionStorage.end_address && sessionStorage.start_lat 
+    && sessionStorage.start_lon && sessionStorage.end_lat && sessionStorage.end_lon && sessionStorage.redirect === "false") {
 
     start_lat = sessionStorage.getItem('start_lat')
     start_lon = sessionStorage.getItem('start_lon')
@@ -352,6 +353,7 @@ return
     window.sessionStorage.setItem('start_lon', start_lon)
     window.sessionStorage.setItem('end_lat', end_lat)
     window.sessionStorage.setItem('end_lon', end_lon)
+    window.sessionStorage.setItem('redirect', false)
 
   }
 }
